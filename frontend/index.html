@@ -1,33 +1,39 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Document</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <title>BigBuy</title>
+    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <script src="script.js" type="module"></script>
+    <script src="./modules/catalogueManager.js" type="module"></script>
+    <script src="./modules/APIService.js" type="module"></script>
+    <script type="text/javascript">
+        function offer(itemID){
+            console.log(itemID);
+        }
+        function addToWatchlist(itemID){
+            console.log(itemID);
+        }
+    </script>
 </head>
-<body>
-    <div id="saved" >
-        <div id="queryins" style="border: 1px outset black; width: fit-content;">
-            <label for="queryinpt">Insert Query Here</label> <br>
-            <input type="text" id="queryinpt" maxlength="500">
-            <button type="submit" id="sendquery">Send</button>
-        </div>
-        <div id="querybuilder" style="border: 1px outset lime; width: fit-content;"> 
-            <label for="list">List</label>
-            <span id=""></span>
-        </div>
-        <br>
-        <div id="catalogue">
 
+<body>
+    <div id="header">
+        <img class="logo" src="assets/header-logo.png" alt="Logo">
+        <div class="searchbar">
+            <input type="text" class="searchinput" id="searchinput" maxlength="500" placeholder="Search">
+            <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>
         </div>
     </div>
-    
+    <div id="catalogue">
+
+    </div>
+
 </body>
-<script src="script.js" type="module"></script>
-<script src="./modules/catalogueManager.js" type="module"></script>
-<script src="./modules/APIService.js" type="module"></script>
 
 </html>

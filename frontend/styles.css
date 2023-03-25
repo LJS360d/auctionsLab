@@ -1,0 +1,171 @@
+body {
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+    margin: 0 0;
+}
+
+#header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    height: fit-content;
+    border-bottom: 3px solid #ffa228;
+    background-color: #232f3e;
+    z-index: 1;
+    justify-content: space-between;
+
+}
+
+#header>div {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: row;
+    align-items: center;
+}
+
+.header-right {
+    margin-right: 1rem;
+    gap: 1rem;
+}
+
+.header-button {
+    font-family: Arial, Helvetica, sans-serif;
+    padding: 10px;
+    border: 2px inset #ffa228;
+    font-weight: bold;
+    color: #e7e7e7;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.header-button:hover {
+    transition: 0.3s;
+    scale: 1.1;
+    background-color: #2e3d4f;
+}
+
+.logo {
+    width: 5rem;
+    filter: invert(100%);
+    content: url('assets/header-logo.png');
+    color: red;
+    cursor: pointer;
+}
+
+.searchbar {
+    width: fit-content;
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.searchbar>.searchinput {
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    float: left;
+    width: 80%;
+    background: #f1f1f1;
+}
+
+.searchbar>.searchbutton {
+    float: left;
+    width: 20%;
+    padding: 10px;
+    background: #ffa228;
+    color: white;
+    font-size: 17px;
+    border: 1px solid grey;
+    border-left: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.searchbar>.searchbutton:hover {
+    transition: 0.3s;
+    background: #ff9100;
+}
+
+#catalogue {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    border-top: 3px inset black;
+}
+
+#catalogue>.item {
+    width: 15rem;
+    height: 25rem;
+    object-fit: cover;
+    object-position: center;
+    font-family: Verdana;
+    border: 3px inset black;
+    user-select: none;
+    flex: 0 0 auto;
+    border-left: none;
+    border-top: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+#catalogue>.item>div {
+    display: flex;
+    flex-direction: column;
+}
+
+#catalogue:has(.item:hover) .item:not(.item:hover) {
+    opacity: 0.2;
+    transition: 0.3s;
+}
+
+#catalogue>.item:hover {
+    scale: 1.02;
+    transition: 0.3s;
+    border-left: 3px inset black;
+    border-top: 3px inset black;
+}
+
+#catalogue>.item>div>.item-img {
+    width: 100%;
+    height: 15rem;
+    
+}
+
+.item-button {
+    font-family: system-ui, sans-serif;
+    cursor: pointer;
+    padding: .1em .6em;
+    font-size: larger;
+    font-weight: bolder;
+    border: none;
+    --c: #ffa228;
+    box-shadow: 0 0 0 .1em inset var(--c);
+    --_g: linear-gradient(var(--c) 0 0) no-repeat;
+    background:
+        var(--_g) calc(var(--_p, 0%) - 100%) 0%,
+        var(--_g) calc(200% - var(--_p, 0%)) 0%,
+        var(--_g) calc(var(--_p, 0%) - 100%) 100%,
+        var(--_g) calc(200% - var(--_p, 0%)) 100%;
+    background-size: 50.5% calc(var(--_p, 0%)/2 + .5%);
+    outline-offset: .1em;
+    transition: background-size .4s, background-position 0s .4s;
+}
+
+.item-button:hover {
+    --_p: 100%;
+    transition: background-position .4s, background-size 0s;
+}
+
+.item-button:active {
+    box-shadow: 0 0 9e9q inset #0009;
+    background-color: var(--c);
+    color: #fff;
+
+}

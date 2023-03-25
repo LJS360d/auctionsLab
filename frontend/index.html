@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <title>BigBuy</title>
     <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
@@ -13,10 +13,10 @@
     <script src="./modules/catalogueManager.js" type="module"></script>
     <script src="./modules/APIService.js" type="module"></script>
     <script type="text/javascript">
-        function offer(itemID){
+        function offer(itemID) {
             console.log(itemID);
         }
-        function addToWatchlist(itemID){
+        function addToWatchlist(itemID) {
             console.log(itemID);
         }
     </script>
@@ -24,10 +24,22 @@
 
 <body>
     <div id="header">
-        <img class="logo" src="assets/header-logo.png" alt="Logo">
-        <div class="searchbar">
-            <input type="text" class="searchinput" id="searchinput" maxlength="500" placeholder="Search">
-            <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>
+        <div class="header-left">
+            <img class="logo" alt="Logo" id="logo">
+            <div class="searchbar">
+                <input type="text" class="searchinput" id="searchinput" maxlength="500" placeholder="Search">
+                <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>
+            </div>
+        </div>
+        <div class="header-right">
+            <span class="header-button" id="watchlist-button">
+                Check your Watchlist
+                <i class="fa fa-map-o"></i>
+            </span>
+            <span class="header-button" id="sell-button">
+                Sell an Item
+                <i class="fa fa-level-up"></i>
+            </span>
         </div>
     </div>
     <div id="catalogue">

@@ -44,19 +44,17 @@ function renderItem(itemRes) {
     const item = new Models.ItemResponseModel(itemRes)
     const renderItem = document.createElement('div');
     renderItem.innerHTML +=
-        `<img src='assets/${item.imageURL}' class='item-img'>
-    <h2>${item.itemName}</h2>
-    <p>Seller:${item.seller}</p>
-    <p>Price:${item.currentBid ?? item.minimumBid}$</p>
-    <span style="
-        display: flex;
-        flex-direction: row;
-        justify-content: space-evenly;
-        align-items: baseline;
-        flex-wrap: nowrap;">
-    <button class="offer" value="${item.itemID}" onclick="offer(this.value)">Make an Offer</button>
-    <button class="watch" value="${item.itemID}" onclick="addToWatchlist(this.value)">Add to Watchlist</button>
-    </span>`
+    `
+    <div>
+    <img src='assets/${item.imageURL}' class='item-img'>
+    <h4>${item.itemName}</h4>
+    Seller:${item.seller} <br>
+    Price:${item.currentBid ?? item.minimumBid}$
+    </div>
+    <div>
+    <button class="item-button" style="--c:#33ff28" value="${item.itemID}" onclick="offer(this.value)">Make an Offer</button>
+    <button class="item-button" style="--c:#E95A49" value="${item.itemID}" onclick="addToWatchlist(this.value)">Add to Watchlist</button>
+    </div>`
     renderItem.className = 'item'
     document.getElementById('catalogue').appendChild(renderItem)
 }

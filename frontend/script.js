@@ -60,6 +60,8 @@ function renderItem(itemRes) {
 }
 function buildQuery() {
     const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
-
-    return searchValue==='' ? "Select * from items":`Select * from items where Item_name like "${searchValue}"`
+    if(!isNaN(searchValue) && searchValue!==''){
+        return `Select * from items where ItemID = "${searchValue}"`
+    }
+    return searchValue==='' ? "Select * from items":`Select * from items where Item_name like "%${searchValue}%"`
 }

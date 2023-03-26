@@ -6,18 +6,16 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-    <title>BigBuy</title>
+    <script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
     <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
+    <title>BigBuy</title>
     <script src="script.js" type="module"></script>
     <script src="./modules/catalogueManager.js" type="module"></script>
     <script src="./modules/APIService.js" type="module"></script>
+    <script src="./modules/buttonsManager.js" type="module"></script>
     <script type="text/javascript">
-        function offer(itemID) {
-            console.log(itemID);
-        }
-        function addToWatchlist(itemID) {
-            console.log(itemID);
+        function offer(itemID){
+            onMakeAnOfferButtonClick(itemID)
         }
     </script>
 </head>
@@ -38,14 +36,13 @@
             </span>
             <span class="header-button" id="sell-button">
                 Sell an Item
-                <i class="fa fa-level-up"></i>
+                <i class="fa-solid fa-money-bill-trend-up"></i>
             </span>
         </div>
     </div>
     <div id="catalogue">
-
+        
     </div>
-
 </body>
 
 </html>

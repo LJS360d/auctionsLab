@@ -28,7 +28,7 @@ VALUES
 
 CREATE TABLE IF NOT EXISTS Items (
 ItemID INT PRIMARY KEY AUTO_INCREMENT,
-Image_URL VARCHAR(300) DEFAULT 'unavailable-image.jpg',
+Image_URL VARCHAR(300) DEFAULT 'assets/unavailable-image.jpg',
 Item_Name VARCHAR(50) NOT NULL,
 Item_Description VARCHAR(300),
 Highest_Bidder INT DEFAULT NULL,
@@ -40,8 +40,13 @@ FOREIGN KEY (Highest_Bidder) REFERENCES Customers(CustomerID)
 );
 
 INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`,`Bid_Address`) VALUES
-('magdonal.png','Big Mag',"Viene dal Mag Donal","230.0.0.1"),
-('nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
-('coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
-('gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4");
+('assets/magdonal.png','Big Mag',"Viene dal Mag Donal","230.0.0.1"),
+('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
+('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+
+('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente","230.0.0.5");
 

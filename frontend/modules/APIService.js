@@ -45,3 +45,24 @@ export async function getItemByName(body) {
     http.send(body ?? {});
   });
 }
+
+export async function get(body){
+  return new Promise((resolve, reject) => {
+    const http = new XMLHttpRequest();
+    
+    http.onreadystatechange = function () {
+      if (http.readyState === 4) {
+        if (http.status === 200) {
+          resolve(http.responseText);
+        } else {
+          reject(new Error(`Failed to fetch items: ${http.statusText}`));
+        }
+      }
+    };
+    http.onerror = function () {
+      reject(new Error(`Failed to fetch items: ${http.statusText}`));
+    };
+    http.open('GET', API_URL);
+    http.send(body ?? {});
+  });
+}

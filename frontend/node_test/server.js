@@ -17,10 +17,15 @@ io.on('connection', (socket) => {
 
         sqlconnection.query(query, (error, results) => {
           if (error) socket.emit('error', error.message);
-          if (!error)
-            for (const row of results) {
-              socket.emit('results', row);
+          if (!error){
+            if(results.length){
+              for (const row of results) {
+                socket.emit('results', row);
+              }
+            }else{
+              socket.emit('results', null);
             }
+          }
         })
       } else { socket.emit('results', 'ER_FORBIDDEN:You do not have permission to execute that command.') }
     }

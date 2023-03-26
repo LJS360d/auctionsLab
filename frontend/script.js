@@ -38,6 +38,7 @@ document.addEventListener('keypress', (e) => {
         sendquery()
     }
 })
+
 function renderRow(result) {
     const row = document.createElement('div')
     let text = JSON.stringify(result).replace(/,/g, "|").replace(/[{}"]/g, "");
@@ -48,19 +49,18 @@ function renderRow(result) {
 function renderItem(itemRes) {
     const item = new Models.ItemResponseModel(itemRes)
     const renderItem = document.createElement('div');
-    renderItem.innerHTML +=
-        `
-    <div>
+    renderItem.innerHTML += `
+    <div class="item-top">
     <img src='${item.imageURL}' class='item-img'>
     <h4>${item.itemName}</h4>
-    Seller:${item.seller} <br>
-    Price:${item.currentBid ?? item.minimumBid}$
+    <label>Seller:${avoidOverflowFormat(item.seller)}</label>
+    <label>Time Left:${timeLeftUntil(item.expireDate)} </label>
+    <label>Price:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
     </div>
-    <div>
+    <div class="item-bottom">
     <button class="item-button" race="offer" style="--c:#33ff28" value="${item.itemID}">Make an Offer</button>
     <button class="item-button" race="watchlist" style="--c:#E95A49" value="${item.itemID}">Add to Watchlist</button>
-    </div>
-    `
+    </div>`;
     renderItem.className = 'item'
     document.getElementById('catalogue').appendChild(renderItem)
 }
@@ -70,4 +70,22 @@ function buildQuery() {
         return `Select * from items where ItemID = "${searchValue}"`
     }
     return searchValue === '' ? "Select * from items" : `Select * from items where Item_name like "%${searchValue}%"`
+}
+function timeLeftUntil(date) {
+    const timeLeft = new Date(date) - new Date();
+    return timeLeft >= 86400000 ? Math.floor(timeLeft / 86400000) + " day(s)" :
+        timeLeft >= 3600000 ? Math.floor(timeLeft / 3600000) + " hour(s)" :
+            timeLeft >= 60000 ? Math.floor(timeLeft / 60000) + " minute(s)" :
+                Math.floor(timeLeft / 1000) + " second(s)";
+}
+function avoidOverflowFormat(string) {
+    const CUT_POINT = 12
+    if (string.length > CUT_POINT) {
+        return `${string.substring(0, CUT_POINT - 1)}...`
+    } else {
+        return string
+    }
+}
+function getLocalValute(){
+    return '€'
 }

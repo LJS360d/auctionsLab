@@ -8,6 +8,7 @@ export class ItemResponseModel {
     currentBid;
     seller;
     bidAddress;
+    expireDate;
     constructor(item) {
         this.imageURL = item.Image_URL
         this.itemID = item.ItemID
@@ -18,5 +19,6 @@ export class ItemResponseModel {
         this.currentBid = item.Current_Bid
         this.seller = item.Seller
         this.bidAddress = item.Bid_Address
+        this.expireDate = item.Expire_Date
     }
 }

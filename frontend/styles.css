@@ -68,7 +68,6 @@ body {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
-    float: left;
     width: 80%;
     background: #f1f1f1;
 }
@@ -98,8 +97,6 @@ body {
 }
 
 #catalogue>.item {
-    width: 11rem;
-    height: 25rem;
     object-fit: cover;
     object-position: center;
     font-family: Verdana;
@@ -129,11 +126,14 @@ body {
     border-left: 5px outset black;
     border-top: 5px outset black;
 }
-
+#catalogue>.item>div>label{
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+}
 #catalogue>.item>div>.item-img {
-    width: 100%;
+    width: 12.5rem;
     height: 15rem;
-    
 }
 
 .item-button {

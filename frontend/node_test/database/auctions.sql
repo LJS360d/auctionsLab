@@ -1,4 +1,4 @@
--- Active: 1666777883042@@localhost@3306@auctions
+-- Active: 1666777883042@@localhost@3306
 DROP DATABASE IF EXISTS auctions;
 CREATE DATABASE IF NOT EXISTS auctions;
 USE auctions;
@@ -30,12 +30,13 @@ CREATE TABLE IF NOT EXISTS Items (
 ItemID INT PRIMARY KEY AUTO_INCREMENT,
 Image_URL VARCHAR(300) DEFAULT 'assets/unavailable-image.jpg',
 Item_Name VARCHAR(50) NOT NULL,
-Item_Description VARCHAR(300),
+Item_Description VARCHAR(300) DEFAULT "No item description",
 Highest_Bidder INT DEFAULT NULL,
-Minimum_Bid BIGINT DEFAULT 0,
-Current_Bid BIGINT DEFAULT NULL,
+Minimum_Bid FLOAT DEFAULT 0.01,
+Current_Bid FLOAT DEFAULT NULL,
 Seller VARCHAR(50) DEFAULT 'Anonymous',
 Bid_Address VARCHAR(24) NOT NULL,
+Expire_Date DATETIME DEFAULT (NOW() + INTERVAL 7 DAY),
 FOREIGN KEY (Highest_Bidder) REFERENCES Customers(CustomerID)
 );
 
@@ -44,9 +45,7 @@ INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`,`Bid_Address`) V
 ('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
 ('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
 ('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
-('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
-('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
-('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente","230.0.0.5");  
 
-('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente","230.0.0.5");
-
+INSERT INTO `items` (`Item_Name`,`Seller`,`Expire_Date`,`Bid_Address`) VALUES
+('Zappa da Vigna','Enrico Pasquale Pratticò','2023-03-29 00:00:00','230.0.0.6');

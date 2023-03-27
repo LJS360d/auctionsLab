@@ -45,6 +45,18 @@ INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`,`Bid_Address`) V
 ('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
 ('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
 ('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/magdonal.png','Big Mag',"Viene dal Mag Donal","230.0.0.1"),
+('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
+('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/magdonal.png','Big Mag',"Viene dal Mag Donal","230.0.0.1"),
+('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
+('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
+('assets/magdonal.png','Big Mag',"Viene dal Mag Donal","230.0.0.1"),
+('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso","230.0.0.2"),
+('assets/coca-cola.png','Coca Cola',"Una bottiglia di coca","230.0.0.3"),
+('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello","230.0.0.4"),
 ('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente","230.0.0.5");  
 
 INSERT INTO `items` (`Item_Name`,`Seller`,`Expire_Date`,`Bid_Address`) VALUES

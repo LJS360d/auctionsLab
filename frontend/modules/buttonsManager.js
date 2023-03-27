@@ -57,6 +57,7 @@ export function setItemButtonsOnclick() {
                 button.onclick = function () {
                     const itemID = button.value;
                     console.log('Offer' + itemID);
+                    window.open(`offerPage/offer.html?itemID=${itemID}`,'_self')
                 }
                 break;
             case 'watchlist':

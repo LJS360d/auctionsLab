@@ -2,6 +2,7 @@ import * as catalogueManager from "./modules/catalogueManager.js";
 import * as APIService from "./modules/APIService.js"
 import * as Models from "./modules/models/ItemsResponseModels.js"
 import * as buttonsManager from "./modules/buttonsManager.js"
+
 const socket = io('ws://localhost:8080');
 socket.on('connect', () => {
     socket.send('query', 'Select * from items')

@@ -97,14 +97,16 @@ body {
 }
 
 #catalogue>.item {
+    user-select: none;
     object-fit: cover;
     object-position: center;
     font-family: Verdana;
-    border: 5px inset black;
-    user-select: none;
     flex: 0 0 auto;
+
+    border: 5px inset black;
     border-left: none;
     border-top: none;
+
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -126,11 +128,13 @@ body {
     border-left: 5px outset black;
     border-top: 5px outset black;
 }
-#catalogue>.item>div>label{
+
+#catalogue>.item>div>label {
     font-size: 1rem;
     font-family: 'Courier New', Courier, monospace;
     font-weight: 400;
 }
+
 #catalogue>.item>div>.item-img {
     width: 12.5rem;
     height: 15rem;

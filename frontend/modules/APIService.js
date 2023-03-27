@@ -3,7 +3,7 @@ const API_URL = 'http://localhost:9090';
 export async function getAllItems() {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
-    const endpoint = '/getbyname';
+    const endpoint = '';
 
     http.onreadystatechange = function () {
       if (http.readyState === 4) {
@@ -21,8 +21,7 @@ export async function getAllItems() {
     http.send();
   });
 }
-//Uses POST http method
-export async function getItemByName(itemName) {
+export async function postGetByName(itemName) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
     const endpoint = '/getbyname';
@@ -45,6 +44,7 @@ export async function getItemByName(itemName) {
     http.send(itemName ?? '');
   });
 }
+
 export async function get(endpoint) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();

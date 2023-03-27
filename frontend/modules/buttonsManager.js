@@ -1,3 +1,5 @@
+import { showSnackbar } from "./snackbarManager.js";
+
 const watchlistButton = document.getElementById('watchlist-button')
 export var onWatchListButtonClick = watchlistButton.onclick = function () {
     showWatchlistModal()
@@ -31,7 +33,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <label>Item Description</label>
             <textarea name="itemDescription" cols="10" rows="10" maxlength="150" placeholder="Write something cool about it"></textarea>
             <label>Minimum Bid Value</label>
-            <input class="value-input" type="number" name="minimumBidInput" placeholder="0.00">
+            <input class="value-input" type="text" name="minimumBidInput" placeholder="0.00" oninput="this.value = parseFloat(value).toFixed(2) + '€'">
             <label>Expire Date</label>
             <input type="date" name="expireDate">
             <button class="item-button" type="submit" name="sellFormSubmit">Confirm  <i class="fa fa-paper-plane"></i></button>
@@ -57,13 +59,13 @@ export function setItemButtonsOnclick() {
                 button.onclick = function () {
                     const itemID = button.value;
                     console.log('Offer' + itemID);
-                    window.open(`offerPage/offer.html?itemID=${itemID}`,'_self')
+                    window.open(`/offer.html?itemID=${itemID}`,'_self')
                 }
                 break;
             case 'watchlist':
                 button.onclick = function () {
                     const itemID = button.value;
-                    console.log('Watch' + itemID);
+                    showSnackbar("Item added to Watchlist")
                 }
                 break;
 

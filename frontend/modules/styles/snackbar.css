@@ -2,12 +2,12 @@
     position: sticky;
     max-width: 250px;
     background-color: #333;
-    color: #fff;
+    color:aquamarine;
     text-align: center;
-    border-radius: 5px;
-    padding: 16px;
+    border-radius: 10px;
+    padding: 12px;
     z-index: 1;
-    left: 50%;
+    margin-left: 1rem;
     bottom: 30px;
     -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;

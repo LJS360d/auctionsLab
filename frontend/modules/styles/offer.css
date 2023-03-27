@@ -1,0 +1,13 @@
+div.offer{
+    display: flex;
+    flex-direction: row;
+}
+
+img.offer-img{
+    width: 30rem;
+    height: 30rem;
+}
+div.offer-right{
+    display: flex;
+    flex-direction: column;
+}

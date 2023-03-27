@@ -68,12 +68,14 @@ body {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
+    max-height: 40px;
     width: 80%;
     background: #f1f1f1;
 }
 
 .searchbar>.searchbutton {
     float: left;
+    min-height: 40px;
     width: 20%;
     padding: 10px;
     background: #ffa228;

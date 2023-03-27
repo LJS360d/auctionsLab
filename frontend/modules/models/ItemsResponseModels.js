@@ -21,4 +21,20 @@ export class ItemResponseModel {
         this.bidAddress = item.Bid_Address
         this.expireDate = item.Expire_Date
     }
+    toString(){
+        let string = ''
+        for (const key in this) {
+            string += this[key]+';'
+        }
+        return string;
+    }
+}
+export class ItemResponseJSON{
+    itemResponseModelArray;
+    /**
+     * @param {String} resultSet 
+     */
+    constructor(resultSet){
+        this.itemResponseModelArray = JSON.parse('['+resultSet.split('[')[1].split(']')[0]+']')
+    }
 }

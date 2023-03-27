@@ -1,14 +1,25 @@
 import java.io.*;
 import java.net.*;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.util.HashMap;
 import java.util.Map;
 
 public class AuctionsLabHttpServer {
+    final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
+    final static String DATABASE = "auctions";
+    final static String DB_URL = "jdbc:mysql://localhost:3306/" + DATABASE;
+    final static String USER = "root";
+    final static String PASS = "root";
+    static Connection sqlConnection = null;
 
     public static void main(String[] args) throws IOException {
-        final int port = 9090;
-        try (ServerSocket serverSocket = new ServerSocket(port);) {
-            System.out.println("Server started on port " + port);
+        final int PORT = 9090;
+        try (ServerSocket serverSocket = new ServerSocket(PORT);) {
+            System.out.println("Connecting to Database...");
+            sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
+            System.out.println("Connection with "+DB_URL+" Established");
+            System.out.println("Server started on port " + PORT);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress());
@@ -22,7 +33,7 @@ public class AuctionsLabHttpServer {
                 }).start();
             }
         } catch (Exception e) {
-            throw e;
+            e.printStackTrace();
         }
     }
 

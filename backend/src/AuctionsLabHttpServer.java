@@ -10,15 +10,16 @@ public class AuctionsLabHttpServer {
     final static String DATABASE = "auctions";
     final static String DB_URL = "jdbc:mysql://localhost:3306/" + DATABASE;
     final static String USER = "root";
-    final static String PASS = "root";
+    final static String PASS = "RISOSCOTTI";
+    final static int PORT = 9090;
     static Connection sqlConnection = null;
 
     public static void main(String[] args) throws IOException {
-        final int PORT = 9090;
         try (ServerSocket serverSocket = new ServerSocket(PORT);) {
+            amogus();
             System.out.println("Connecting to Database...");
             sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connection with "+DB_URL+" Established");
+            System.out.println("Connection with " + DB_URL + " Established");
             System.out.println("Server started on port " + PORT);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
@@ -146,5 +147,28 @@ public class AuctionsLabHttpServer {
         }
         String body = bodyBuilder.toString();
         return body;
+    }
+
+    private static void amogus() {
+        System.out.println("-----------------⣠⣤⣤⣤⣤⣤⣤⣤⣤⣄⡀---------");
+        System.out.println("-------------⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤--------");
+        System.out.println("-------------⣼⣿⠋-------⢀⣀⣀⠈⢻⣿⣿⡄------");
+        System.out.println("------------⣸⣿⡏---⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄-----");
+        System.out.println("------------⣿⣿⠁--⢰⣿⣿⣯⠁-------⠈⠙⢿⣷⡄---");
+        System.out.println("------⣀⣤⣴⣶⣶⣿⡟---⢸⣿⣿⣿⣆----------⣿⣷----");
+        System.out.println("-----⢰⣿⡟⠋⠉⣹⣿⡇---⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿??----");
+        System.out.println("-----⢸⣿⡇--⣿⣿⡇----⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿??----");
+        System.out.println("-----⣸⣿⡇--⣿⣿⡇-----⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻???----");
+        System.out.println("-----⣿⣿⠁--⣿⣿⡇-----------------⢸⣿⣧----");
+        System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
+        System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
+        System.out.println("-----⢿⣿⡆--⣿⣿⡇-----------------⢸⣿⡇----");
+        System.out.println("-----⠸⣿⣧⡀-⣿⣿⡇-----------------⣿⣿⠃----");
+        System.out.println("------⠛⢿⣿⣿⣿⣿⣇-----⣰⣿⣿⣷⣶⣶⣶⣶⢠⣿⣿????----");
+        System.out.println("------------⣿⣿------⣿⣿⡇-⣽⣿⡏--⢸⣿?-----");
+        System.out.println("------------⣿⣿------⣿⣿⡇-⢹⣿⡆---⣸⣿⠇----");
+        System.out.println("------------⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁--⠻⣿⣿⣿⣿⡿??-----");
+        System.out.println("------------⠈⠛⠻⠿⠿⠿⠿⠋⠁----------------");
+
     }
 }

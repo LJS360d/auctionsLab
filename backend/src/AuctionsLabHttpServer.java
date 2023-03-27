@@ -1,9 +1,11 @@
 import java.io.*;
 import java.net.*;
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.util.HashMap;
-import java.util.Map;
+import java.sql.*;
+import java.util.*;
+import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+
+import org.json.*;;
 
 public class AuctionsLabHttpServer {
     final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -13,7 +15,7 @@ public class AuctionsLabHttpServer {
     final static String PASS = "RISOSCOTTI";
     final static int PORT = 9090;
     static Connection sqlConnection = null;
-
+    static Statement statement = null;
     public static void main(String[] args) throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(PORT);) {
             amogus();
@@ -21,6 +23,10 @@ public class AuctionsLabHttpServer {
             sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connection with " + DB_URL + " Established");
             System.out.println("Server started on port " + PORT);
+            statement = sqlConnection.createStatement();
+            ResultSet rs = statement.executeQuery("Select * from items");
+            System.out.println(parseResultSet(rs).toString());
+
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress());
@@ -147,6 +153,35 @@ public class AuctionsLabHttpServer {
         }
         String body = bodyBuilder.toString();
         return body;
+    }
+
+    private static JSONArray parseResultSet(ResultSet resultSet) throws SQLException {
+        ResultSetMetaData md = resultSet.getMetaData();
+        int numCols = md.getColumnCount();
+        List<String> colNames = IntStream.range(0, numCols)
+                .mapToObj(i -> {
+                    try {
+                        return md.getColumnName(i + 1);
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                        return "?";
+                    }
+                })
+                .collect(Collectors.toList());
+
+        JSONArray result = new JSONArray();
+        while (resultSet.next()) {
+            JSONObject row = new JSONObject();
+            colNames.forEach(cn -> {
+                try {
+                    row.put(cn, resultSet.getObject(cn));
+                } catch (JSONException | SQLException e) {
+                    e.printStackTrace();
+                }
+            });
+            result.put(row);
+        }
+        return result;
     }
 
     private static void amogus() {

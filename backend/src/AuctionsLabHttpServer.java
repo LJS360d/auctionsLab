@@ -22,11 +22,9 @@ public class AuctionsLabHttpServer {
             System.out.println("Connecting to Database...");
             sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
             System.out.println("Connection with " + DB_URL + " Established");
-            System.out.println("Server started on port " + PORT);
             statement = sqlConnection.createStatement();
-            ResultSet rs = statement.executeQuery("Select * from items");
-            System.out.println(parseResultSet(rs).toString());
-
+            System.out.println("Initialized SQL Statement");
+            System.out.println("Server started at localhost:"+PORT);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress());
@@ -34,9 +32,9 @@ public class AuctionsLabHttpServer {
                 new Thread(() -> {
                     try {
                         handleRequest(clientSocket);
-                    } catch (IOException e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
-                    }
+                    } 
                 }).start();
             }
         } catch (Exception e) {
@@ -44,7 +42,7 @@ public class AuctionsLabHttpServer {
         }
     }
 
-    private static void handleRequest(Socket clientSocket) throws IOException {
+    private static void handleRequest(Socket clientSocket) throws Exception {
         InputStream input = clientSocket.getInputStream();
         OutputStream output = clientSocket.getOutputStream();
 
@@ -78,9 +76,10 @@ public class AuctionsLabHttpServer {
         clientSocket.close();
     }
 
-    private static void handleGet(String path, OutputStream output) throws IOException {
+    private static void handleGet(String path, OutputStream output) throws Exception {
         if (path.equals("/")) {
-            String response = "{\"message\": \"This is a GET response\"}";
+            ResultSet rs = statement.executeQuery("Select * from items");
+            String response = "{\"message\": \""+parseResultSet(rs).toString()+"\"}";
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -89,7 +88,7 @@ public class AuctionsLabHttpServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
         } else if (path.equals("/getbyname")) {
-            String response = "{\"message\": \"All DB Items\"}";
+            String response = "{\"message\": \""+"<DB ResultSet Here>"+"\"}";
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +

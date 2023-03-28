@@ -33,14 +33,14 @@ function renderOfferPageOffAPIResponse(itemsResponse){
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
     <h3>How Much do you Offer?</h3>
     <label>Minimum Offer:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
-
+    
     <form action="sendoffer.html" method="get" autocomplete="off">
     <input name="itemID" value="${itemID}" hidden="true">
     <input class="offer-input" type="text" name="offerInput" placeholder="${item.currentBid ?? item.minimumBid}€" required> <br>
     <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
     </form>
-
     </div>`;
+    //TODO:check that offerInput is higher than last bid with Regex 
     offerPage.className = 'offer'
 
     document.body.appendChild(offerPage)

@@ -4,8 +4,9 @@ import java.sql.*;
 import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-import org.json.*;;
+import org.json.*;
 
+@SuppressWarnings("deprecation")
 public class AuctionsLabHttpServer {
     final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
     final static String DATABASE = "auctions";
@@ -13,26 +14,47 @@ public class AuctionsLabHttpServer {
     final static String USER = "root";
     final static String PASS = "RISOSCOTTI";
     final static int PORT = 9090;
+    final static int MULTICAST_PORT = 9097;
     static Connection sqlConnection = null;
     static Statement statement = null;
 
     public static void main(String[] args) throws Exception {
-        try (ServerSocket serverSocket = new ServerSocket(PORT);) {
-            amogus();
-            System.out.println("Connecting to Database...");
+        try (ServerSocket serverSocket = new ServerSocket(PORT);
+                MulticastSocket multicastSocket = new MulticastSocket(MULTICAST_PORT);) {
+            System.out.println(">Connecting to Database...");
             sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println("Connection with " + DB_URL + " Established");
+            System.out.println(">Connection with " + DB_URL + " Established");
             statement = sqlConnection.createStatement();
-            System.out.println("Initialized SQL Statement");
-            System.out.println("Server started at localhost:" + PORT);
+            System.out.println(">Initialized SQL Statement");
+            multicastSocket.setLoopbackMode(true);
+            System.out.println(">" + (multicastSocket.getLoopbackMode() ? "Multicast loopback Disabled": "Multicast lopback Enabled"));
+            amogus();
+            System.out.println("TCP Server started at localhost:" + PORT);
+            System.out.println("UDP Server started at localhost:" + MULTICAST_PORT);
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress());
-                // Runnable as Lambda
+                // TCP Thread, Runnable as Lambda
                 new Thread(() -> {
                     try {
                         handleRequest(clientSocket);
+
                     } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }).start();
+                // UDP Thread, Runnable as Lambda
+                new Thread(() -> {
+                    try {
+                        byte[] buffer = new byte[1024];
+                        DatagramPacket packet = new DatagramPacket(buffer, buffer.length);
+                        while (true) {
+                            multicastSocket.receive(packet);
+                            String message = new String(packet.getData(), 0, packet.getLength());
+                            System.out.println(message);
+                            //TODO: handle the received DatagramPacket
+                        }
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
                 }).start();
@@ -86,8 +108,7 @@ public class AuctionsLabHttpServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        } 
-        else {
+        } else {
             sendNotFound(output);
         }
     }
@@ -104,10 +125,10 @@ public class AuctionsLabHttpServer {
             output.write(response.getBytes());
         } else if (path.equals("/getbyname")) {
             String query = "";
-            if(isNumeric(body)){
-                query = "Select * from items where ItemID ="+body;
-            }else{
-                query = "Select * from items where Item_Name like '%"+body+"%'";
+            if (isNumeric(body)) {
+                query = "Select * from items where ItemID =" + body;
+            } else {
+                query = "Select * from items where Item_Name like '%" + body + "%'";
             }
             ResultSet rs = statement.executeQuery(query);
             String response = "{\"message\": \"" + parseResultSet(rs).toString() + "\"}";
@@ -237,5 +258,5 @@ public class AuctionsLabHttpServer {
         }
         return true;
     }
-    
+
 }

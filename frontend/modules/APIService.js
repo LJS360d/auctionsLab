@@ -1,5 +1,5 @@
 export const API_URL = 'http://localhost:9090';
-
+export const MULTICAST_URL = 'http://localhost:9097';
 export async function getAllItems() {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
@@ -21,6 +21,7 @@ export async function getAllItems() {
     http.send();
   });
 }
+
 export async function postGetByName(itemName) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
@@ -68,6 +69,7 @@ export async function get(endpoint) {
     http.send();
   });
 }
+
 export async function post(body, endpoint) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
@@ -91,4 +93,8 @@ export async function post(body, endpoint) {
     http.open('POST', API_URL + API_Endpoint, true);
     http.send(body ?? '');
   });
+}
+
+export async function sendUDP(){
+  //TODO: UDP requests
 }

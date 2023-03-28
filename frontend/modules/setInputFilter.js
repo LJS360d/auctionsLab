@@ -1,6 +1,6 @@
-export function setInputFilter(textbox, inputFilter, errMsg) {
+export function setInputFilter(inputbox, inputFilter, errMsg) {
     [ "input", "keydown", "keyup", "mousedown", "mouseup", "select", "contextmenu", "drop", "focusout" ].forEach(function(event) {
-      textbox.addEventListener(event, function(e) {
+      inputbox.addEventListener(event, function(e) {
         if (inputFilter(this.value)) {
           // Accepted value.
           if ([ "keydown", "mousedown", "focusout" ].indexOf(e.type) >= 0){

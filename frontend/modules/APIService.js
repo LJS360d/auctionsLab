@@ -50,8 +50,8 @@ export async function get(endpoint) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
     let API_Endpoint = String(endpoint ?? '');
-    if(API_Endpoint[0] !== '/')
-    API_Endpoint.padStart(API_Endpoint.length + 1,'/')
+    if (API_Endpoint[0] !== '/')
+      API_Endpoint.padStart(API_Endpoint.length + 1, '/')
 
     http.onreadystatechange = function () {
       if (http.readyState === 4) {
@@ -65,17 +65,18 @@ export async function get(endpoint) {
     http.onerror = function () {
       reject(new Error(`Failed to fetch items: ${http.statusText}`));
     };
-    http.open('GET', API_URL+API_Endpoint, true);
+    http.open('GET', API_URL + API_Endpoint, true);
     http.send();
   });
 }
 
 export async function post(body, endpoint) {
+  //return await fetch(API_URL+endpoint,{method:'POST',body:body}).then(res => res.json())
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
     let API_Endpoint = String(endpoint ?? '');
-    if(API_Endpoint[0] !== '/')
-    API_Endpoint.padStart(API_Endpoint.length + 1,'/')
+    if (API_Endpoint[0] !== '/')
+      API_Endpoint.padStart(API_Endpoint.length + 1, '/')
     http.onreadystatechange = function () {
       if (http.readyState === 4) {
         if (http.status === 200) {
@@ -95,6 +96,6 @@ export async function post(body, endpoint) {
   });
 }
 
-export async function sendUDP(){
+export async function sendUDP() {
   //TODO: UDP requests
 }

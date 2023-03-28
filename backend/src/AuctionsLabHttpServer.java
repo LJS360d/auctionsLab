@@ -226,6 +226,7 @@ public class AuctionsLabHttpServer {
         System.out.println("------------⠈⠛⠻⠿⠿⠿⠿⠋⠁----------------");
 
     }
+
     public static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;

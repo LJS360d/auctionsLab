@@ -1,4 +1,4 @@
-const API_URL = 'http://localhost:9090';
+export const API_URL = 'http://localhost:9090';
 
 export async function getAllItems() {
   return new Promise((resolve, reject) => {

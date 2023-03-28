@@ -34,7 +34,7 @@ function renderOfferPageOffAPIResponse(itemsResponse){
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
     <h3>How Much do you Offer?</h3>
     <label>Minimum Offer:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
-    <form action="http://localhost:9090/" method="post">
+    <form action="http://localhost:9090/" method="post" autocomplete="off">
     <input name="itemID" value="${itemID}" hidden="true">
     <input class="offer-input" type="text" name="offerInput" placeholder="${item.currentBid ?? item.minimumBid}€" oninput="this.value = parseFloat(value).toFixed(2) + '€'"
     onkeydown="" required>

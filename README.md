@@ -11,15 +11,14 @@
 
 `/lib`  
 
-- mysql-connector-j-8.0.31.jar
-- json-20230227.jar
+- **mysql-connector-j-8.0.31.jar** <-- **JDBC**
+- json-20230227.jar <-- *Library needed to parse the ResultSet of a Query Result into a JSON format*
 
 `/src`  
 
 - AuctionsLabHttpServer.java 
 
   
-
 ## `Frontend` 
 #### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests 
 
@@ -29,13 +28,18 @@
    
  - buttonsManager.js
    
-  - catalogueManager.js
+ - catalogueManager.js
    
-  - snackbarManager.js
+ - snackbarManager.js
+
+    `Single Function Files`
+ - getLocalValute()
+ - timeLeftUntilDate(date)
   
 	`/styles`
 	- modal.css
 	- snackbar.css
+	- offer.css
 
 	`/models`
 	- **itemsResponseModels.js**
@@ -43,16 +47,13 @@
 	`/assets`
 	- images...
 
-`/offerPage`
+**`styles.css`**  <-- *Global Styles*
 
-- offer.css
+**`index.html`**  <-- *Homepage/Catalogue*
 
-- offer.html
+**`script.js`**   <-- *Homepage Script*
 
-- offer.js
 
-**`index.html`**  <- *Homepage/Catalogue*
+- offer.html	  <-- *Opened on **Make An Offer Button Click***
 
-**`script.js`** <-- *Main Script*
-
-**`styles.css`** <-- *Global Styles*
+- offer.js	  <-- *Offer Page Script*

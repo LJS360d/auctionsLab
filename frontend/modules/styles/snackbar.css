@@ -2,7 +2,7 @@
     position: sticky;
     max-width: 250px;
     background-color: #333;
-    color:aquamarine;
+    color:#fff;
     text-align: center;
     border-radius: 10px;
     padding: 12px;
@@ -20,7 +20,6 @@
 }
 .snackbar>div.snackbar-content>label{
     font-size: 1rem;
-
 }
    
 

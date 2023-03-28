@@ -22,6 +22,7 @@ function renderItemsOffAPIResponse(itemsResponse) {
         renderItem(item)
     })
 }
+
 function renderItem(itemRes) {
     const item = new Models.ItemResponseModel(itemRes)
     const renderItem = document.createElement('div');

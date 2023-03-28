@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="./modules/styles/modal.css">
     <link rel="stylesheet" href="./modules/styles/snackbar.css">
     <script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
-    <script src="https://cdn.socket.io/socket.io-3.0.0.js"></script>
-    <title>BigBuy</title>
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <title>Auctions Lab</title>
     <script src="./modules/catalogueManager.js" type="module"></script>
     <script src="./modules/APIService.js" type="module"></script>
     <script src="./modules/buttonsManager.js" type="module"></script>
@@ -21,7 +21,7 @@
 <body>
     <div id="header">
         <div class="header-left">
-            <img class="logo" alt="Logo" id="logo">
+            <img class="logo" alt="Logo" id="logo" onclick="window.open('index.html','_self')">
             <div class="searchbar">
                 <input type="text" class="searchinput" id="searchinput" maxlength="500" placeholder="Search" pattern="[^'\x22]+">
                 <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>

@@ -17,6 +17,9 @@
 
 - AuctionsLabHttpServer.java 
 
+`/sql`  
+
+- auctions.sql <--*Script to build the mySQL DB **!!RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
   
 
 ## `Frontend` 

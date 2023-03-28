@@ -86,8 +86,7 @@ public class AuctionsLabHttpServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        }
-
+        } 
         else {
             sendNotFound(output);
         }
@@ -120,7 +119,7 @@ public class AuctionsLabHttpServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
         } else if (path.equals("/offerPage")) {
-            if (!body.isEmpty()) {
+            if (!body.isEmpty() && isNumeric(body)) {
                 ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
                 String response = "{\"message\": \"" + parseResultSet(rs).toString() + "\"}";
                 String headers = "HTTP/1.1 200 OK\r\n" +

@@ -7,6 +7,9 @@ img.offer-img{
     width: 30rem;
     height: 30rem;
 }
+.offer-title{
+    font-size: 5rem;
+}
 div.offer-right{
     display: flex;
     flex-direction: column;

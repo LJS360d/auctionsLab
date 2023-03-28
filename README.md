@@ -20,7 +20,7 @@
 
 `/sql`  
 
-- auctions.sql <--*Script to build the mySQL DB **!!RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
+- auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
   
 ## `Frontend` 
 #### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests 
@@ -38,6 +38,7 @@
     `Single Function Files`
  - getLocalValute()
  - timeLeftUntilDate(date)
+ - setInputFilter(inputbox, inputFilter, errMsg)
   
 	`/styles`
 	- modal.css
@@ -60,3 +61,7 @@
 - offer.html	  <-- *Opened on **Make An Offer Button Click***
 
 - offer.js	  <-- *Offer Page Script*
+
+- sendoffer.html  <-- *Opened on **Confirm** button click in Offer Page*
+
+- sendoffer.js    <-- *Script Run to send the offer Data to the backend*

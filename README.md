@@ -22,7 +22,8 @@
 
 - auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
 
-`**proxyServer.js**` <--*The NodeJS Proxy, **Runs on a different terminal** when launching the main Backend*
+
+**`proxyServer.js`** <--*The NodeJS Proxy, **Runs on a different terminal** when launching the main Backend*
   
 ## `Frontend` 
 #### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests 

@@ -7,7 +7,7 @@
   
 
 ## `Backend` 
-#### Plain Java with [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)  and [java.net](https://docs.oracle.com/javase/8/docs/api/java/net/package-summary.html) Integration
+#### Plain Java with [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)  and [java.net](https://docs.oracle.com/javase/8/docs/api/java/net/package-summary.html) Integration with a NodeJS Proxy for sending UDP Datagrams to the main Backend 
 
 `/lib`  
 
@@ -21,6 +21,8 @@
 `/sql`  
 
 - auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
+
+`**proxyServer.js**` <--*The NodeJS Proxy, **Runs on a different terminal** when launching the main Backend*
   
 ## `Frontend` 
 #### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests 
@@ -64,4 +66,4 @@
 
 - sendoffer.html  <-- *Opened on **Confirm** button click in Offer Page*
 
-- sendoffer.js    <-- *Script Run to send the offer Data to the backend*
+- sendoffer.js    <-- *Script Run to send the offer Data to the NodeJS Proxy*

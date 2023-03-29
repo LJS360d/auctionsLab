@@ -15,17 +15,15 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-
 public class TCPServer {
     static ServerSocket serverSocket = null;
-    static Connection sqlConnection = null;
     static Statement statement = null;
-    public TCPServer(int port,Connection connection) throws Exception {
+
+    public TCPServer(int port, Statement sqlstatement) throws Exception {
         try {
-            sqlConnection = connection;
-            statement = sqlConnection.createStatement();
+            statement = sqlstatement;
             serverSocket = new ServerSocket(port);
-            System.out.println("TCP Server started at localhost:" + port);
+            System.out.println(">TCP Server started at localhost:" + port + "\n");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
                 System.out.println("Accepted connection from " + clientSocket.getInetAddress());
@@ -33,7 +31,7 @@ public class TCPServer {
                 new Thread(() -> {
                     try {
                         handleRequest(clientSocket);
-    
+
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -42,9 +40,9 @@ public class TCPServer {
         } catch (Exception e) {
             e.printStackTrace();
         }
-       
 
     }
+
     private static void handleRequest(Socket clientSocket) throws Exception {
         InputStream input = clientSocket.getInputStream();
         OutputStream output = clientSocket.getOutputStream();

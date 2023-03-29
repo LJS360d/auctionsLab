@@ -1,3 +1,4 @@
+import java.io.*;
 import java.sql.*;
 
 public class AuctionsLabHttpServer {
@@ -13,42 +14,64 @@ public class AuctionsLabHttpServer {
 
     public static void main(String[] args) throws Exception {
         try {
-            System.out.println(">Connecting to Database...");
+
+            System.out.println("-Connecting to Database...");
             sqlConnection = DriverManager.getConnection(DB_URL, USER, PASS);
-            System.out.println(">Connection with " + DB_URL + " Established");
+            System.out.println(">Connection with " + DB_URL + " Established\n");
+
+            System.out.println("-Initializing SQL Statement...");
             statement = sqlConnection.createStatement();
-            System.out.println(">Initialized SQL Statement");
-            amogus();
-            new UDPServer(MULTICAST_PORT);
-            new TCPServer(PORT, sqlConnection);
-        }catch (Exception e){
+            System.out.println(">SQL Statement Initialized\n");
+
+            System.out.println("-Starting Node.JS Proxy...");
+            runMiddleMan();
+
+            System.out.println("-Starting UDP Handler...");
+            new UDPServer(MULTICAST_PORT, statement);
+
+            System.out.println("-Starting TCP Handler...");
+            new TCPServer(PORT, statement);
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    private static void amogus() {
-        System.out.println("-----------------⣠⣤⣤⣤⣤⣤⣤⣤⣤⣄⡀---------");
-        System.out.println("-------------⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤--------");
-        System.out.println("-------------⣼⣿⠋-------⢀⣀⣀⠈⢻⣿⣿⡄------");
-        System.out.println("------------⣸⣿⡏---⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄-----");
-        System.out.println("------------⣿⣿⠁--⢰⣿⣿⣯⠁-------⠈⠙⢿⣷⡄---");
-        System.out.println("------⣀⣤⣴⣶⣶⣿⡟---⢸⣿⣿⣿⣆----------⣿⣷----");
-        System.out.println("-----⢰⣿⡟⠋⠉⣹⣿⡇---⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿??----");
-        System.out.println("-----⢸⣿⡇--⣿⣿⡇----⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿??----");
-        System.out.println("-----⣸⣿⡇--⣿⣿⡇-----⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻???----");
-        System.out.println("-----⣿⣿⠁--⣿⣿⡇-----------------⢸⣿⣧----");
-        System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
-        System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
-        System.out.println("-----⢿⣿⡆--⣿⣿⡇-----------------⢸⣿⡇----");
-        System.out.println("-----⠸⣿⣧⡀-⣿⣿⡇-----------------⣿⣿⠃----");
-        System.out.println("------⠛⢿⣿⣿⣿⣿⣇-----⣰⣿⣿⣷⣶⣶⣶⣶⢠⣿⣿????----");
-        System.out.println("------------⣿⣿------⣿⣿⡇-⣽⣿⡏--⢸⣿?-----");
-        System.out.println("------------⣿⣿------⣿⣿⡇-⢹⣿⡆---⣸⣿⠇----");
-        System.out.println("------------⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁--⠻⣿⣿⣿⣿⡿??-----");
-        System.out.println("------------⠈⠛⠻⠿⠿⠿⠿⠋⠁----------------");
-
+    public static void runMiddleMan() {
+        new Thread(() -> {
+            try {
+                // String[] command = {"cmd.exe", "/c", "code", "--reuse-window",
+                // "--new-terminal", "--wait", "--command", "node middleMan.js"};
+                String[] command = { "cmd.exe", "/c", "start", "cmd.exe", "/k", "node", "proxyServer.js" };
+                ProcessBuilder pb = new ProcessBuilder(command);
+                pb.start();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }).start();
     }
-
-    
-
+    /*
+     * private static void amogus() {
+     * System.out.println("-----------------⣠⣤⣤⣤⣤⣤⣤⣤⣤⣄⡀---------");
+     * System.out.println("-------------⢀⣴⣿⡿⠛⠉⠙⠛⠛⠛⠛⠻⢿⣿⣷⣤--------");
+     * System.out.println("-------------⣼⣿⠋-------⢀⣀⣀⠈⢻⣿⣿⡄------");
+     * System.out.println("------------⣸⣿⡏---⣠⣶⣾⣿⣿⣿⠿⠿⠿⢿⣿⣿⣿⣄-----");
+     * System.out.println("------------⣿⣿⠁--⢰⣿⣿⣯⠁-------⠈⠙⢿⣷⡄---");
+     * System.out.println("------⣀⣤⣴⣶⣶⣿⡟---⢸⣿⣿⣿⣆----------⣿⣷----");
+     * System.out.println("-----⢰⣿⡟⠋⠉⣹⣿⡇---⠘⣿⣿⣿⣿⣷⣦⣤⣤⣤⣶⣶⣶⣶⣿??----");
+     * System.out.println("-----⢸⣿⡇--⣿⣿⡇----⠹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿??----");
+     * System.out.println("-----⣸⣿⡇--⣿⣿⡇-----⠉⠻⠿⣿⣿⣿⣿⡿⠿⠿⠛⢻???----");
+     * System.out.println("-----⣿⣿⠁--⣿⣿⡇-----------------⢸⣿⣧----");
+     * System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
+     * System.out.println("-----⣿⣿---⣿⣿⡇-----------------⢸⣿⣿----");
+     * System.out.println("-----⢿⣿⡆--⣿⣿⡇-----------------⢸⣿⡇----");
+     * System.out.println("-----⠸⣿⣧⡀-⣿⣿⡇-----------------⣿⣿⠃----");
+     * System.out.println("------⠛⢿⣿⣿⣿⣿⣇-----⣰⣿⣿⣷⣶⣶⣶⣶⢠⣿⣿????----");
+     * System.out.println("------------⣿⣿------⣿⣿⡇-⣽⣿⡏--⢸⣿?-----");
+     * System.out.println("------------⣿⣿------⣿⣿⡇-⢹⣿⡆---⣸⣿⠇----");
+     * System.out.println("------------⢿⣿⣦⣄⣀⣠⣴⣿⣿⠁--⠻⣿⣿⣿⣿⡿??-----");
+     * System.out.println("------------⠈⠛⠻⠿⠿⠿⠿⠋⠁----------------");
+     * 
+     * }
+     */
 }

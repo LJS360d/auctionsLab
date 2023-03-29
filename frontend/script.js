@@ -44,7 +44,7 @@ function renderItem(itemRes) {
 }
 
 function avoidOverflowFormat(string) {
-    const CUT_POINT = 12
+    const CUT_POINT = 14
     if (string.length > CUT_POINT) {
         return `${string.substring(0, CUT_POINT - 1)}...`
     } else {

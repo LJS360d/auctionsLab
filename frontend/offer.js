@@ -7,7 +7,7 @@ import { setInputFilter } from "./modules/setInputFilter.js"
 const itemID = new URL(location.href).searchParams.get('itemID');
 renderOfferPageOffAPIResponse(await APIService.post(itemID,'/offerPage'));
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
-    window.open('/index.html',"_self")
+    window.open('/homepage.html',"_self")
     catalogueManager.clearCatalogue()
     const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
     renderItemsOffAPIResponse(await APIService.postGetByName(searchValue))

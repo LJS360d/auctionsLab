@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./modules/styles/auth.css">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+    <script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
+    <title>Login</title>
+    <script src="./modules/snackbarManager.js" type="module"></script>
+    <script src="./modules/APIService.js" type="module"></script>
+    <script src="login.js" type="module"></script>
+</head>
+
+<body>
+    <form class="container" autocomplete="off">
+        <div class="form-header">
+            <h2>Login </h2>
+            <img class="logo" alt="Logo" id="logo">
+        </div>
+        <label for="nameInput"><b>Username or Email</b></label>
+        <input type="text" placeholder="Enter Username or Email" name="nameInput" required>
+
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="password" required>
+
+        <button class="item-button" style="color:black;--c:#33ff28;" type="submit">Login <i
+                class="fa fa-paper-plane"></i></button>
+        <div class="form-footer">
+            <input type="checkbox" checked="checked" name="remember">
+            <label> Remember me</label>
+        </div>
+        <br>
+        <div class="register-link">
+            <label>Don't have an account?</label><a href="/register.html"><b>Register here</b></a>
+        </div>
+    </form>
+</body>
+
+</html>

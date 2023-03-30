@@ -70,7 +70,12 @@ export async function get(endpoint) {
     http.send();
   });
 }
-
+/**
+ * 
+ * @param {String} body 
+ * @param {String} endpoint 
+ * @returns 
+ */
 export async function post(body, endpoint) {
   //return await fetch(API_URL+endpoint,{method:'POST',body:body}).then(res => res.json())
   return new Promise((resolve, reject) => {
@@ -98,5 +103,4 @@ export async function post(body, endpoint) {
 }
 
 export async function sendUDP() {
-  const socket = io("ws")
 }

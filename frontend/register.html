@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="styles.css">
+	<link rel="stylesheet" href="./modules/styles/auth.css">
+	<script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
+	<title>Register</title>
+	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
+	<script src="./modules/snackbarManager.js" type="module"></script>
+	<script src="register.js" type="module"></script>
+</head>
+
+<body>
+	
+	<form class="container" autocomplete="off">
+		<div class="form-header">
+			<h2>Register </h2>
+			<img class="logo" alt="Logo" id="logo">
+		</div>
+		<label for="nameInput"><b>Username</b></label>
+		<input type="text" placeholder="Enter Username" name="username" required>
+
+		<label for="psw"><b>Password</b></label>
+		<input type="password" placeholder="Enter Password" name="password" required>
+
+		<label for="dob"><b>Date of Birth</b></label>
+		<input type="date" name="dob" required>
+
+		<label for="email"><b>Email</b></label>
+		<input type="email" placeholder="Enter Email" name="email" required>
+
+		<button class="item-button" style="color:black;--c:#33ff28;" type="submit">Register Me!  <i class="fa fa-paper-plane"></i></button>
+		<div class="form-footer">
+			<input type="checkbox" checked="checked" name="remember"> 
+			<label>  Remember me</label>
+		</div>
+		
+	</form>	
+</body>

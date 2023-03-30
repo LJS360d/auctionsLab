@@ -8,7 +8,6 @@ if(params.has('nameInput') && params.has('password')){
     if(validateLogin(await APIService.post(JSON.stringify(authData), "/login"), authData.nameInput, params.get('remember'))) {
         showSnackbarRedText("Something went wrong...");
     }else window.open('/homepage.html', "_self")
-
 }
 
 /**

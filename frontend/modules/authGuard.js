@@ -1,5 +1,5 @@
 export function checkAuth() {
-    if (!sessionStorage.getItem('username') || !localStorage.getItem('username')) {
+    if (!sessionStorage.getItem('uuid') && !localStorage.getItem('uuid')) {
         window.location.href = '/login.html';
     }
 }

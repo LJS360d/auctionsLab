@@ -1,5 +1,6 @@
 import java.io.*;
 import java.sql.*;
+import java.util.concurrent.TimeUnit;
 
 public class AuctionsLabHttpServer {
     final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -24,7 +25,8 @@ public class AuctionsLabHttpServer {
             System.out.println(">SQL Statement Initialized\n");
 
             System.out.println("-Starting Node.JS Proxy...");
-            runMiddleMan();
+            runProxy();
+            System.out.println(">Proxy Server Started, Check Logs at ./proxy.log\n");
 
             System.out.println("-Starting UDP Handler...");
             new UDPServer(MULTICAST_PORT, statement);
@@ -37,14 +39,23 @@ public class AuctionsLabHttpServer {
         }
     }
 
-    public static void runMiddleMan() {
+    public static void runProxy() {
         new Thread(() -> {
             try {
                 // String[] command = {"cmd.exe", "/c", "code", "--reuse-window",
                 // "--new-terminal", "--wait", "--command", "node middleMan.js"};
-                String[] command = { "cmd.exe", "/c", "start", "cmd.exe", "/k", "node", "proxyServer.js" };
+                String[] command = { "cmd.exe", "/c", "start", "/B", "cmd.exe", "/k", "node", "proxyServer.js" };
                 ProcessBuilder pb = new ProcessBuilder(command);
-                pb.start();
+
+                Process process = pb.start();
+                Runtime.getRuntime().addShutdownHook(new Thread(() -> {
+                    process.destroy();
+                    try {
+                        process.waitFor(1, TimeUnit.SECONDS);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                }));
             } catch (IOException e) {
                 e.printStackTrace();
             }

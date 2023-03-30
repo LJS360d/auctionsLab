@@ -20,12 +20,12 @@ function validateLogin(valid, username, remember) {
         showSnackbarRedText("Login Information Invalid");
         return false;
     } else {
-        if (remember === "on") {
-            localStorage.setItem(username)
-        }else{
-            sessionStorage.setItem(username)
+        if (remember !== "on") {
+            sessionStorage.setItem('username', username)
+        } else {
+            localStorage.setItem('username', username)
         }
-        window.open('/homepage.html',"_self")
+        window.open('/homepage.html', "_self")
     }
 
 }

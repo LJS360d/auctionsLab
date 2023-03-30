@@ -17,6 +17,8 @@
 `/src`  
 
 - AuctionsLabHttpServer.java 
+- TCPServer.java
+- UDPServer.java
 
 `/sql`  
 
@@ -31,12 +33,15 @@
 `/modules`
 
  - **APIService.js**
+
+ - **authGuard.js**
    
  - buttonsManager.js
    
  - catalogueManager.js
    
  - snackbarManager.js
+
 
     `Single Function Files`
  - getLocalValute()
@@ -56,15 +61,20 @@
 
 **`styles.css`**  <-- *Global Styles*
 
-**`index.html`**  <-- *Homepage/Catalogue*
-
-**`script.js`**   <-- *Homepage Script*
+- **homepage.html**  <-- *Homepage/Catalogue*
+- **homepage.js**   <-- *Homepage Script*
 
 
 - offer.html	  <-- *Opened on **Make An Offer Button Click***
-
 - offer.js	  <-- *Offer Page Script*
 
 - sendoffer.html  <-- *Opened on **Confirm** button click in Offer Page*
-
 - sendoffer.js    <-- *Script Run to send the offer Data to the NodeJS Proxy*
+
+`Auth Pages`
+
+- login.html 
+- login.js
+
+- register.html
+- register.js

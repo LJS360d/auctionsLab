@@ -10,7 +10,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -79,7 +78,7 @@ public class TCPServer {
     private static void handleGet(String path, OutputStream output) throws Exception {
         if (path.equals("/")) {
             ResultSet rs = statement.executeQuery("Select * from items");
-            String response = "{\"message\": \"" + parseResultSet(rs).toString() + "\"}";
+            String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -94,7 +93,7 @@ public class TCPServer {
 
     private static void handlePost(String path, String body, OutputStream output) throws Exception {
         if (path.equals("/")) {
-            String response = "{\"message\": \"" + body + "\"}";
+            String response = body;
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -110,7 +109,7 @@ public class TCPServer {
                 query = "Select * from items where Item_Name like '%" + body + "%'";
             }
             ResultSet rs = statement.executeQuery(query);
-            String response = "{\"message\": \"" + parseResultSet(rs).toString() + "\"}";
+            String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -121,7 +120,7 @@ public class TCPServer {
         } else if (path.equals("/offerPage")) {
             if (!body.isEmpty() && isNumeric(body)) {
                 ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
-                String response = "{\"message\": \"" + parseResultSet(rs).toString() + "\"}";
+                String response = parseResultSet(rs).toString();
                 String headers = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: application/json\r\n" +
                         "Access-Control-Allow-Origin: *\r\n" +

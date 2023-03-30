@@ -39,7 +39,7 @@ BEGIN
     DECLARE last_bid_address VARCHAR(24);
     SELECT `Bid_Address` INTO last_bid_address FROM `Items` ORDER BY `ItemID` DESC LIMIT 1;
     IF last_bid_address IS NULL THEN
-        SET NEW.`Bid_Address` = '224.0.0.1';
+        SET NEW.`Bid_Address` = '224.0.0.2';
     ELSE
         SET @last_octet = CAST(SUBSTRING_INDEX(last_bid_address, '.', -1) AS UNSIGNED);
         IF @last_octet = 255 THEN

@@ -1,6 +1,6 @@
 .snackbar {
     position: sticky;
-    max-width: 250px;
+    width: 250px;
     background-color: #333;
     color:#fff;
     text-align: center;
@@ -9,7 +9,6 @@
     z-index: 1;
     margin-left: 1rem;
     bottom: 30px;
-    -webkit-animation: fadein 0.5s, fadeout 0.5s 2.5s;
     animation: fadein 0.5s, fadeout 0.5s 2.5s;
 }
 .snackbar>div.snackbar-content{

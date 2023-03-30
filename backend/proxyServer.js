@@ -2,7 +2,8 @@ const http = require('http').createServer();
 const socketUDP = require('dgram').createSocket('udp4');
 const socketTCP = require('socket.io')(http, { cors: { origin: "*" } });
 http.listen(9098, () => console.log(`>TCP MiddleMan listening on localhost:${http.address().port}`))
-socketUDP.bind(9099); socketUDP.on('listening', () => console.log(`>UDP middleMan listening on localhost:${socketUDP.address().port}`));
+socketUDP.bind(9099, () => {socketUDP.addMembership('224.0.0.1')})
+socketUDP.on('listening', () => console.log(`>UDP middleMan listening on localhost:${socketUDP.address().port}`));
 
 socketTCP.on('connection', (socket) => {
     console.log("TCP>Accepted Handshake from client");
@@ -24,5 +25,5 @@ socketTCP.on('connection', (socket) => {
 socketUDP.on('message', (msg, rinfo) => {
     console.log(`Received ${msg.length} bytes from ${rinfo.address}:${rinfo.port}`);
     console.log(`Data: ${msg.toString()}`);
-
+    socketTCP.emit('newoffer',msg.toString())
 });

@@ -1,19 +1,13 @@
-
-
 # Project Structure:
-
-
-
-  
 
 ## `Backend` 
 #### Plain Java with [JDBC](https://docs.oracle.com/javase/8/docs/technotes/guides/jdbc/)  and [java.net](https://docs.oracle.com/javase/8/docs/api/java/net/package-summary.html) Integration with a NodeJS Proxy for sending UDP Datagrams to the main Backend 
 
-`/lib`  
+`/lib` <-- ***Dependencies*** 
 
 - **mysql-connector-j-8.0.31.jar** <-- **JDBC**
 - json-20230227.jar <-- *Library needed to parse the ResultSet of a Query Result into a JSON format*
-
+- json-simple-1.1.1.jar <-- *For String to JSON Conversion in UDP Server*
 `/src`  
 
 - AuctionsLabHttpServer.java 
@@ -22,13 +16,13 @@
 
 `/sql`  
 
-- auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!!***
+- auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!***
 
 
 **`proxyServer.js`** <--*The NodeJS Proxy, **Runs on a different terminal** when launching the main Backend*
   
 ## `Frontend` 
-#### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests 
+#### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests, Using Socket.io to dialog with Proxy
 
 `/modules`
 
@@ -52,6 +46,7 @@
 	- modal.css
 	- snackbar.css
 	- offer.css
+	- auth.css <-- *for both login.html and register.html*
 
 	`/models`
 	- **itemsResponseModels.js**

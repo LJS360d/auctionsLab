@@ -32,9 +32,10 @@ export class ItemResponseModel {
 export class ItemResponseJSON{
     itemResponseModelArray;
     /**
+     * The ResultSet.toString() that is sent by the java backend
      * @param {String} resultSet 
      */
     constructor(resultSet){
-        this.itemResponseModelArray = JSON.parse('['+resultSet.split('[')[1].split(']')[0]+']')
+        this.itemResponseModelArray = JSON.parse(resultSet)
     }
 }

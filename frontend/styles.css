@@ -32,7 +32,7 @@ div.header-right {
     gap: 1rem;
 }
 
-button.header-button {
+span.header-button {
     font-family: Arial, Helvetica, sans-serif;
     padding: 10px;
     border: 2px inset #ffa228;
@@ -42,7 +42,7 @@ button.header-button {
     transition: 0.3s;
 }
 
-button.header-button:hover {
+span.header-button:hover {
     transition: 0.3s;
     scale: 1.1;
     background-color: #2e3d4f;

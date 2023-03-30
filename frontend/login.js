@@ -6,8 +6,10 @@ const params = new URL(location.href).searchParams;
 
 //Is this Unsafe?
 const authData = { nameInput: params.get('nameInput'), password: params.get('password') }
+
 //validateLogin("valid", authData.nameInput, params.get('remember'))
 validateLogin(await APIService.post(JSON.stringify(authData), "/login"), authData.nameInput, params.get('remember'))
+
 /**
  * Check if the login data provided is valid
  * 

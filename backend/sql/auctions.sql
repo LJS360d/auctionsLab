@@ -2,7 +2,7 @@ DROP DATABASE IF EXISTS `auctions`;
 CREATE DATABASE IF NOT EXISTS `auctions`;
 USE `auctions`;
 CREATE TABLE IF NOT EXISTS `Users` (
-`UserID` VARCHAR(36) PRIMARY KEY,
+`UserUUID` VARCHAR(36) PRIMARY KEY,
 `Username` VARCHAR(50) NOT NULL,
 `Password` VARCHAR(50) NOT NULL,
 `Birth_Date` DATE NOT NULL,
@@ -12,7 +12,7 @@ DELIMITER $$
 CREATE TRIGGER `set_user_id` BEFORE INSERT ON `Users`
 FOR EACH ROW
 BEGIN
-    SET NEW.`UserID` = UUID();
+    SET NEW.`UserUUID` = UUID();
 END$$
 DELIMITER ;
 INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES
@@ -31,7 +31,7 @@ CREATE TABLE IF NOT EXISTS `Items` (
 `Seller` VARCHAR(50) DEFAULT 'Anonymous',
 `Bid_Address` VARCHAR(24),
 `Expire_Date` DATETIME DEFAULT (NOW() + INTERVAL 7 DAY),
-FOREIGN KEY (`Highest_Bidder`) REFERENCES `Users`(`UserID`)
+FOREIGN KEY (`Highest_Bidder`) REFERENCES `Users`(`UserUUID`)
 );
 CREATE TRIGGER `generate_bid_address` BEFORE INSERT ON `Items`
 FOR EACH ROW

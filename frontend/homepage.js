@@ -1,9 +1,9 @@
-import * as catalogueManager from "./modules/catalogueManager.js";
+import * as catalogueManager from "./modules/managers/catalogueManager.js";
 import * as APIService from "./modules/APIService.js"
 import * as Models from "./modules/models/ItemsResponseModels.js"
-import * as buttonsManager from "./modules/buttonsManager.js"
-import { timeLeftUntilDate } from "./modules/timeLeftUntilDate.js";
-import { getLocalValute } from "./modules/getLocalValute.js";
+import * as buttonsManager from "./modules/managers/buttonsManager.js"
+import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
+import { getLocalValute } from "./modules/utils/getLocalValute.js";
 
 renderItemsOffAPIResponse(await APIService.getAllItems())
 const sendquery = document.getElementById('searchbutton').onclick = async () => {

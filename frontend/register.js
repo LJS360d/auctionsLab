@@ -1,7 +1,8 @@
 //Get url params and send to Backend for registration 
 //POST /register {"Username":"Luciano","Password":"Puppa","BirthDate":"1958-04-09","Email":"lucianocarlotti58@gmail.com"} 
 import * as APIService from "./modules/APIService.js"
-import { showSnackbarRedText } from "./modules/snackbarManager.js";
+import { isValidUUID } from "./modules/utils/isValidUUID.js";
+import { showSnackbarRedText } from "./modules/managers/snackbarManager.js";
 const params = new URL(location.href).searchParams;
 //Is this Unsafe?
 const regData = {
@@ -11,14 +12,14 @@ const regData = {
     email: params.get('email')
 }
 
-if (params.values.length === 5 && params.has('username') && params.has('password') && params.has('date-of-birth') && params.has('email')){
+if (params.has('username') && params.has('password') && params.has('date-of-birth') && params.has('email')){
     isRegistrationSuccess(await APIService.post(JSON.stringify(regData), "/register"), authData.nameInput, params.get('remember')) ?
     window.open('/homepage.html', "_self"):showSnackbarRedText("Could not register");
 
 }
 
 function isRegistrationSuccess(uuid, username, remember) {
-    if (uuid === "invalid") {
+    if (uuid === "invalid" && isValidUUID(uuid)) {
         return false;
     } else {
         if (remember !== "on") {

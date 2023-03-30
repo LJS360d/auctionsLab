@@ -1,5 +1,5 @@
 import { showSnackbarGreenText } from "./snackbarManager.js";
-import { setInputFilter } from "./setInputFilter.js";
+import { setInputFilter } from "../utils/setInputFilter.js";
 
 const watchlistButton = document.getElementById('watchlist-button')
 export var onWatchListButtonClick = watchlistButton.onclick = function () {

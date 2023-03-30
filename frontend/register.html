@@ -10,7 +10,7 @@
 	<script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
 	<title>Register</title>
 	<link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
-	<script src="./modules/snackbarManager.js" type="module"></script>
+	<script src="./modules/managers/snackbarManager.js" type="module"></script>
 	<script src="register.js" type="module"></script>
 </head>
 
@@ -21,16 +21,16 @@
 			<h2>Register </h2>
 			<img class="logo" alt="Logo" id="logo">
 		</div>
-		<label for="nameInput"><b>Username</b></label>
+		<label for="nameInput">Username</label>
 		<input type="text" placeholder="Enter Username" name="username" required>
 
-		<label for="psw"><b>Password</b></label>
+		<label for="psw">Password</label>
 		<input type="password" placeholder="Enter Password" name="password" required>
 
-		<label for="dob"><b>Date of Birth</b></label>
+		<label for="dob">Date of Birth</label>
 		<input type="date" name="date-of-birth" required>
 
-		<label for="email"><b>Email</b></label>
+		<label for="email">Email</label>
 		<input type="email" placeholder="Enter Email" name="email" required>
 
 		<button class="item-button" style="color:black;--c:#33ff28;" type="submit">Register Me!  <i class="fa fa-paper-plane"></i></button>
@@ -38,6 +38,9 @@
 			<input type="checkbox" checked="checked" name="remember"> 
 			<label>  Remember me</label>
 		</div>
-		
+		<br>
+		<div class="auth-link">
+            <label>Already have an account?</label><a href="/login.html">Login here!</a>
+        </div>
 	</form>	
 </body>

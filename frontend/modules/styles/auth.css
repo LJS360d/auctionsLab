@@ -57,11 +57,12 @@ input[type=email] {
     box-sizing: border-box;
     font-size: 16px;
 }
-div.register-link{
+div.auth-link{
+    font-weight: bold;
     font-size: medium;
 }
 label {
-    font-weight: bolder;
+    font-weight: bold;
 }
 
 button {

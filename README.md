@@ -8,6 +8,7 @@
 - **mysql-connector-j-8.0.31.jar** <-- **JDBC**
 - json-20230227.jar <-- *Library needed to parse the ResultSet of a Query Result into a JSON format*
 - json-simple-1.1.1.jar <-- *For String to JSON Conversion in UDP Server*
+
 `/src`  
 
 - AuctionsLabHttpServer.java 
@@ -26,21 +27,21 @@
 
 `/modules`
 
- - **APIService.js**
+ - **APIService.js** <--**Handles Requests to the Backend**
 
  - **authGuard.js**
-   
- - buttonsManager.js
-   
- - catalogueManager.js
-   
- - snackbarManager.js
 
+    `/managers`
+   
+    - buttonsManager.js  
+    - catalogueManager.js
+    - snackbarManager.js
 
-    `Single Function Files`
- - getLocalValute()
- - timeLeftUntilDate(date)
- - setInputFilter(inputbox, inputFilter, errMsg)
+    `/utils` <-- *Single Function Files*
+
+    - getLocalValute()
+    - timeLeftUntilDate(date)
+	- setInputFilter(inputbox, inputFilter, errMsg)
   
 	`/styles`
 	- modal.css
@@ -54,11 +55,11 @@
 	`/assets`
 	- images...
 
-**`styles.css`**  <-- *Global Styles*
+`Pages(Components)`
+- **styles.css**  <-- *Global Styles*
 
 - **homepage.html**  <-- *Homepage/Catalogue*
 - **homepage.js**   <-- *Homepage Script*
-
 
 - offer.html	  <-- *Opened on **Make An Offer Button Click***
 - offer.js	  <-- *Offer Page Script*

@@ -1,9 +1,9 @@
-import * as catalogueManager from "./modules/catalogueManager.js";
 import * as APIService from "./modules/APIService.js"
 import * as Models from "./modules/models/ItemsResponseModels.js"
-import { timeLeftUntilDate } from "./modules/timeLeftUntilDate.js";
-import { getLocalValute } from "./modules/getLocalValute.js";
-import { setInputFilter } from "./modules/setInputFilter.js"
+import * as catalogueManager from "./modules/managers/catalogueManager.js";
+import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
+import { getLocalValute } from "./modules/utils/getLocalValute.js";
+import { setInputFilter } from "./modules/utils/setInputFilter.js"
 const itemID = new URL(location.href).searchParams.get('itemID');
 renderOfferPageOffAPIResponse(await APIService.post(itemID,'/offerPage'));
 const sendquery = document.getElementById('searchbutton').onclick = async () => {

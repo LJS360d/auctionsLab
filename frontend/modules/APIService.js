@@ -23,7 +23,7 @@ export async function getAllItems() {
   });
 }
 
-export async function postGetByName(itemName) {
+export async function postGetByName(searchValue, filterValue) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
     const endpoint = '/getbyname';
@@ -43,7 +43,7 @@ export async function postGetByName(itemName) {
     };
 
     http.open('POST', API_URL + endpoint, true);
-    http.send(itemName ?? '');
+    http.send(JSON.stringify({searchValue:searchValue ?? '',filterValue:filterValue ?? 'ItemID'}));
   });
 }
 

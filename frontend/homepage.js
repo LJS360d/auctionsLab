@@ -8,7 +8,8 @@ const params = new URL(location.href).searchParams
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     catalogueManager.clearCatalogue()
     const searchValue = params.has('sv') ? params.get('sv') : String(document.getElementById('searchinput').value).toLowerCase()
-    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue))
+    const filterValue = params.has('fv') ? params.get('fv') : String(document.getElementById('searchfilter').value)
+    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue,filterValue))
 }
 //Search Value
 if(!params.has('sv'))
@@ -16,6 +17,7 @@ renderItemsOffAPIResponse(await APIService.getAllItems())
 else{
     sendquery()
     params.delete('sv')
+    params.delete('fv')
 }
 
 document.addEventListener('keypress', (e) => {

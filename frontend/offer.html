@@ -21,6 +21,16 @@
         <div class="header-left">
             <img class="logo" alt="Logo" id="logo" onclick="window.open('homepage.html','_self')">
             <div class="searchbar">
+                <span class="searchfilter">
+                    <label>Filter by:</label>
+                    <select id="searchfilter">
+                        <option value="ItemID">ID</option>
+                        <option value="Item_Name">Name</option>
+                        <option value="Current_Bid desc">Highest Offer</option>
+                        <option value="Current_Bid asc">Lowest Offer</option>
+                        <option value="Expire_Date">Expire Date</option>
+                      </select>
+                </span>
                 <input type="text" class="searchinput" id="searchinput" maxlength="500" placeholder="Search" pattern="[^'\x22]+">
                 <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>
             </div>

@@ -103,10 +103,13 @@ public class TCPServer {
             output.write(response.getBytes());
         } else if (path.equals("/getbyname")) {
             String query = "";
-            if (isNumeric(body)) {
-                query = "Select * from items where ItemID =" + body;
+            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+            String searchValue = parsedBody.get("searchValue").toString();
+            String filterValue = parsedBody.get("filterValue").toString();
+            if (isNumeric(searchValue)) {
+                query = "Select * from items where ItemID =" + searchValue;
             } else {
-                query = "Select * from items where Item_Name like '%" + body + "%'";
+                query = "Select * from items where Item_Name like '%" + searchValue + "%' order by "+filterValue ;
             }
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();

@@ -1,10 +1,7 @@
 import java.io.IOException;
 import java.net.*;
 import java.sql.*;
-
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
 
 public class UDPServer{
     static MulticastSocket multicastSocket = null;
@@ -32,7 +29,7 @@ public class UDPServer{
                     System.out.println("UDP>Received message: " + message + " from " + packet.getAddress()
                             + ":" + packet.getPort());
 
-                    JSONObject parsedRequest = parseStringToJson(message);
+                    JSONObject parsedRequest = JSONParse.parseStringToJson(message);
 
                     String response = handleNewOffer(parsedRequest);
                     proxyAddr = packet.getAddress();
@@ -69,7 +66,5 @@ public class UDPServer{
         }
     }
 
-    public static JSONObject parseStringToJson(String jsonString) throws ParseException {
-        return (JSONObject) new JSONParser().parse(jsonString);
-    }
+    
 }

@@ -7,7 +7,8 @@ const itemID = new URL(location.href).searchParams.get('itemID');
 renderOfferPageOffAPIResponse(await APIService.post(itemID, '/offerPage'));
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     const searchValue = document.getElementById('searchinput').value
-    window.open('/homepage.html?sv=' + searchValue, "_self")
+    const filterValue = document.getElementById('searchfilter').value
+    window.open('/homepage.html?sv=' + searchValue + "&fv=" + filterValue, "_self")
 
 }
 document.addEventListener('keypress', (e) => {
@@ -32,13 +33,13 @@ function renderOfferPageOffAPIResponse(itemsResponse) {
     <label>Seller:${item.seller}</label>
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
     <h3>How Much do you Offer?</h3>
-    <label>Highest Offer:${item.currentBid+getLocalValute()}</label>
+    <label>Highest Offer:${item.currentBid + getLocalValute()}</label>
     <label>Highest Bid by:${getUsernameFromUUID(item.highestBidder)}</label>
     <label>Minimum Offer:${minOffer}${getLocalValute()}</label> 
     <form action="sendoffer.html" method="get" autocomplete="off">
     <input name="itemID" value="${itemID}" hidden="true">
     <input name="minOffer" value="${minOffer}" hidden="true">
-    <input class="offer-input" type="text" name="offerInput" placeholder="${minOffer+getLocalValute()}" required>
+    <input class="offer-input" type="text" name="offerInput" placeholder="${minOffer + getLocalValute()}" required>
     <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
     </form>
     </div>`;
@@ -54,10 +55,10 @@ function add15PercentTo(number) {
     const parsedNumber = parseFloat(number);
     return (parsedNumber < 1) ? 1 : parsedNumber + (parsedNumber * 0.15);
 }
-function getUsernameFromUUID(uuid){
+function getUsernameFromUUID(uuid) {
     return uuid;
-    return new Promise((resolve,reject)=>{
+    return new Promise((resolve, reject) => {
         //TODO: POST endpoint that returns username given UUID
-        resolve("User"+uuid);
+        resolve("User" + uuid);
     })
 }

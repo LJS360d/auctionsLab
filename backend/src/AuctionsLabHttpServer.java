@@ -82,4 +82,38 @@ public class AuctionsLabHttpServer {
      * 
      * }
      */
+     public String ViewEmailOrUsername(JSONObject object)
+    {
+        final String invalid="ivalid";
+        boolean verifica=false;
+        String nameInput = (String)object.get("nameInput");
+        String password = (String)object.get("password");
+        char[] chars = new char[nameInput.length()];
+        for(int c=0;nameInput.length;c++)
+        ResultSet rs1 = statement.executeQuery("Select * From Users where Username="+"'"+nameInput+"'"+" and "+"password="+"'"+password+"'");
+        {
+            if(chars[c]==@);
+            while(rs1.next()){
+                String pas = rs1.getString("password");
+                if(pas==password)
+                {
+                    verifica=true;
+                }
+            }
+        }else {
+            while(rs1.next()){
+                String use = rs1.getString("Username");
+                if(use==nameInput)
+                {
+                    verifica=true;
+                }
+            }
+        }
+        if(verifica==true)
+        {
+            return rs1.getString("UserUUID");
+
+        }else return invalid;
+    } 
+}
 }

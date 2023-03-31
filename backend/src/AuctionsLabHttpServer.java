@@ -92,7 +92,7 @@ public class AuctionsLabHttpServer {
         for(int c=0;nameInput.length;c++)
         ResultSet rs1 = statement.executeQuery("Select * From Users where Username="+"'"+nameInput+"'"+" and "+"password="+"'"+password+"'");
         {
-            if(chars[c]==@);
+            if(chars[c]=="@");
             while(rs1.next()){
                 String pas = rs1.getString("password");
                 if(pas==password)

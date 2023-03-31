@@ -7,7 +7,6 @@ const authData = { nameInput: params.get('nameInput'), password: params.get('pas
 if(params.has('nameInput') && params.has('password')){
     const res = JSON.parse(await APIService.post(JSON.stringify(authData), "/login"))[0]
     let uuid = res ? res.UserUUID : '';
-    console.log(uuid);
     if(validateLogin(uuid, authData.nameInput, params.get('remember'))) {
         window.open('/homepage.html', "_self")
     }else

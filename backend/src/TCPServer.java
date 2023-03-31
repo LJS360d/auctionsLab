@@ -181,6 +181,31 @@ public class TCPServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
 
+        } else 
+        //Endpoint /register
+        if (path.equals("/register")) {
+            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+            String username = parsedBody.get("username").toString();
+            String password = parsedBody.get("password").toString();
+            String birthDate = parsedBody.get("birthDate").toString();
+            String email = parsedBody.get("email").toString();
+            
+            String insertquery = "INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
+            "('"+username+"', '"+password+"', '"+birthDate+"', '"+email+"');";
+            int rs = statement.executeUpdate(insertquery);
+            String response;
+            if(rs > 0){
+                ResultSet res = statement.executeQuery("SELECT userUUID FROM users WHERE Email = '"+email+"' AND Password = '"+password+"';");
+                response = parseResultSet(res).toString();
+            }else response = "[]";
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+
         }
         // 404
         else {
@@ -267,16 +292,12 @@ public class TCPServer {
     }
 
     public static boolean isValidEmail(String email) {
-        // Regular expression for email validation
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
                             "[a-zA-Z0-9_+&*-]+)*@" +
                             "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
                             "A-Z]{2,7}$";
     
-        // Create a Pattern object with the emailRegex
         Pattern pattern = Pattern.compile(emailRegex);
-    
-        // Check if the email matches the pattern
         if (email == null) {
             return false;
         }

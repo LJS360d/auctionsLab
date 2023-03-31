@@ -57,8 +57,13 @@ export var onProfileButtonClick = profileButton.onclick = function () {
     showUserProfile()
     function showUserProfile(){
         const username = localStorage.getItem('username') ?? sessionStorage.getItem('username')
-        //TODO:show user profile 
-        console.log(username);
+        const profileWindow = document.createElement('div')
+        profileWindow.innerHTML +=`
+        <span class="close" onclick="document.body.removeChild(this.parentElement)">&times;</span>
+        <h2>${username}</h2>
+        `;
+        profileWindow.className = "profile-window"
+        document.body.appendChild(profileWindow)
     }
 }
 

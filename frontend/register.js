@@ -8,18 +8,20 @@ const params = new URL(location.href).searchParams;
 const regData = {
     username: params.get('username'),
     password: params.get('password'),
-    birthDate: params.get('date-of-birth'),
+    birthDate: params.get('dateOfBirth'),
     email: params.get('email')
 }
 
-if (params.has('username') && params.has('password') && params.has('date-of-birth') && params.has('email')){
-    isRegistrationSuccess(await APIService.post(JSON.stringify(regData), "/register"), authData.nameInput, params.get('remember')) ?
-    window.open('/homepage.html', "_self"):showSnackbarRedText("Could not register");
-
+if (params.has('username') && params.has('password') && params.has('dateOfBirth') && params.has('email')) {
+    const res = JSON.parse(await APIService.post(JSON.stringify(regData), "/register"))[0]
+    let uuid = res ? res.UserUUID : '';
+    if (isRegistrationSuccess(uuid, regData.username, params.get('remember'))) {
+        window.open('/homepage.html', "_self")
+    } else showSnackbarRedText("Could not register");
 }
 
 function isRegistrationSuccess(uuid, username, remember) {
-    if (uuid === "invalid" && isValidUUID(uuid)) {
+    if (!isValidUUID(uuid) || uuid === '') {
         return false;
     } else {
         if (remember !== "on") {
@@ -32,5 +34,3 @@ function isRegistrationSuccess(uuid, username, remember) {
         return true;
     }
 }
-
-

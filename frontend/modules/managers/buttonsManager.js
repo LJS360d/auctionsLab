@@ -16,7 +16,7 @@ export var onWatchListButtonClick = watchlistButton.onclick = function () {
         modal.className = 'modal'
         modal.style.display = 'block'
         document.body.appendChild(modal)
-        document.addEventListener('keydown',closeModalOnEscape)
+        document.addEventListener('keydown', closeModalOnEscape)
     }
 }
 const sellButton = document.getElementById('sell-button')
@@ -45,10 +45,20 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         modal.className = 'modal'
         modal.style.display = 'block'
         document.body.appendChild(modal)
-        setInputFilter(document.querySelector('.value-input'), function(value) {
-            return /^\d*\.?\d{0,2}$/.test(value); 
-          }, "Only numbers with 2 or less decimal digits are allowed")
-        document.addEventListener('keydown',closeModalOnEscape)
+        setInputFilter(document.querySelector('.value-input'), function (value) {
+            return /^\d*\.?\d{0,2}$/.test(value);
+        }, "Only numbers with 2 or less decimal digits are allowed")
+        document.addEventListener('keydown', closeModalOnEscape)
+    }
+}
+
+const profileButton = document.getElementById('profile-button');
+export var onProfileButtonClick = profileButton.onclick = function () { 
+    showUserProfile()
+    function showUserProfile(){
+        const username = localStorage.getItem('username') ?? sessionStorage.getItem('username')
+        //TODO:show user profile 
+        console.log(username);
     }
 }
 
@@ -60,14 +70,14 @@ export function setItemButtonsOnclick() {
                 button.onclick = function () {
                     const itemID = button.value;
                     console.log('Offer' + itemID);
-                    window.open(`/offer.html?itemID=${itemID}`,'_self')
+                    window.open(`/offer.html?itemID=${itemID}`, '_self')
                 }
                 break;
             case 'watchlist':
                 button.onclick = function () {
                     const itemID = button.value;
-                    //Check watchlist IF itemID already present -> Red Text:"The item is already in your watchlist"
-                    showSnackbarGreenText("Item added to Watchlist")
+                    //TODO:Check watchlist IF itemID already present -> Red Text:"The item is already in your watchlist"
+                    showSnackbarGreenText("Not Yet Implemented")
                 }
                 break;
 
@@ -75,9 +85,9 @@ export function setItemButtonsOnclick() {
     })
 }
 
-function closeModalOnEscape(e){
-    if(e.key == 'Escape'){
+function closeModalOnEscape(e) {
+    if (e.key == 'Escape') {
         document.body.removeChild(document.querySelector('.modal'))
-        document.removeEventListener('keydown',closeModalOnEscape)
+        document.removeEventListener('keydown', closeModalOnEscape)
     }
 }

@@ -42,6 +42,10 @@ span.header-button {
     transition: 0.3s;
 }
 
+span#profile-button>i{
+    scale: 1.5;
+}
+
 span.header-button:hover {
     transition: 0.3s;
     scale: 1.1;

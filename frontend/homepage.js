@@ -4,7 +4,14 @@ import * as Models from "./modules/models/ItemsResponseModels.js"
 import * as buttonsManager from "./modules/managers/buttonsManager.js"
 import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";
-
+import { showSnackbarGreenText, showSnackbarRedText } from "./modules/managers/snackbarManager.js";
+const params = new URL(location.href).searchParams
+if(params.has('ogsb')){
+    showSnackbarGreenText('Offer Sent')
+}
+if(params.has('orsb')){
+    showSnackbarRedText('Something whent wrong...')
+}
 renderItemsOffAPIResponse(await APIService.getAllItems())
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     catalogueManager.clearCatalogue()

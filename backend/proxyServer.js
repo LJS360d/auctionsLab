@@ -1,17 +1,17 @@
 const fp = "proxy.log"
-const fs = require('fs');fs.writeFileSync(fp,'');
+const fs = require('fs'); fs.writeFileSync(fp, '');
 
 const http = require('http').createServer();
 const socketUDP = require('dgram').createSocket('udp4');
 const socketTCP = require('socket.io')(http, { cors: { origin: "*" } });
 http.listen(9098, () => log(`>TCP MiddleMan listening on localhost:${http.address().port}`))
-socketUDP.bind(9099, () => {socketUDP.addMembership('224.0.0.1')})
+socketUDP.bind(9099, () => { socketUDP.addMembership('224.0.0.1') })
 socketUDP.on('listening', () => log(`>UDP middleMan listening on localhost:${socketUDP.address().port}`));
 
 socketTCP.on('connection', (socket) => {
     log("TCP>Accepted Handshake from client");
-    socket.on('message', (message, ...args) => {
-        if (message == "newoffer") {
+    socket.on('message', (msg, ...args) => {
+        if (msg == "newoffer") {
             const itemID = args[0];
             const offerAmount = args[1];
 
@@ -25,12 +25,11 @@ socketTCP.on('connection', (socket) => {
     })
 })
 
-socketUDP.on('message', (msg, rinfo) => {
-    log(`Received ${msg.length} bytes from ${rinfo.address}:${rinfo.port}`);
+socketUDP.on('message', (msg, remoteInfo) => {
+    log(`Received ${msg.length} bytes from ${remoteInfo.address}:${remoteInfo.port}`);
     log(`Update: ${msg.toString()}`);
-    socketTCP.emit('newoffer',msg.toString())
+    socketTCP.emit('newoffer', msg.toString())
 });
-
-function log(string){
-    fs.appendFileSync(fp,string+"\n")
+function log(string) {
+    fs.appendFileSync(fp, string + "\n")
 }

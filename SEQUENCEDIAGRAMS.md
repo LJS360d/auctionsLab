@@ -1,18 +1,53 @@
-## Examples of Requests to the Backend 
+
+# Examples of Requests to the Backend
+
+### Sending a UDP Datagram to the Backend
 
 ```mermaid
+
 sequenceDiagram
-Client ->> Node Server: TCP Packet
-Node Server-->>Java UDP Server: Parsed UDP Packet
-Java UDP Server ->> Java UDP Server: Query
-Java UDP Server--x Client: Data
+
+Client ->> Node Proxy: TCP Packet => Payload
+
+Node Proxy ->>Java UDP Server: Payload => UPD Datagram
+
+Java UDP Server --x Java UDP Server: Datagram Buffer => Query
+
+Java UDP Server--x Client: Query Result
+
 ```
 
+### Sending a TCP Packet to the Backend
+
 ```mermaid
+
 sequenceDiagram
+
 Client ->> Server: GET / HTTP 1.1
+
+Server ->> Client: Payload: JSONStringify(SQL: Select * from items)
+
 Server ->> Client: HTTP 1.1 200 OK
+
 Server ->> Client: Content-Type: text/html
-Server ->> Client: Content-Length: 127
-Server ->> Client: {"message":"JSONArray[array]"}
+
+Server ->> Client: Content-Length: 1
+
 ```
+
+### Registering a new User
+
+```mermaid
+
+sequenceDiagram
+
+Client/register ->> Server: POST /register {regData}
+
+Server -> Server: execUpdate INSERT regData
+
+Server --x Client/register: Success: UserUUID
+alt Failed to Update
+	Server --x Client/register: Fail: 0
+end 
+```
+  

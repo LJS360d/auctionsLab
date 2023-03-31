@@ -1,17 +1,52 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="./modules/styles/loading.css">
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Sending Offer...</title>
     <script src="https://cdn.socket.io/socket.io-3.0.0.js" type="module"></script>
     <script src="./modules/APIService.js" type="module"></script>
     <script src="./modules/managers/snackbarManager.js" type="module"></script>
     <script src="sendoffer.js" type="module"></script>
+    <script type="text/javascript">
+        window.onload = setRandomFont
+        function setRandomFont() {
+            const fonts = [
+                "The Alaska",
+                "Comic Sans MS",
+                "Brush Script MT",
+                "Lucida Handwriting",
+                "Segoe Script",
+                "Freestyle Script",
+                "Marker Felt",
+                "Chalkduster",
+                "Snell Roundhand",
+                "Kristen ITC",
+                "Cursed Timer ULiL",
+                "Kalam"
+            ];
+            const newFont = fonts[Math.floor(Math.random() * fonts.length)];
+            document.querySelector('.loading-text').style.setProperty('font-family', newFont)
+        }
+    </script>
 </head>
+
 <body>
-    
+    <div id="loading-screen">
+        <div class="loading-icon-container">
+            <div class="loading-icon"></div>
+        </div>
+        <div class="loading-text" onclick="setRandomFont()">
+            <span class="shaky-loading">Loading</span>
+            <span class="dots">...</span>
+        </div>
+    </div>
+
+
 </body>
+
 </html>

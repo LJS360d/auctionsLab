@@ -1,6 +1,5 @@
 import java.io.*;
 import java.sql.*;
-import java.util.concurrent.TimeUnit;
 
 public class AuctionsLabHttpServer {
     final static String JDBC_DRIVER = "com.mysql.cj.jdbc.Driver";
@@ -48,13 +47,10 @@ public class AuctionsLabHttpServer {
                 ProcessBuilder pb = new ProcessBuilder(command);
 
                 Process process = pb.start();
+                System.out.println(">Proxy Server ProcessID:" + process.pid());
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> {
-                    process.destroy();
-                    try {
-                        process.waitFor(1, TimeUnit.SECONDS);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
+                    System.out.println(">Killing Proxy Server");
+                    System.out.println(process.destroyForcibly());
                 }));
             } catch (IOException e) {
                 e.printStackTrace();

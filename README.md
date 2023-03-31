@@ -39,15 +39,17 @@
 
     `/utils` <-- *Single Function Files*
 
+	- isValidUUID()
     - getLocalValute()
     - timeLeftUntilDate(date)
 	- setInputFilter(inputbox, inputFilter, errMsg)
   
 	`/styles`
+	- auth.css <-- *for both login.html and register.html*
+	- loading.css <-- *currently for sendoffer.html*
 	- modal.css
 	- snackbar.css
 	- offer.css
-	- auth.css <-- *for both login.html and register.html*
 
 	`/models`
 	- **itemsResponseModels.js**

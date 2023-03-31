@@ -26,7 +26,7 @@ CREATE TABLE IF NOT EXISTS `Items` (
 `Item_Name` VARCHAR(50) NOT NULL,
 `Item_Description` VARCHAR(300) DEFAULT "No item description",
 `Highest_Bidder` VARCHAR(36) DEFAULT NULL,
-`Minimum_Bid` FLOAT DEFAULT 0.01,
+`Minimum_Bid` FLOAT DEFAULT 0.00,
 `Current_Bid` FLOAT DEFAULT NULL,
 `Seller` VARCHAR(50) DEFAULT 'Anonymous',
 `Bid_Address` VARCHAR(24),
@@ -52,9 +52,11 @@ BEGIN
 END;
 INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`) VALUES
 ('assets/magdonal.png','Big Mag',"Viene dal Mag Donal"),
+('assets/cat-jam.gif','Cat Jam','he do be vibin doe'),
 ('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso"),
 ('assets/coca-cola.png','Coca Cola',"Una bottiglia di Coca e anche un pochino cola"),
 ('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello"),
+('assets/gandalf.gif','Luciano Carlotti IRL',"Epic Sax Guy (also known as Saxroll) is the nickname given to Sergey Stepanov, the saxophonist of the"),
 ('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente");
 INSERT INTO `items` (`Item_Name`,`Seller`,`Expire_Date`) VALUES
 ('Zappa da Vigna','Enrico Pasquale Pratticò','2023-04-29 00:00:00');

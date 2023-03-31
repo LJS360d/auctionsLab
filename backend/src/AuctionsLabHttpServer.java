@@ -51,6 +51,7 @@ public class AuctionsLabHttpServer {
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> {
                     System.out.println(">Killing Proxy Server");
                     System.out.println(process.destroyForcibly());
+                    UDPServer.shutdownProxy();
                 }));
             } catch (IOException e) {
                 e.printStackTrace();

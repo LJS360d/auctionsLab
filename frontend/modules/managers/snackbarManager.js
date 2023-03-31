@@ -23,10 +23,25 @@ export function showSnackbar(label,color) {
 function removeSnackbar(snackbar) {
     document.body.removeChild(snackbar)
 }
-
 export function showSnackbarGreenText(label){
     showSnackbar(label,"#20e036")
 }
 export function showSnackbarRedText(label){
     showSnackbar(label,"#d01313")
+}
+const params = new URL(location.href).searchParams
+//Offer Green Snack Bar
+if(params.has('ogsb')){
+    if(params.get('ogsb') == 1)
+    showSnackbarGreenText('Offer Sent')
+
+}
+//Offer Red Snack Bar
+if(params.has('orsb')){
+    if(params.get('orsb') == 1)
+    showSnackbarRedText('Something whent wrong...')
+
+    if(params.get('orsb') == 2)
+    showSnackbarRedText('Your offer is too low')
+
 }

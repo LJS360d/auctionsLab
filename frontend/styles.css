@@ -168,7 +168,7 @@ button.item-button {
 
 button.item-button:hover {
     --_p: 100%;
-    opacity: 0.8;
+    opacity: 0.9;
     transition: background-position .4s, background-size 0s;
 }
 

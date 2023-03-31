@@ -36,7 +36,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <label>Item Description</label>
             <textarea name="itemDescription" cols="10" rows="10" maxlength="150" placeholder="Write something cool about it"></textarea>
             <label>Minimum Bid Value</label>
-            <input class="value-input" type="text" name="minimumBidInput" placeholder="10.00€">
+            <input class="value-input" type="text" name="minimumBidInput" placeholder="10.00">
             <label>Expire Date</label>
             <input type="date" name="expireDate">
             <button class="item-button" type="submit" name="sellFormSubmit">Confirm  <i class="fa fa-paper-plane"></i></button>

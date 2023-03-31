@@ -4,25 +4,27 @@ import * as Models from "./modules/models/ItemsResponseModels.js"
 import * as buttonsManager from "./modules/managers/buttonsManager.js"
 import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";
-import { showSnackbarGreenText, showSnackbarRedText } from "./modules/managers/snackbarManager.js";
 const params = new URL(location.href).searchParams
-if(params.has('ogsb')){
-    showSnackbarGreenText('Offer Sent')
-}
-if(params.has('orsb')){
-    showSnackbarRedText('Something whent wrong...')
-}
-renderItemsOffAPIResponse(await APIService.getAllItems())
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     catalogueManager.clearCatalogue()
-    const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
+    const searchValue = params.has('sv') ? params.get('sv') : String(document.getElementById('searchinput').value).toLowerCase()
     renderItemsOffAPIResponse(await APIService.postGetByName(searchValue))
 }
+//Search Value
+if(!params.has('sv'))
+renderItemsOffAPIResponse(await APIService.getAllItems())
+else{
+    sendquery()
+    params.delete('sv')
+}
+
 document.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
         sendquery()
     }
 })
+
+
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     resultset.itemResponseModelArray.forEach((item) => {
@@ -39,7 +41,7 @@ function renderItem(itemRes) {
     <h4>${item.itemName}</h4>
     <label>Seller:${avoidOverflowFormat(item.seller)}</label>
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
-    <label>Price:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
+    <label>Highest Offer:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
     </div>
     <div class="item-bottom">
     <button class="item-button" race="offer" style="--c:#33ff28" value="${item.itemID}">Make an Offer</button>

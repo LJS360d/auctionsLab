@@ -1,11 +1,12 @@
 div.offer{
     display: flex;
     flex-direction: row;
+    gap: 2rem;
 }
 
 img.offer-img{
-    width: 30rem;
-    height: 30rem;
+    width: 40rem;
+    height: 40rem;
 }
 .offer-title{
     font-size: 5rem;
@@ -13,4 +14,20 @@ img.offer-img{
 div.offer-right{
     display: flex;
     flex-direction: column;
+    gap: 10px;
 }
+
+div.offer-right>form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+input.offer-input{
+    padding: 10px;
+    font-size: 17px;
+    border: 1px solid grey;
+    width: 100%;
+    background: #f1f1f1;
+}
+

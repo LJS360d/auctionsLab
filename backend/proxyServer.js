@@ -28,11 +28,11 @@ socketTCP.on('connection', (socket) => {
 socketUDP.on('message', (msg, remoteInfo) => {
 
     log(`Received ${msg.length} bytes from ${remoteInfo.address}:${remoteInfo.port}`);
-    log(`Update: ${msg.toString()}`);
+    log(`Payload: ${msg.toString()}`);
     socketTCP.emit('newoffer', msg.toString())
 
     if (msg == 'shutdown') {
-        log("Receieved Shutdown Msg")
+        log(`Shutting down proxy server - ${new Date().toLocaleString('it-IT')}`)
         socketTCP.close()
         socketUDP.close()
     }

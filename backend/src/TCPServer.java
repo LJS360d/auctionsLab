@@ -8,8 +8,10 @@ import java.sql.*;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -86,8 +88,8 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        } 
-        //404
+        }
+        // 404
         else {
             sendNotFound(output);
         }
@@ -157,9 +159,30 @@ public class TCPServer {
             } else {
                 sendNotFound(output);
             }
-        } 
-        
-        //404
+        } else
+        // Endpoint /login
+        if (path.equals("/login")) {
+            String query = "";
+            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+            String nameInput = parsedBody.get("nameInput").toString();
+            String password = parsedBody.get("password").toString();
+            if(isValidEmail(nameInput)){
+                query = "SELECT userUUID FROM users WHERE Email = '"+nameInput+"' AND Password = '"+password+"';";
+            }else{
+                query = "SELECT userUUID FROM users WHERE Username = '"+nameInput+"' AND Password = '"+password+"';";
+            }
+            ResultSet rs = statement.executeQuery(query);
+            String response = parseResultSet(rs).toString();
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+
+        }
+        // 404
         else {
             sendNotFound(output);
         }
@@ -241,5 +264,22 @@ public class TCPServer {
             return false;
         }
         return true;
+    }
+
+    public static boolean isValidEmail(String email) {
+        // Regular expression for email validation
+        String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
+                            "[a-zA-Z0-9_+&*-]+)*@" +
+                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                            "A-Z]{2,7}$";
+    
+        // Create a Pattern object with the emailRegex
+        Pattern pattern = Pattern.compile(emailRegex);
+    
+        // Check if the email matches the pattern
+        if (email == null) {
+            return false;
+        }
+        return pattern.matcher(email).matches();
     }
 }

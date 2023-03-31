@@ -2,12 +2,16 @@ import * as APIService from "./modules/APIService.js"
 import { isValidUUID } from "./modules/utils/isValidUUID.js";
 import { showSnackbarRedText } from "./modules/managers/snackbarManager.js";
 const params = new URL(location.href).searchParams;
-//Is this Unsafe?
+//This is unsafe
 const authData = { nameInput: params.get('nameInput'), password: params.get('password') }
 if(params.has('nameInput') && params.has('password')){
-    if(validateLogin(await APIService.post(JSON.stringify(authData), "/login"), authData.nameInput, params.get('remember'))) {
-        showSnackbarRedText("Something went wrong...");
-    }else window.open('/homepage.html', "_self")
+    const res = JSON.parse(await APIService.post(JSON.stringify(authData), "/login"))[0]
+    let uuid = res ? res.UserUUID : '';
+    console.log(uuid);
+    if(validateLogin(uuid, authData.nameInput, params.get('remember'))) {
+        window.open('/homepage.html', "_self")
+    }else
+    showSnackbarRedText("Wrong Login Information"); 
 }
 
 /**
@@ -17,7 +21,7 @@ if(params.has('nameInput') && params.has('password')){
  * @param {String} remember if value == `"on"` memorize in localStorage instead of session storage
  */
 function validateLogin(uuid, username, remember) {
-    if (uuid === "invalid" && isValidUUID(uuid)) {
+    if (!isValidUUID(uuid) || uuid === '') {
         return false;
     } else {
         if (remember !== "on") {

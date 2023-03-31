@@ -25,7 +25,7 @@ document.addEventListener('keypress', (e) => {
         sendquery()
     }
 })
-
+document.getElementById('searchfilter').addEventListener('change',sendquery)
 
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)

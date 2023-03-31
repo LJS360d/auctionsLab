@@ -29,7 +29,7 @@ Server ->> Client: Payload: JSONStringify(SQL: Select * from items)
 
 Server ->> Client: HTTP 1.1 200 OK
 
-Server ->> Client: Content-Type: text/html
+Server ->> Client: Content-Type: application/json
 
 Server ->> Client: Content-Length: 1
 

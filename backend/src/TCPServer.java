@@ -86,12 +86,15 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        } else {
+        } 
+        //404
+        else {
             sendNotFound(output);
         }
     }
 
     private static void handlePost(String path, String body, OutputStream output) throws Exception {
+        // Endpoint Root
         if (path.equals("/")) {
             String response = body;
             String headers = "HTTP/1.1 200 OK\r\n" +
@@ -101,7 +104,9 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        } else if (path.equals("/getbyname")) {
+        } else
+        // Enpoint /getbyname
+        if (path.equals("/getbyname")) {
             String query = "";
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String searchValue = parsedBody.get("searchValue").toString();
@@ -109,7 +114,7 @@ public class TCPServer {
             if (isNumeric(searchValue)) {
                 query = "Select * from items where ItemID =" + searchValue;
             } else {
-                query = "Select * from items where Item_Name like '%" + searchValue + "%' order by "+filterValue ;
+                query = "Select * from items where Item_Name like '%" + searchValue + "%' order by " + filterValue;
             }
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();
@@ -120,9 +125,27 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        } else if (path.equals("/offerPage")) {
+        } else
+        // Enpoint /offerPage
+        if (path.equals("/offerPage")) {
             if (!body.isEmpty() && isNumeric(body)) {
                 ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
+                String response = parseResultSet(rs).toString();
+                String headers = "HTTP/1.1 200 OK\r\n" +
+                        "Content-Type: application/json\r\n" +
+                        "Access-Control-Allow-Origin: *\r\n" +
+                        "Content-Length: " + response.length() + "\r\n" +
+                        "\r\n";
+                output.write(headers.getBytes());
+                output.write(response.getBytes());
+            } else
+                sendNotFound(output);
+
+        } else
+        // Endpoint /uuidtousername
+        if (path.equals("/uuidtousername")) {
+            if (!body.isEmpty()) {
+                ResultSet rs = statement.executeQuery("Select Username from users where UserUUID = '" + body + "'");
                 String response = parseResultSet(rs).toString();
                 String headers = "HTTP/1.1 200 OK\r\n" +
                         "Content-Type: application/json\r\n" +
@@ -134,7 +157,10 @@ public class TCPServer {
             } else {
                 sendNotFound(output);
             }
-        } else {
+        } 
+        
+        //404
+        else {
             sendNotFound(output);
         }
     }

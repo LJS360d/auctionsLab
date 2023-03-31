@@ -17,7 +17,7 @@ document.addEventListener('keypress', (e) => {
         sendquery()
     }
 })
-function renderOfferPageOffAPIResponse(itemsResponse) {
+async function renderOfferPageOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     const item = new Models.ItemResponseModel(resultset.itemResponseModelArray[0]);
     const minOffer = add15PercentTo(item.currentBid ?? item.minimumBid);
@@ -34,7 +34,7 @@ function renderOfferPageOffAPIResponse(itemsResponse) {
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
     <h3>How Much do you Offer?</h3>
     <label>Highest Offer:${item.currentBid + getLocalValute()}</label>
-    <label>Highest Bid by:${getUsernameFromUUID(item.highestBidder)}</label>
+    <label>Highest Bid by:${await getUsernameFromUUID(item.highestBidder)}</label>
     <label>Minimum Offer:${minOffer}${getLocalValute()}</label> 
     <form action="sendoffer.html" method="get" autocomplete="off">
     <input name="itemID" value="${itemID}" hidden="true">
@@ -55,10 +55,7 @@ function add15PercentTo(number) {
     const parsedNumber = parseFloat(number);
     return (parsedNumber < 1) ? 1 : parsedNumber + (parsedNumber * 0.15);
 }
-function getUsernameFromUUID(uuid) {
-    return uuid;
-    return new Promise((resolve, reject) => {
-        //TODO: POST endpoint that returns username given UUID
-        resolve("User" + uuid);
-    })
+async function getUsernameFromUUID(uuid) {
+    const res = JSON.parse(await APIService.post(uuid,'/uuidtousername')) 
+    return res[0].Username
 }

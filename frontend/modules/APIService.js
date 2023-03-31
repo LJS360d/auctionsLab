@@ -102,14 +102,3 @@ export async function post(body, endpoint) {
   });
 }
 
-export async function sendUDP(msg, ...args) {
-  const proxyConnection = io(PROXY_URL)
-  proxyConnection.send(msg, ...args)
-  return new Promise((resolve, reject) => {
-    proxyConnection.on(msg, (statusmsg) => {
-      statusmsg ?
-        resolve(statusmsg) :
-        reject(new Error(`Unable to Execute Update`))
-    })
-  })
-}

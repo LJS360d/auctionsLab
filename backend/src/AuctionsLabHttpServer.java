@@ -86,11 +86,13 @@ public class AuctionsLabHttpServer {
     {
         final String invalid="ivalid";
         boolean verifica=false;
+        int n = nameInput.length();
         String nameInput = (String)object.get("nameInput");
         String password = (String)object.get("password");
         char[] chars = new char[nameInput.length()];
         for(int c=0;nameInput.length;c++)
         ResultSet rs1 = statement.executeQuery("Select * From Users where Username="+"'"+nameInput+"'"+" and "+"password="+"'"+password+"'");
+        for(int c=0;c < n;c++)
         {
             if(chars[c]=="@");
             while(rs1.next()){
@@ -100,8 +102,13 @@ public class AuctionsLabHttpServer {
                     verifica=true;
                 }
             }
-        }else {
-            while(rs1.next()){
+        }
+        
+        if(verifica==true)
+        {
+            return rs1.getString("UserUUID");
+
+        }else while(rs1.next()){
                 String use = rs1.getString("Username");
                 if(use==nameInput)
                 {
@@ -110,10 +117,10 @@ public class AuctionsLabHttpServer {
             }
         }
         if(verifica==true)
-        {
-            return rs1.getString("UserUUID");
+    {
+        return rs1.getString("UserUUID");
+    }else return invalid;
 
-        }else return invalid;
     } 
-}
-}
+
+

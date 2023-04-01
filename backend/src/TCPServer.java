@@ -107,7 +107,7 @@ public class TCPServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
         } else
-        // Enpoint /getbyname
+        // Endpoint /getbyname
         if (path.equals("/getbyname")) {
             String query = "";
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
@@ -128,7 +128,7 @@ public class TCPServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
         } else
-        // Enpoint /offerPage
+        // Endpoint /offerPage
         if (path.equals("/offerPage")) {
             if (!body.isEmpty() && isNumeric(body)) {
                 ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
@@ -146,30 +146,34 @@ public class TCPServer {
         } else
         // Endpoint /uuidtousername
         if (path.equals("/uuidtousername")) {
+            String response;
             if (!body.isEmpty()) {
                 ResultSet rs = statement.executeQuery("Select Username from users where UserUUID = '" + body + "'");
-                String response = parseResultSet(rs).toString();
-                String headers = "HTTP/1.1 200 OK\r\n" +
-                        "Content-Type: application/json\r\n" +
-                        "Access-Control-Allow-Origin: *\r\n" +
-                        "Content-Length: " + response.length() + "\r\n" +
-                        "\r\n";
-                output.write(headers.getBytes());
-                output.write(response.getBytes());
-            } else {
-                sendNotFound(output);
-            }
+                response = parseResultSet(rs).toString();
+            } else
+                response = "[{\"Username\":\"Nobody\"}]";
+                System.out.println(response);
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+
         } else
         // Endpoint /login
         if (path.equals("/login")) {
             String query = "";
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String nameInput = parsedBody.get("nameInput").toString();
-            String password = parsedBody.get("password").toString();
-            if(isValidEmail(nameInput)){
-                query = "SELECT userUUID FROM users WHERE Email = '"+nameInput+"' AND Password = '"+password+"';";
-            }else{
-                query = "SELECT userUUID FROM users WHERE Username = '"+nameInput+"' AND Password = '"+password+"';";
+            String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
+            if (isValidEmail(nameInput)) {
+                query = "SELECT userUUID FROM users WHERE Email = '" + nameInput + "' AND Password = '" + password
+                        + "';";
+            } else {
+                query = "SELECT userUUID FROM users WHERE Username = '" + nameInput + "' AND Password = '" + password
+                        + "';";
             }
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();
@@ -181,23 +185,25 @@ public class TCPServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
 
-        } else 
-        //Endpoint /register
+        } else
+        // Endpoint /register
         if (path.equals("/register")) {
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String username = parsedBody.get("username").toString();
-            String password = parsedBody.get("password").toString();
+            String password =  EncryptionUtils.encrypt(parsedBody.get("password").toString());
             String birthDate = parsedBody.get("birthDate").toString();
             String email = parsedBody.get("email").toString();
-            
+
             String insertquery = "INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
-            "('"+username+"', '"+password+"', '"+birthDate+"', '"+email+"');";
+                    "('" + username + "', '" + password + "', '" + birthDate + "', '" + email + "');";
             int rs = statement.executeUpdate(insertquery);
             String response;
-            if(rs > 0){
-                ResultSet res = statement.executeQuery("SELECT userUUID FROM users WHERE Email = '"+email+"' AND Password = '"+password+"';");
+            if (rs > 0) {
+                ResultSet res = statement.executeQuery(
+                        "SELECT userUUID FROM users WHERE Email = '" + email + "' AND Password = '" + password + "';");
                 response = parseResultSet(res).toString();
-            }else response = "[]";
+            } else
+                response = "[]";
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -293,10 +299,10 @@ public class TCPServer {
 
     public static boolean isValidEmail(String email) {
         String emailRegex = "^[a-zA-Z0-9_+&*-]+(?:\\." +
-                            "[a-zA-Z0-9_+&*-]+)*@" +
-                            "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
-                            "A-Z]{2,7}$";
-    
+                "[a-zA-Z0-9_+&*-]+)*@" +
+                "(?:[a-zA-Z0-9-]+\\.)+[a-z" +
+                "A-Z]{2,7}$";
+
         Pattern pattern = Pattern.compile(emailRegex);
         if (email == null) {
             return false;

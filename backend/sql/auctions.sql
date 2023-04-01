@@ -15,13 +15,9 @@ BEGIN
     SET NEW.`UserUUID` = UUID();
 END$$
 DELIMITER ;
-INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES
-('XBagrenoGamer', 'changeme', '1800-01-01', 'daniele.dianda@polofermigiorgi.it'),
-('LucianoTechTips', 'changeme', '1958-04-09', 'luciano.carlotti@polofermigiorgi.it'),
-('Cabumy', 'changeme', '2004-09-30', 'dragosolteanu04@gmail.com'),
-('Lesione', 'changeme', '2003-04-09', 'lucalencioni09@gmail.com');
 CREATE TABLE IF NOT EXISTS `Items` (
 `ItemID` INT PRIMARY KEY AUTO_INCREMENT,
+`Categories` JSON,
 `Image_URL` VARCHAR(300) DEFAULT 'assets/unavailable-image.jpg',
 `Item_Name` VARCHAR(50) NOT NULL,
 `Item_Description` VARCHAR(300) DEFAULT "No item description",
@@ -56,7 +52,10 @@ INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`) VALUES
 ('assets/nutella.png','Nutella',"Barattolo di Nutella, Grosso"),
 ('assets/coca-cola.png','Coca Cola',"Una bottiglia di Coca e anche un pochino cola"),
 ('assets/gocciole.png','Gocciole',"Un pacchetto di gocciole al caramello"),
-('assets/gandalf.gif','Luciano Carlotti IRL',"Epic Sax Guy (also known as Saxroll) is the nickname given to Sergey Stepanov, the saxophonist of the"),
+('assets/gandalf.gif','Gandalf',"Epic Sax Guy is the nickname given to Sergey Stepanov, the saxophonist of the best band evah taht has epic sax guy also known as epic sax guy the guy that plays the sax, in an epic way"),
 ('assets/pen-mod.png','Penna Roteante',"La penna che fa il divertente");
-INSERT INTO `items` (`Item_Name`,`Seller`,`Expire_Date`) VALUES
-('Zappa da Vigna','Enrico Pasquale Pratticò','2023-04-29 00:00:00');
+INSERT INTO `items` (`Image_URL`,`Item_Name`,`Seller`,`Expire_Date`) VALUES
+('https://cpad.ask.fm/959/738/760/-339996970-1sh2h18-fg29p33p1im5m6k/original/file.jpg','Zappa da Vigna','Enrico Pasquale Prattico\'','2023-04-29 00:00:00');
+
+INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`,`Seller`,`Expire_Date`) VALUES
+('https://images.eprice.it/nobrand/0/Lightbox/100/302170100/lagostina_rape_4_faces_012335120100.jpg','La Grattugia','La Gratuggia quella per il forrmagggio','Giuseppe Simone','2023-04-20 10:30:00');

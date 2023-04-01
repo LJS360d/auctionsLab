@@ -27,6 +27,8 @@ function isRegistrationSuccess(uuid, username, remember) {
         if (remember !== "on") {
             sessionStorage.setItem('username', username)
             sessionStorage.setItem('uuid', uuid)
+            localStorage.removeItem('username')
+            localStorage.removeItem('uuid')
         } else {
             localStorage.setItem('username', username)
             localStorage.setItem('uuid', uuid)

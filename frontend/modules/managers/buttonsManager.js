@@ -27,7 +27,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         modal.innerHTML += `
         <div class="modal-content">
         <span class="close" onclick="document.body.removeChild(this.parentElement.parentElement)">&times;</span>
-        <form action="http://localhost:9090/sellItem" method="post" autocomplete="off">
+        <form action="/sellitem.html" method="get" autocomplete="off">
             <h2>Put an item up for auction</h2>
             <label>Image URL</label>
             <input type="text" name="imageURL" placeholder="URL to the item's image">
@@ -39,7 +39,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <input class="value-input" type="text" name="minimumBidInput" placeholder="10.00">
             <label>Expire Date</label>
             <input type="date" name="expireDate">
-            <button class="item-button" type="submit" name="sellFormSubmit">Confirm  <i class="fa fa-paper-plane"></i></button>
+            <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
         </form>
         </div>`;
         modal.className = 'modal'

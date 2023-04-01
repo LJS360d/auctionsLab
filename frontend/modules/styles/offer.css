@@ -7,6 +7,8 @@ div.offer{
 img.offer-img{
     width: 40rem;
     height: 40rem;
+    object-fit: contain;
+    object-position: center;
 }
 .offer-title{
     font-size: 5rem;

@@ -1,10 +1,10 @@
-export function showSnackbar(label,color) {
+export function showSnackbar(label, color) {
     let labelColor = "#fff"
     const oldSnackbar = document.querySelector('.snackbar')
-    if(oldSnackbar)
-    removeSnackbar(oldSnackbar)
-    if(color)
-    labelColor = color ?? "#fff"
+    if (oldSnackbar)
+        removeSnackbar(oldSnackbar)
+    if (color)
+        labelColor = color ?? "#fff"
     const snackbar = document.createElement('div')
     snackbar.innerHTML += `
     <div class="snackbar-content">
@@ -16,32 +16,38 @@ export function showSnackbar(label,color) {
     document.body.appendChild(snackbar);
     setTimeout(() => {
         snackbar.className.replace("show", "");
-        if(document.querySelector('.snackbar')) 
-        removeSnackbar(snackbar)
+        if (document.querySelector('.snackbar'))
+            removeSnackbar(snackbar)
     }, 3000)
 }
 function removeSnackbar(snackbar) {
     document.body.removeChild(snackbar)
 }
-export function showSnackbarGreenText(label){
-    showSnackbar(label,"#20e036")
+export function showSnackbarGreenText(label) {
+    showSnackbar(label, "#20e036")
 }
-export function showSnackbarRedText(label){
-    showSnackbar(label,"#d01313")
+export function showSnackbarRedText(label) {
+    showSnackbar(label, "#d01313")
 }
 const params = new URL(location.href).searchParams
-//Offer Green Snack Bar
-if(params.has('ogsb')){
-    if(params.get('ogsb') == 1)
-    showSnackbarGreenText('Offer Sent')
+//Green Snack Bar
+if (params.has('gsb')) {
+    if (params.get('gsb') == 1)
+        showSnackbarGreenText('Offer Sent')
+
+    if (params.get('gsb') == 2)
+        showSnackbarGreenText('The item has been put up for auction')
 
 }
-//Offer Red Snack Bar
-if(params.has('orsb')){
-    if(params.get('orsb') == 1)
-    showSnackbarRedText('Something whent wrong...')
+//Red Snack Bar
+if (params.has('rsb')) {
+    if (params.get('rsb') == 1)
+        showSnackbarRedText('Something went wrong...')
 
-    if(params.get('orsb') == 2)
-    showSnackbarRedText('Your offer is too low')
+    if (params.get('rsb') == 2)
+        showSnackbarRedText('Your offer is too low')
+
+    if (params.get('rsb') == 3)
+        showSnackbarRedText('The image URL is invalid')
 
 }

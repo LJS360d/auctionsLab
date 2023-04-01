@@ -43,7 +43,7 @@ function renderItem(itemRes) {
     <h4>${item.itemName}</h4>
     <label>Seller:${avoidOverflowFormat(item.seller)}</label>
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
-    <label>Highest Offer:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
+    <label>Going for:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 
     </div>
     <div class="item-bottom">
     <button class="item-button" race="offer" style="--c:#33ff28" value="${item.itemID}">Make an Offer</button>

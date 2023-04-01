@@ -11,7 +11,6 @@ import java.util.Map;
 import java.util.regex.Pattern;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +77,7 @@ public class TCPServer {
     }
 
     private static void handleGet(String path, OutputStream output) throws Exception {
+        // Endpoint Root
         if (path.equals("/")) {
             ResultSet rs = statement.executeQuery("Select * from items");
             String response = parseResultSet(rs).toString();
@@ -120,6 +120,28 @@ public class TCPServer {
             }
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+        } else
+        //Endpoint /sellitem
+        if (path.equals("/sellitem")) {
+            String query = "";
+            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+            String imageURL = parsedBody.get("imageURL").toString();
+            String itemName = parsedBody.get("itemName").toString();
+            String minimumBid = parsedBody.get("minimumBid").toString();
+            String itemDescription = parsedBody.get("itemDescription").toString();
+            String expireDate = parsedBody.get("expireDate").toString();
+            String seller = parsedBody.get("username").toString();
+             query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "+
+                "('"+imageURL+"','"+itemName+"',"+minimumBid+",\""+itemDescription+"\",'"+seller+"','"+expireDate+"')";
+             
+            String response = Integer.toString(statement.executeUpdate(query));
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +

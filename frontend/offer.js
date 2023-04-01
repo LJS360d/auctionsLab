@@ -22,7 +22,7 @@ document.getElementById('searchfilter').addEventListener('change',sendquery)
 async function renderOfferPageOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     const item = new Models.ItemResponseModel(resultset.itemResponseModelArray[0]);
-    const minOffer = add15PercentTo(item.currentBid ?? item.minimumBid);
+    const minOffer = add15PercentTo(item.currentBid) ?? item.minimumBid;
     const offerPage = document.createElement('div');
     offerPage.innerHTML += `
     <div class="offer-left">
@@ -48,12 +48,12 @@ async function renderOfferPageOffAPIResponse(itemsResponse) {
     offerPage.className = 'offer'
 
     document.body.appendChild(offerPage)
-    setInputFilter(document.querySelector('.offer-input'), function (value) {
-
+    setInputFilter(document.querySelector('.offer-input'),(value)=>{
         return /^\d*\.?\d{0,2}$/.test(value)
     }, "Only numbers with 2 or less decimal digits are allowed")
 }
 function add15PercentTo(number) {
+    if(number === null || number === undefined) return null;
     const parsedNumber = parseFloat(number);
     return (parsedNumber < 1) ? 1 : parsedNumber + (parsedNumber * 0.15);
 }

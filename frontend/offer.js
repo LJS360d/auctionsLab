@@ -5,18 +5,6 @@ import { getLocalValute } from "./modules/utils/getLocalValute.js";
 import { setInputFilter } from "./modules/utils/setInputFilter.js"
 const itemID = new URL(location.href).searchParams.get('itemID');
 renderOfferPageOffAPIResponse(await APIService.post(itemID, '/offerPage'));
-const sendquery = document.getElementById('searchbutton').onclick = async () => {
-    const searchValue = document.getElementById('searchinput').value
-    const filterValue = document.getElementById('searchfilter').value
-    window.open('/homepage.html?sv=' + searchValue + "&fv=" + filterValue, "_self")
-}
-document.addEventListener('keypress', (e) => {
-    const searchValue = document.getElementById('searchinput').value
-    if (e.key === 'Enter' && searchValue !== '') {
-        sendquery()
-    }
-})
-document.getElementById('searchfilter').addEventListener('change',sendquery)
 
 async function renderOfferPageOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)

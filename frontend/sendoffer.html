@@ -9,45 +9,11 @@
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Sending Offer...</title>
     <script src="https://cdn.socket.io/socket.io-3.0.0.js" type="module"></script>
+    <script src="./modules/managers/loadingScreenManager.js" type="module"></script>
     <script src="sendoffer.js" type="module"></script>
-    <script type="text/javascript">
-        window.onload = setRandomFont
-        function setRandomFont() {
-            const fonts = [
-                "The Alaska",
-                "wingdings",
-                "Comic Sans MS",
-                "Brush Script MT",
-                "Lucida Handwriting",
-                "Segoe Script",
-                "Freestyle Script",
-                "Marker Felt",
-                "Chalkduster",
-                "Snell Roundhand",
-                "Kristen ITC",
-                "Cursed Timer ULiL",
-                "Kalam",
-                "Algeria",
-                "KAPITAL KANJI",
-                "Jokerman",
-                "Viner Hand ITC",
-                "Among Us"
-            ];
-            document.querySelector('.loading-text').style.setProperty('font-family', fonts[Math.floor(Math.random() * fonts.length)])
-        }
-    </script>
 </head>
 
 <body>
-    <div id="loading-screen">
-        <div class="loading-icon-container">
-            <div class="loading-icon"></div>
-        </div>
-        <div class="loading-text" onclick="setRandomFont()">
-            <span class="shaky-loading">Loading</span>
-            <span class="dots">...</span>
-        </div>
-    </div>
 
 
 </body>

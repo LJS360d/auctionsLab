@@ -1,3 +1,5 @@
+import { cleanURL } from "../utils/cleanURL.js"
+
 export function showSnackbar(label, color) {
     let labelColor = "#fff"
     const oldSnackbar = document.querySelector('.snackbar')
@@ -38,6 +40,7 @@ if (params.has('gsb')) {
     if (params.get('gsb') == 2)
         showSnackbarGreenText('The item has been put up for auction')
 
+        cleanURL()
 }
 //Red Snack Bar
 if (params.has('rsb')) {
@@ -50,4 +53,5 @@ if (params.has('rsb')) {
     if (params.get('rsb') == 3)
         showSnackbarRedText('The image URL is invalid')
 
+        cleanURL()
 }

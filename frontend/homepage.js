@@ -4,20 +4,26 @@ import * as Models from "./modules/models/responseModels.js"
 import * as buttonsManager from "./modules/managers/buttonsManager.js"
 import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";
+import { cleanURL } from "./modules/utils/cleanURL.js";
 const params = new URL(location.href).searchParams
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     catalogueManager.clearCatalogue()
-    const searchValue = params.has('sv') ? params.get('sv') : String(document.getElementById('searchinput').value).toLowerCase()
-    const filterValue = params.has('fv') ? params.get('fv') : String(document.getElementById('searchfilter').value)
-    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue,filterValue))
+    if (params.has('sv'))
+        document.getElementById('searchinput').value = params.get('sv')
+
+    if (params.has('fv'))
+        document.getElementById('searchfilter').value = params.get('fv')
+
+    const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
+    const filterValue = String(document.getElementById('searchfilter').value)
+    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue, filterValue))
 }
 //Search Value
-if(!params.has('sv'))
-renderItemsOffAPIResponse(await APIService.getAllItems())
-else{
+if (!params.has('sv'))
+    renderItemsOffAPIResponse(await APIService.getAllItems())
+else {
     sendquery()
-    params.delete('sv')
-    params.delete('fv')
+    cleanURL();
 }
 
 document.addEventListener('keypress', (e) => {
@@ -25,7 +31,7 @@ document.addEventListener('keypress', (e) => {
         sendquery()
     }
 })
-document.getElementById('searchfilter').addEventListener('change',sendquery)
+document.getElementById('searchfilter').addEventListener('change', sendquery)
 
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)

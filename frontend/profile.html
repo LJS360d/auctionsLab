@@ -5,49 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="./modules/styles/profile.css">
-    <link rel="stylesheet" href="./modules/styles/modal.css">
-    <link rel="stylesheet" href="./modules/styles/snackbar.css">
+    <link rel="stylesheet" href="./modules/styles/header.css">
     <script src="https://kit.fontawesome.com/ce9bc4dbd7.js" crossorigin="anonymous"></script>
     <link rel="shortcut icon" href="assets/favicon.ico" type="image/x-icon">
     <title>Make an Offer</title>
     <script src="./modules/authGuard.js" type="module"></script>
     <script src="./modules/APIService.js" type="module"></script>
-    <script src="./modules/managers/buttonsManager.js" type="module"></script>
+    <script src="./modules/managers/headerManager.js" type="module"></script>
     <script src="./modules/managers/snackbarManager.js" type="module"></script>
+    <script src="./modules/managers/buttonsManager.js" type="module"></script>
     <script src="profile.js" type="module"></script>
 </head>
 <body>
-    <div id="header">
-        <div class="header-left">
-            <img class="logo" alt="Logo" id="logo" onclick="window.open('homepage.html','_self')">
-            <div class="searchbar">
-                <span class="searchfilter">
-                    <label>Filter by:</label>
-                    <select id="searchfilter">
-                        <option value="ItemID">ID</option>
-                        <option value="Item_Name">Name</option>
-                        <option value="Current_Bid desc">Highest Offer</option>
-                        <option value="Current_Bid asc">Lowest Offer</option>
-                        <option value="Expire_Date">Expire Date</option>
-                      </select>
-                </span>
-                <input type="text" class="searchinput" id="searchinput" maxlength="100" placeholder="Search" pattern="[^'\x22]+">
-                <button type="submit" class="searchbutton" id="searchbutton"><i class="fa fa-search"></i></button>
-            </div>
-        </div>
-        <div class="header-right">
-            <span class="header-button" id="watchlist-button">
-                Check your Watchlist
-                <i class="fa fa-map-o"></i>
-            </span>
-            <span class="header-button" id="sell-button">
-                Sell an Item
-                <i class="fa-solid fa-money-bill-trend-up"></i>
-            </span>
-            <span class="header-button" id="profile-button">
-                <i class="fa-solid fa-user"></i>
-            </span>
-        </div>
-    </div>
+    
 </body>
 </html>

@@ -38,7 +38,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <label>Minimum Bid Value</label>
             <input class="value-input" type="text" name="minimumBid" placeholder="10.00">
             <label>Expire Date</label>
-            <input type="date" name="expireDate">
+            <input type="date" name="expireDate" value="${todayPlusAWeek()}" min="${tomorrow()}" max="${todayPlusAMonth()}">
             <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
         </form>
         </div>`;
@@ -50,13 +50,25 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         }, "Only numbers with 2 or less decimal digits are allowed")
         document.addEventListener('keydown', closeModalOnEscape)
     }
+    function tomorrow() {
+        return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    }
+    function todayPlusAWeek() {
+        return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+    }
+    function todayPlusAMonth() {
+        let nextMonth = new Date();
+        nextMonth.setMonth(nextMonth.getMonth() + 1);
+        return nextMonth.toISOString().split('T')[0];
+    }
+
 }
 
 const profileButton = document.getElementById('profile-button');
-export var onProfileButtonClick = profileButton.onclick = function () { 
+export var onProfileButtonClick = profileButton.onclick = function () {
     gotoProfile()
-    function gotoProfile(){
-        window.open('/profile.html','_self')
+    function gotoProfile() {
+        window.open('/profile.html', '_self')
     }
 }
 

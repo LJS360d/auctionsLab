@@ -1,0 +1,51 @@
+div#catalogue {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+div#catalogue>.item {
+    user-select: none;
+    object-fit: cover;
+    object-position: center;
+    font-family: Verdana;
+    flex: 0 0 auto;
+
+    border: 5px inset black;
+    border-left: none;
+    border-top: none;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+div#catalogue>.item>div {
+    display: flex;
+    flex-direction: column;
+}
+
+div#catalogue:has(.item:hover) .item:not(.item:hover) {
+    opacity: 0.2;
+    transition: 0.3s;
+}
+
+div#catalogue>.item:hover {
+    scale: 1.02;
+    transition: 0.3s;
+    border-left: 5px outset black;
+    border-top: 5px outset black;
+}
+
+div#catalogue>.item>div>label {
+    font-size: 1rem;
+    font-family: 'Courier New', Courier, monospace;
+    font-weight: 400;
+}
+
+div#catalogue>.item>div>img.item-img {
+    width: 15rem;
+    height: 15rem;
+    object-fit: cover;
+    object-position: center;
+}

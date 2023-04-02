@@ -1,3 +1,6 @@
+@import url('./snackbar.css');
+@import url('./modal.css');
+
 div.header {
     position: sticky;
     top: 0;

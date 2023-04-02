@@ -38,6 +38,7 @@ function renderItemsOffAPIResponse(itemsResponse) {
     resultset.itemResponseModelArray.forEach((item) => {
         renderItem(item)
     })
+    buttonsManager.setItemButtonsOnclick()
 }
 
 function renderItem(itemRes) {
@@ -57,7 +58,6 @@ function renderItem(itemRes) {
     </div>`;
     renderItem.className = 'item'
     document.getElementById('catalogue').appendChild(renderItem)
-    buttonsManager.setItemButtonsOnclick()
 }
 
 function avoidOverflowFormat(string) {

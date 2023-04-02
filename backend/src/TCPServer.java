@@ -79,7 +79,7 @@ public class TCPServer {
     private static void handleGet(String path, OutputStream output) throws Exception {
         // Endpoint Root
         if (path.equals("/")) {
-            ResultSet rs = statement.executeQuery("Select * from items");
+            ResultSet rs = statement.executeQuery("SELECT * FROM items ORDER BY `ItemID` DESC");
             String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +

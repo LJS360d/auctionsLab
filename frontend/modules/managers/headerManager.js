@@ -19,6 +19,14 @@ function appendHeader() {
         <img class="logo" alt="Logo" id="logo" onclick="window.open('homepage.html','_self')">
         <div class="searchbar">
             <span class="searchfilter">
+                <label>Category:</label>
+                <select id="categoryfilter">
+                    <option value="ItemID">ID</option>
+                    <option value="Item_Name">Name</option>
+
+                </select>
+             </span>
+            <span class="searchfilter">
                 <label>Filter by:</label>
                 <select id="searchfilter">
                     <option value="ItemID">ID</option>

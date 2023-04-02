@@ -42,7 +42,7 @@
 
     `/utils` <-- *Single Function Files*
 
-	-cleanURL()
+	- cleanURL()
 	- isValidUUID()
     - getLocalValute()
     - timeLeftUntilDate(date)

@@ -52,6 +52,6 @@ if (params.has('rsb')) {
 
     if (params.get('rsb') == 3)
         showSnackbarRedText('The image URL is invalid')
-
+        
         cleanURL()
 }

@@ -9,7 +9,7 @@ renderOfferPageOffAPIResponse(await APIService.post(itemID, '/offerPage'));
 async function renderOfferPageOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     const item = new Models.ItemResponseModel(resultset.itemResponseModelArray[0]);
-    const minOffer = add15PercentTo(item.currentBid) ?? item.minimumBid;
+    const minOffer = add15PercentTo(item.currentBid) ?? ((item.minimumBid <= 0) ? 1 : item.minimumBid) ;
     const offerPage = document.createElement('div');
     offerPage.innerHTML += `
     <div class="offer-left">

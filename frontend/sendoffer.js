@@ -5,8 +5,8 @@ const uuid = localStorage.getItem('uuid') ?? sessionStorage.getItem('uuid');
 const minOffer = params.get('minOffer');
 //Connect to MiddleMan (Proxy)
 const socket = io('ws://localhost:9098');
-if (offerInput < minOffer) {
-    window.open('offer.html?itemID=' + itemID + "&rsb=2", "_self")
+if (offerInput <= minOffer) {
+    window.open("homepage.html?rsb=2", "_self")
 }
 await socket.send('newoffer', itemID, offerInput, uuid)
 socket.on('newoffer', statusmsg => {

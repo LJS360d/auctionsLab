@@ -17,7 +17,10 @@ const itemData = {
     username: username
 };
 await APIService.post(JSON.stringify(itemData), "/sellitem").then((res) => {
-    (res > 0) ? window.open("homepage.html?gsb=2", "_self") : window.open("homepage.html?rsb=1", "_self");
+    
+        if(Number(res) > 0)  window.open("homepage.html?gsb=2", "_self") 
+        else window.open("homepage.html?rsb=1", "_self");
+    
 })
 async function isValidAndExists(url) {
     const urlRegex = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;

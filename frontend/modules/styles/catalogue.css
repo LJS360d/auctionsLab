@@ -11,18 +11,26 @@ div#catalogue>.item {
     font-family: Verdana;
     flex: 0 0 auto;
 
-    border: 5px inset black;
+    border: 0.25rem  inset black;
     border-left: none;
     border-top: none;
 
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
+    background-color:#fefefe;
 }
 
 div#catalogue>.item>div {
     display: flex;
     flex-direction: column;
+}
+
+div#catalogue>div.item>div.item-top>label,
+div#catalogue>div.item>div.item-top>h4 {
+    padding-left: 0.25rem;
+    padding-bottom: 0.25rem;
 }
 
 div#catalogue:has(.item:hover) .item:not(.item:hover) {
@@ -33,8 +41,8 @@ div#catalogue:has(.item:hover) .item:not(.item:hover) {
 div#catalogue>.item:hover {
     scale: 1.02;
     transition: 0.3s;
-    border-left: 5px outset black;
-    border-top: 5px outset black;
+    border-left: 0.25rem outset black;
+    border-top: 0.25rem outset black;
 }
 
 div#catalogue>.item>div>label {

@@ -34,7 +34,8 @@ function setRandomFont() {
         "KAPITAL KANJI",
         "Jokerman",
         "Viner Hand ITC",
-        "Among Us"
+        "Among Us",
+        "Enchant"
     ];
     document.querySelector('.loading-text').style.setProperty('font-family', fonts[Math.floor(Math.random() * fonts.length)])
 }

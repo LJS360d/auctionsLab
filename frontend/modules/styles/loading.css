@@ -1,7 +1,9 @@
+@import url('https://fonts.googleapis.com/css?family=Kalam');
 @import url('https://fonts.cdnfonts.com/css/the-alaska');
 @import url('https://fonts.cdnfonts.com/css/cursed-timer-ulil');
-@import url('https://fonts.googleapis.com/css?family=Kalam');
-
+@import url('https://fonts.cdnfonts.com/css/algeria');
+@import url('https://fonts.cdnfonts.com/css/kapital-kanji');
+@import url('https://fonts.cdnfonts.com/css/among-us');
 #loading-screen {
     position: fixed;
     top: 0;
@@ -44,7 +46,6 @@ div.loading-text {
     display: flex;
     flex-direction: row;
     color: #fff;
-    font-family: "The Alaska";
     font-size: 48px;
     font-weight: bold;
     margin-top: 20px;

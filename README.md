@@ -22,7 +22,7 @@
 - auctions.sql <--*Script to build the mySQL DB **RUN AT LEAST ONCE BEFORE STARTING SERVER!***
 
 
-**`proxyServer.js`** <--*The NodeJS Proxy, **Runs in the background** when launching the main Backend, logs at backend/proxy.log*
+**`proxyServer.js`** <--*The NodeJS Proxy, **Runs in the background** when launching the main Backend, logs at backend/**proxy.log***
   
 ## `Frontend` 
 #### Vanilla JS + HTML + CSS, API Service with XMLHttpRequests, Using Socket.io to dialog with Proxy
@@ -34,44 +34,48 @@
  - **authGuard.js**
 
     `/managers`
-   
     - buttonsManager.js  
     - catalogueManager.js
+    - headerManager.js
+    - loadingScreenManager.js
     - snackbarManager.js
 
     `/utils` <-- *Single Function Files*
 
+	-cleanURL()
 	- isValidUUID()
     - getLocalValute()
     - timeLeftUntilDate(date)
 	- setInputFilter(inputbox, inputFilter, errMsg)
   
 	`/styles`
+
 	- auth.css <-- *for both login.html and register.html*
-	- loading.css <-- *currently for sendoffer.html and sellitem.html*
-	- profile.css
+	- header.css
+	- loading.css
 	- modal.css
-	- snackbar.css
 	- offer.css
+	- profile.css
+	- snackbar.css
 
 	`/models`
-	- **itemsResponseModels.js**
+	- **responseModels.js**
 
 	`/assets`
 	- images...
 
 `Pages(Components)`
-- **styles.css**  <-- *Global Styles*
+- **styles.css**  <-- *Reused Styles*
 
 - **homepage.html**  <-- *Homepage/Catalogue*
 - **homepage.js**   <-- *Homepage Script*
 
 - offer.html	  <-- *Opened on **Make An Offer Button Click**;Built Dynamically*
-- offer.js	  <-- *Offer Page Script*
+- offer.js	  <-- *Sends itemID to /offerPage and received UUID to /uuidtousername, Builds offer page*
 
 `Profile Viwer`
 
-- profile.html <-- *Opened on **#profile-button** button click in Header*
+- profile.html <-- *Opened on **#profile-button** button click in Header;Built Dynamically*
 - profile.js  <--*Sends UUID to POST /profile, Builds page relative to received data*
 
 `Loading pages (For Update Queries)`

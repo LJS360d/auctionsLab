@@ -1,6 +1,6 @@
 import * as catalogueManager from "./modules/managers/catalogueManager.js";
 import * as APIService from "./modules/APIService.js"
-import * as Models from "./modules/models/ItemsResponseModels.js"
+import * as Models from "./modules/models/responseModels.js"
 import * as buttonsManager from "./modules/managers/buttonsManager.js"
 import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";

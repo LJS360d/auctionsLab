@@ -26,7 +26,7 @@ public class TCPServer {
             System.out.println(">TCP Server started at localhost:" + port + "\n");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("Accepted connection from " + clientSocket.getInetAddress());
+                System.out.println("TCP>Accepted connection from " + clientSocket.getInetAddress()  );
                 // TCP Thread, Runnable as Lambda
                 new Thread(() -> {
                     try {
@@ -166,6 +166,22 @@ public class TCPServer {
                 sendNotFound(output);
 
         } else
+        // Endpoint /profile
+        if (path.equals("/profile")) {
+            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+            String uuid = parsedBody.get("uuid").toString();
+            String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '"+uuid+"';";
+            ResultSet rs = statement.executeQuery(query);
+            String response = parseResultSet(rs).toString();
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+
+        } else
         // Endpoint /uuidtousername
         if (path.equals("/uuidtousername")) {
             String response;
@@ -174,7 +190,6 @@ public class TCPServer {
                 response = parseResultSet(rs).toString();
             } else
                 response = "[{\"Username\":\"Nobody\"}]";
-                System.out.println(response);
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +

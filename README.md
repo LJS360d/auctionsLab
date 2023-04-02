@@ -11,9 +11,11 @@
 
 `/src`  
 
-- AuctionsLabHttpServer.java 
-- TCPServer.java
-- UDPServer.java
+- AuctionsLabHttpServer.java <--*Starts the backend ***Contains Main method**
+- TCPServer.java <--*Handles requests coming from APIService*
+- UDPServer.java <--*Handles requests coming from Proxy Server*
+- JSONParse.java
+- EncryptionUtils.java
 
 `/sql`  
 
@@ -46,7 +48,8 @@
   
 	`/styles`
 	- auth.css <-- *for both login.html and register.html*
-	- loading.css <-- *currently for sendoffer.html*
+	- loading.css <-- *currently for sendoffer.html and sellitem.html*
+	- profile.css
 	- modal.css
 	- snackbar.css
 	- offer.css
@@ -63,11 +66,21 @@
 - **homepage.html**  <-- *Homepage/Catalogue*
 - **homepage.js**   <-- *Homepage Script*
 
-- offer.html	  <-- *Opened on **Make An Offer Button Click***
+- offer.html	  <-- *Opened on **Make An Offer Button Click**;Built Dynamically*
 - offer.js	  <-- *Offer Page Script*
 
-- sendoffer.html  <-- *Opened on **Confirm** button click in Offer Page*
+`Profile Viwer`
+
+- profile.html <-- *Opened on **#profile-button** button click in Header*
+- profile.js  <--*Sends UUID to POST /profile, Builds page relative to received data*
+
+`Loading pages (For Update Queries)`
+
+- sendoffer.html  <-- *Opened on **Confirm** button click in Offer Page -> Loading Component*
 - sendoffer.js    <-- *Script Run to send the offer Data to the NodeJS Proxy*
+
+- sellitem.html   <-- *Opened on **Confirm** button click in Sell Item Modal -> Loading Component*
+- sellitem.js	<--*Sends item Data to POST /sellitem*
 
 `Auth Pages`
 

@@ -39,3 +39,23 @@ export class ItemResponseJSON{
         this.itemResponseModelArray = JSON.parse(resultSet)
     }
 }
+
+export class userProfileResponseModel{
+    email;
+    birthDate;
+    username;
+    constructor(res){
+        const user = JSON.parse(res)[0];
+        this.email = user.Email;
+        this.birthDate = user.Birth_Date;
+        this.username = user.Username;
+
+    }
+    toString(){
+        let string = ''
+        for (const key in this) {
+            string += this[key]+';'
+        }
+        return string;
+    }
+}

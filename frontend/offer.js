@@ -1,5 +1,5 @@
 import * as APIService from "./modules/APIService.js"
-import * as Models from "./modules/models/ItemsResponseModels.js"
+import * as Models from "./modules/models/responseModels.js"
 import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";
 import { setInputFilter } from "./modules/utils/setInputFilter.js"
@@ -9,7 +9,6 @@ const sendquery = document.getElementById('searchbutton').onclick = async () => 
     const searchValue = document.getElementById('searchinput').value
     const filterValue = document.getElementById('searchfilter').value
     window.open('/homepage.html?sv=' + searchValue + "&fv=" + filterValue, "_self")
-
 }
 document.addEventListener('keypress', (e) => {
     const searchValue = document.getElementById('searchinput').value

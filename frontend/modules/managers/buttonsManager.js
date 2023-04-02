@@ -54,16 +54,9 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
 
 const profileButton = document.getElementById('profile-button');
 export var onProfileButtonClick = profileButton.onclick = function () { 
-    showUserProfile()
-    function showUserProfile(){
-        const username = localStorage.getItem('username') ?? sessionStorage.getItem('username')
-        const profileWindow = document.createElement('div')
-        profileWindow.innerHTML +=`
-        <span class="close" onclick="document.body.removeChild(this.parentElement)">&times;</span>
-        <h2>${username}</h2>
-        `;
-        profileWindow.className = "profile-window"
-        document.body.appendChild(profileWindow)
+    gotoProfile()
+    function gotoProfile(){
+        window.open('/profile.html','_self')
     }
 }
 

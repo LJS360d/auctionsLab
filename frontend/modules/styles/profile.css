@@ -1,10 +1,1 @@
-.profile-window {
-    /*TODO: make drawer style from the right*/
-    position: fixed;
-    right: -8%;
-    top: 20%;
-    transform: translate(-50%, -50%);
-    background-color: white;
-    border: 3px solid gray;
-    z-index: 11;
-}
+/*TODO:Styles for profile page*/

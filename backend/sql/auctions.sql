@@ -61,3 +61,8 @@ INSERT INTO `items` (`Image_URL`,`Item_Name`,`Item_Description`,`Seller`,`Expire
 ('https://images.eprice.it/nobrand/0/Lightbox/100/302170100/lagostina_rape_4_faces_012335120100.jpg','La Grattugia','La Gratuggia quella per il forrmagggio','Giuseppe Simone','2023-04-20 10:30:00'),
 ('https://cdn.shopify.com/s/files/1/0551/6060/2784/products/DN-Mobile.png','Deez Nutz',"The biggest thing jimmy has ever made",'Mr Beaaaaaast','2023-04-10T22:46:53');
 
+INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`) VALUES
+('{"Music":["Vynil","Weeb"],"Anime":"Evangelion","Original Soundtrack":"Neon Genesis Evangelion"}','https://cdn.hmv.com/r/w-640/hmv/files/02/02492df6-39b6-4264-bb48-12d47110f837.jpg',
+'Vinile di Evangelion'),
+('{"Toys":"Fidget"}',"https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71MYj9X7cOL._AC_SL1500_.jpg",
+"Infinity Cube");

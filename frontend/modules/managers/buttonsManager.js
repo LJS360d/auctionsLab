@@ -30,7 +30,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         <form action="/sellitem.html" method="get" autocomplete="off">
             <h2>Put an item up for auction</h2>
             <label>Image URL</label>
-            <input type="url" name="imageURL" placeholder="URL to the item's image">
+            <input type="url" name="imageURL" maxlength="300" placeholder="URL to the item's image">
             <label>Item Name</label>
             <input type="text" name="itemName" maxlength="50" placeholder="Your item's name at birth" required>
             <label>Item Description</label>
@@ -42,6 +42,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
         </form>
         </div>`;
+        //TODO: add categories selector
         modal.className = 'modal'
         modal.style.display = 'block'
         document.body.appendChild(modal)
@@ -51,7 +52,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         document.addEventListener('keydown', closeModalOnEscape)
     }
     function tomorrow() {
-        return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
+        return new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     }
     function todayPlusAWeek() {
         return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];

@@ -15,7 +15,6 @@ async function renderOfferPageOffAPIResponse(itemsResponse) {
     <div class="offer-left">
     <img src='${item.imageURL}' class='offer-img'>
     </div>
-
     <div class="offer-right">
     <h1 class="offer-title">${item.itemName}</h1>
     <label>${item.itemDescription}</label> <br>
@@ -33,8 +32,9 @@ async function renderOfferPageOffAPIResponse(itemsResponse) {
     </form>
     </div>`;
     offerPage.className = 'offer'
-
+    
     document.body.appendChild(offerPage)
+    document.body.appendChild(buildCategoriesWrapper(item))
     setInputFilter(document.querySelector('.offer-input'),(value)=>{
         return /^\d*\.?\d{0,2}$/.test(value)
     }, "Only numbers with 2 or less decimal digits are allowed")
@@ -47,4 +47,35 @@ function add15PercentTo(number) {
 async function getUsernameFromUUID(uuid) {
     const res = JSON.parse(await APIService.post(uuid,'/uuidtousername')) 
     return res[0].Username
+}
+function buildCategoriesWrapper(item){
+    const categoriesWrapper = document.createElement('div')
+    categoriesWrapper.innerHTML += `<span class="categories-title">Categories:</span>`;
+    categoriesWrapper.className = "categories-wrapper"
+    const categories = document.createElement('div')
+    categories.className = 'categories'
+    if(item.categories !== undefined){
+        for (const [key, value] of Object.entries(JSON.parse(item.categories))) {
+            const category = document.createElement('span');
+            category.className = 'category';
+            category.innerHTML += `<a href="/homepage.html?cv=${key}">${key}</a>`;
+            
+            if (Array.isArray(value)) {
+                for (const content of value) {
+                    category.innerHTML += `<label>${content}</label>`;
+                }
+            } else {
+                category.innerHTML += `<label>${value}</label>`;
+            }
+            
+            categories.appendChild(category);
+        }
+        categoriesWrapper.appendChild(categories)
+        return categoriesWrapper
+    }else{
+        const noCategories = document.createElement('span')
+        noCategories.innerText = "No Categories Available"
+        noCategories.className = "categories-title"
+        return noCategories
+    }
 }

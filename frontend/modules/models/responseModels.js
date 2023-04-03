@@ -20,6 +20,7 @@ export class ItemResponseModel {
         this.seller = item.Seller
         this.bidAddress = item.Bid_Address
         this.expireDate = item.Expire_Date
+        this.categories = item.Categories
     }
     toString(){
         let string = ''

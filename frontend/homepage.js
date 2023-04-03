@@ -10,10 +10,10 @@ const sendquery = document.getElementById('searchbutton').onclick = async () => 
     catalogueManager.clearCatalogue()
     if (params.has('sv'))
         document.getElementById('searchinput').value = params.get('sv')
-
     if (params.has('fv'))
         document.getElementById('orderfilter').value = params.get('fv')
-
+    if (params.has('cv'))
+        document.getElementById('categoryfilter').value = params.get('cv')
     const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
     const filterValue = String(document.getElementById('orderfilter').value)
     renderItemsOffAPIResponse(await APIService.postGetByName(searchValue, filterValue))

@@ -1,3 +1,4 @@
+import { noItemsAvailable } from "./managers/catalogueManager.js";
 export const API_URL = 'http://localhost:9090';
 //export const MULTICAST_URL = 'http://localhost:9097';
 export const PROXY_URL = 'ws://localhost:9098';
@@ -12,11 +13,13 @@ export async function getAllItems() {
           resolve(http.responseText);
         } else {
           reject(new Error(`Failed to fetch items: ${http.statusText}`));
+          noItemsAvailable()
         }
       }
     };
     http.onerror = function () {
       reject(new Error(`Failed to fetch items: ${http.statusText}`));
+      noItemsAvailable()
     };
     http.open('GET', API_URL + endpoint, true);
     http.send();

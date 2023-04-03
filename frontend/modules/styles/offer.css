@@ -1,35 +1,38 @@
-div.offer{
+div.offer {
     display: flex;
     flex-direction: row;
     gap: 2rem;
 }
 
-img.offer-img{
+img.offer-img {
     width: 40rem;
     height: 40rem;
     object-fit: contain;
     object-position: center;
 }
-.offer-title{
+
+.offer-title {
     font-size: 5rem;
 }
-div.offer-right{
+
+div.offer-right {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 0.75rem;
 }
 
-div.offer-right>label{
+div.offer-right>label {
     font-size: 1.25rem;
 }
 
-div.offer-right>form{
+div.offer-right>form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    max-width: 50em;
+    gap: 0.5rem;
 }
 
-input.offer-input{
+input.offer-input {
     padding: 10px;
     font-size: 17px;
     border: 1px solid grey;
@@ -37,3 +40,61 @@ input.offer-input{
     background: #f1f1f1;
 }
 
+div.categories-wrapper {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid #ffa228;
+    margin-right: 0.25rem;
+    padding: 1rem;
+
+    user-select: none;
+}
+
+span.categories-title {
+    font-family: Arial;
+    font-weight: bold;
+    font-size: 2.5rem;
+    padding-bottom: 1rem;
+    
+}
+
+div.categories {
+    display: flex;
+    flex-direction: row;
+    gap: 1rem;
+}
+
+span.category {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid black;
+    padding: 0 0.25rem;
+}
+span.category>a{
+    font-size: 1.75rem;
+    cursor: pointer;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+    text-decoration: none;
+}
+span.category>a:visited{
+    color: blue;
+}
+
+span.category>label {
+    font-size: 1.25rem;
+    border-top: 1px solid black;
+    height: 2rem;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: nowrap;
+}
+
+/* span.category label:last-of-type {
+    border-bottom: 1px solid black;
+} */

@@ -51,6 +51,7 @@
 	`/styles`
 
 	- auth.css <-- *for both login.html and register.html*
+	- catalogue.css
 	- header.css
 	- loading.css
 	- modal.css

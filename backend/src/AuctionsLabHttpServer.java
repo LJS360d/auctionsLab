@@ -41,11 +41,8 @@ public class AuctionsLabHttpServer {
     public static void runProxy() {
         new Thread(() -> {
             try {
-                // String[] command = {"cmd.exe", "/c", "code", "--reuse-window",
-                // "--new-terminal", "--wait", "--command", "node middleMan.js"};
                 String[] command = { "cmd.exe", "/c", "start", "/B", "cmd.exe", "/k", "node", "proxyServer.js" };
                 ProcessBuilder pb = new ProcessBuilder(command);
-
                 Process process = pb.start();
                 System.out.println(">Proxy Server ProcessID:" + process.pid());
                 Runtime.getRuntime().addShutdownHook(new Thread(() -> {

@@ -35,10 +35,14 @@ document.getElementById('searchfilter').addEventListener('change', sendquery)
 
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
-    resultset.itemResponseModelArray.forEach((item) => {
-        renderItem(item)
-    })
-    buttonsManager.setItemButtonsOnclick()
+    if(resultset.itemResponseModelArray.length > 0){
+        resultset.itemResponseModelArray.forEach((item) => {
+            renderItem(item)
+        })
+        buttonsManager.setItemButtonsOnclick()
+    }else{
+        //TODO:Render no items are available
+    }
 }
 
 function renderItem(itemRes) {

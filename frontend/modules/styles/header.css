@@ -82,7 +82,7 @@ span.searchfilter>label {
     margin-left: 5px;
 }
 
-select#searchfilter,select#categoryfilter {
+select#orderfilter,select#categoryfilter {
     width: fit-content;
     border: none;
     outline: none;

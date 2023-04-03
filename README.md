@@ -39,25 +39,26 @@
     - headerManager.js
     - loadingScreenManager.js
     - snackbarManager.js
-
-    `/utils` <-- *Single Function Files*
-
-	- cleanURL()
-	- isValidUUID()
-    - getLocalValute()
-    - timeLeftUntilDate(date)
-	- setInputFilter(inputbox, inputFilter, errMsg)
   
 	`/styles`
 
 	- auth.css <-- *for both login.html and register.html*
 	- catalogue.css
-	- header.css
+	- header.css <-- *+imports snackbar.css and modal.css*
 	- loading.css
 	- modal.css
 	- offer.css
 	- profile.css
 	- snackbar.css
+
+	`/utils` <-- *Single Function Files*
+
+	- cleanURL()
+    - getLocalValute()
+	- isValidEmail()
+	- isValidUUID()
+	- setInputFilter(inputbox, inputFilter, errMsg)
+    - timeLeftUntilDate(date)
 
 	`/models`
 	- **responseModels.js**

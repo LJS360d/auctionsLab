@@ -12,10 +12,10 @@ const sendquery = document.getElementById('searchbutton').onclick = async () => 
         document.getElementById('searchinput').value = params.get('sv')
 
     if (params.has('fv'))
-        document.getElementById('searchfilter').value = params.get('fv')
+        document.getElementById('orderfilter').value = params.get('fv')
 
     const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
-    const filterValue = String(document.getElementById('searchfilter').value)
+    const filterValue = String(document.getElementById('orderfilter').value)
     renderItemsOffAPIResponse(await APIService.postGetByName(searchValue, filterValue))
 }
 //Search Value
@@ -31,7 +31,7 @@ document.addEventListener('keypress', (e) => {
         sendquery()
     }
 })
-document.getElementById('searchfilter').addEventListener('change', sendquery)
+document.getElementById('orderfilter').addEventListener('change', sendquery)
 
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
@@ -61,6 +61,9 @@ function renderItem(itemRes) {
     <button class="item-button" race="watchlist" style="--c:#E95A49" value="${item.itemID}">Add to Watchlist</button>
     </div>`;
     renderItem.className = 'item'
+    renderItem.ondblclick = ()=>{
+        window.open(`/offer.html?itemID=${item.itemID}`, '_self')
+    }
     document.getElementById('catalogue').appendChild(renderItem)
 }
 

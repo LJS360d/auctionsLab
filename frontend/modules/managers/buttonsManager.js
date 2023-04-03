@@ -79,7 +79,6 @@ export function setItemButtonsOnclick() {
             case 'offer':
                 button.onclick = function () {
                     const itemID = button.value;
-                    console.log('Offer' + itemID);
                     window.open(`/offer.html?itemID=${itemID}`, '_self')
                 }
                 break;

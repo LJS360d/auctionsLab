@@ -26,7 +26,7 @@ public class TCPServer {
             System.out.println(">TCP Server started at localhost:" + port + "\n");
             while (true) {
                 Socket clientSocket = serverSocket.accept();
-                System.out.println("TCP>Accepted connection from " + clientSocket.getInetAddress()  );
+                System.out.println("TCP>Accepted connection from " + clientSocket.getInetAddress());
                 // TCP Thread, Runnable as Lambda
                 new Thread(() -> {
                     try {
@@ -88,10 +88,10 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-        }else 
+        } else
         // Endpoint /categories
         if (path.equals("/categories")) {
-            //TODO:get all unique categories from DB and send as JSON 
+            // TODO:get all unique categories from DB and send as JSON
             ResultSet rs = statement.executeQuery("");
             String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
@@ -141,7 +141,7 @@ public class TCPServer {
             output.write(headers.getBytes());
             output.write(response.getBytes());
         } else
-        //Endpoint /sellitem
+        // Endpoint /sellitem
         if (path.equals("/sellitem")) {
             String query = "";
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
@@ -151,9 +151,11 @@ public class TCPServer {
             String itemDescription = parsedBody.get("itemDescription").toString();
             String expireDate = parsedBody.get("expireDate").toString();
             String seller = parsedBody.get("username").toString();
-             query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "+
-                "('"+imageURL+"','"+itemName+"',"+minimumBid+",\""+itemDescription+"\",'"+seller+"','"+expireDate+"')";
-             
+            query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "
+                    +
+                    "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
+                    + "','" + expireDate + "')";
+
             String response = Integer.toString(statement.executeUpdate(query));
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
@@ -183,7 +185,7 @@ public class TCPServer {
         if (path.equals("/profile")) {
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String uuid = parsedBody.get("uuid").toString();
-            String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '"+uuid+"';";
+            String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '" + uuid + "';";
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
@@ -203,6 +205,19 @@ public class TCPServer {
                 response = parseResultSet(rs).toString();
             } else
                 response = "[{\"Username\":\"Nobody\"}]";
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
+
+        } else
+        // Endpoint /emailtousername
+        if (path.equals("/emailtousername")) {
+            ResultSet rs = statement.executeQuery("Select Username from users where Email = '" + body + "'");
+            String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
@@ -240,7 +255,7 @@ public class TCPServer {
         if (path.equals("/register")) {
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String username = parsedBody.get("username").toString();
-            String password =  EncryptionUtils.encrypt(parsedBody.get("password").toString());
+            String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
             String birthDate = parsedBody.get("birthDate").toString();
             String email = parsedBody.get("email").toString();
 

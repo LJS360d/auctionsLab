@@ -2,8 +2,8 @@ appendHeader()
 //Functionalities for pages that are not /homepage.html
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     const searchValue = document.getElementById('searchinput').value
-    const filterValue = document.getElementById('searchfilter').value
-    window.open('/homepage.html?sv=' + searchValue + "&fv=" + filterValue, "_self")
+    const categoryfilterValue = document.getElementById('orderfilter').value
+    window.open('/homepage.html?sv=' + searchValue + "&fv=" + categoryfilterValue, "_self")
 }
 document.addEventListener('keypress', (e) => {
     const searchValue = document.getElementById('searchinput').value
@@ -28,7 +28,7 @@ function appendHeader() {
              </span>
             <span class="searchfilter">
                 <label>Filter by:</label>
-                <select id="searchfilter">
+                <select id="orderfilter">
                     <option value="ItemID">ID</option>
                     <option value="Item_Name">Name</option>
                     <option value="Current_Bid desc">Highest Offer</option>

@@ -18,9 +18,9 @@ async function renderOfferPageOffAPIResponse(itemsResponse) {
 
     <div class="offer-right">
     <h1 class="offer-title">${item.itemName}</h1>
-    <label>${item.itemDescription}</label>
+    <label>${item.itemDescription}</label> <br>
     <label>Seller:${item.seller}</label>
-    <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
+    <label><b>Time Left:${timeLeftUntilDate(item.expireDate)}</b></label>
     <h3>How Much do you Offer?</h3>
     <label>Highest Offer:${item.currentBid ?? 0 + getLocalValute()}</label>
     <label>Highest Bid by:${await getUsernameFromUUID(item.highestBidder)}</label>

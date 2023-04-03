@@ -51,7 +51,7 @@ function renderItem(itemRes) {
     renderItem.innerHTML += `
     <div class="item-top">
     <img src='${item.imageURL}' class='item-img'>
-    <h4>${item.itemName}</h4>
+    <h5>${item.itemName}</h5>
     <label>Seller:${avoidOverflowFormat(item.seller)}</label>
     <label>Time Left:${timeLeftUntilDate(item.expireDate)} </label>
     <label>Going for:${item.currentBid ?? item.minimumBid}${getLocalValute()}</label> 

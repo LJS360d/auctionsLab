@@ -20,6 +20,8 @@ div#catalogue>.item {
     justify-content: space-between;
 
     background-color:#fefefe;
+    /* background-color: #ff8c0f; */
+
 }
 
 div#catalogue>.item>div {

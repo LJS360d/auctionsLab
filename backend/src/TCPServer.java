@@ -88,6 +88,19 @@ public class TCPServer {
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
+        }else 
+        // Endpoint /categories
+        if (path.equals("/categories")) {
+            //TODO:get all unique categories from DB and send as JSON 
+            ResultSet rs = statement.executeQuery("");
+            String response = parseResultSet(rs).toString();
+            String headers = "HTTP/1.1 200 OK\r\n" +
+                    "Content-Type: application/json\r\n" +
+                    "Access-Control-Allow-Origin: *\r\n" +
+                    "Content-Length: " + response.length() + "\r\n" +
+                    "\r\n";
+            output.write(headers.getBytes());
+            output.write(response.getBytes());
         }
         // 404
         else {

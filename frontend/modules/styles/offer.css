@@ -19,6 +19,10 @@ div.offer-right{
     gap: 10px;
 }
 
+div.offer-right>label{
+    font-size: 1.25rem;
+}
+
 div.offer-right>form{
     display: flex;
     flex-direction: column;

@@ -30,11 +30,11 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         <form action="/sellitem.html" method="get" autocomplete="off">
             <h2>Put an item up for auction</h2>
             <label>Image URL</label>
-            <input type="text" name="imageURL" placeholder="URL to the item's image">
+            <input type="url" name="imageURL" placeholder="URL to the item's image">
             <label>Item Name</label>
-            <input type="text" name="itemName" placeholder="Your item's name at birth" required>
+            <input type="text" name="itemName" maxlength="50" placeholder="Your item's name at birth" required>
             <label>Item Description</label>
-            <textarea name="itemDescription" cols="10" rows="10" maxlength="150" placeholder="Write something cool about it"></textarea>
+            <textarea name="itemDescription" cols="10" rows="10" maxlength="300" placeholder="Write something cool about it"></textarea>
             <label>Minimum Bid Value</label>
             <input class="value-input" type="text" name="minimumBid" placeholder="10.00">
             <label>Expire Date</label>

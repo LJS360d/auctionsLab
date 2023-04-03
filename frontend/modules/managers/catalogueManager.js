@@ -11,5 +11,11 @@ export function noItemsAvailable(){
     const bg = document.createElement('img')
     bg.src = './assets/items-unavailable.png'
     bg.alt = 'No Items Available'
-    catalogue.appendChild(bg)
+    const noItems = document.createElement('div')
+    noItems.appendChild(bg)
+    noItems.innerHTML +=`
+    <h1>No items were found</h1>
+    `;
+    noItems.className = "no-items-display"
+    catalogue.appendChild(noItems)
 }

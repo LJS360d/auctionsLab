@@ -35,14 +35,13 @@ document.getElementById('orderfilter').addEventListener('change', sendquery)
 
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
-    if(resultset.itemResponseModelArray.length > 0){
+    if (resultset.itemResponseModelArray.length > 0) {
         resultset.itemResponseModelArray.forEach((item) => {
             renderItem(item)
         })
         buttonsManager.setItemButtonsOnclick()
-    }else{
-        //TODO:Render no items are available
-    }
+    } else
+        catalogueManager.noItemsAvailable()
 }
 
 function renderItem(itemRes) {
@@ -61,7 +60,7 @@ function renderItem(itemRes) {
     <button class="item-button" race="watchlist" style="--c:#E95A49" value="${item.itemID}">Add to Watchlist</button>
     </div>`;
     renderItem.className = 'item'
-    renderItem.ondblclick = ()=>{
+    renderItem.ondblclick = () => {
         window.open(`/offer.html?itemID=${item.itemID}`, '_self')
     }
     document.getElementById('catalogue').appendChild(renderItem)

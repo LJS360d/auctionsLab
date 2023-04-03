@@ -2,6 +2,7 @@ div#catalogue {
     display: flex;
     flex-wrap: wrap;
     flex-direction: row;
+    position: relative;
 }
 
 div#catalogue>.item {
@@ -11,7 +12,7 @@ div#catalogue>.item {
     font-family: Verdana;
     flex: 0 0 auto;
 
-    border: 0.25rem  inset black;
+    border: 0.25rem inset black;
     border-left: none;
     border-top: none;
 
@@ -19,7 +20,7 @@ div#catalogue>.item {
     flex-direction: column;
     justify-content: space-between;
 
-    background-color:#fefefe;
+    background-color: #fefefe;
     /* background-color: #ff8c0f; */
 
 }
@@ -56,6 +57,18 @@ div#catalogue>.item>div>label {
 div#catalogue>.item>div>img.item-img {
     width: 15rem;
     height: 15rem;
+    object-fit: cover;
+    object-position: center;
+}
+
+div.no-items-display {
+    position: absolute;
+    left: 40%;
+}
+
+div.no-items-display>img {
+    width: 20rem;
+    height: 20rem;
     object-fit: cover;
     object-position: center;
 }

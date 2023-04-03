@@ -2,7 +2,6 @@ import * as APIService from "./modules/APIService.js"
 const params = new URL(location.href).searchParams;
 
 const imageURL = params.get('imageURL');
-if (!(await isValidAndExists(imageURL))) window.open("homepage.html?rsb=3", "_self")
 const itemName = params.get('itemName');
 const minimumBid = params.get('minimumBid');
 const itemDescription = params.get('itemDescription');
@@ -22,19 +21,6 @@ await APIService.post(JSON.stringify(itemData), "/sellitem").then((res) => {
         else window.open("homepage.html?rsb=1", "_self");
     
 })
-async function isValidAndExists(url) {
-    const urlRegex = /^(?:\w+:)?\/\/([^\s\.]+\.\S{2}|localhost[\:?\d]*)\S*$/;
-    if (!urlRegex.test(url)) {
-        return false;
-    }
-    try {
-        const response = await fetch(url, { method: 'HEAD' });
-        return response.ok;
-    } catch (error) {
-        return false;
-    }
-
-}
 function datetimeinAWeek() {
     const now = new Date();
     now.setDate(now.getDate() + 7)

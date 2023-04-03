@@ -2,7 +2,7 @@ const params = new URL(location.href).searchParams;
 const itemID = params.get('itemID');
 const offerInput = params.get('offerInput');
 const uuid = localStorage.getItem('uuid') ?? sessionStorage.getItem('uuid') ?? false;
-const minOffer = params.get('minOffer');
+const minOffer = Number(params.get('minOffer'));
 //Connect to MiddleMan (Proxy)
 const socket = io('ws://localhost:9098');
 if (offerInput <= minOffer) {

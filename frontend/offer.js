@@ -22,7 +22,7 @@ async function renderOfferPageOffAPIResponse(itemsResponse) {
     <label>Seller:${item.seller}</label>
     <label><b>Time Left:${timeLeftUntilDate(item.expireDate)}</b></label>
     <h3>How Much do you Offer?</h3>
-    <label>Highest Offer:${item.currentBid ?? 0 + getLocalValute()}</label>
+    <label>Highest Offer:${item.currentBid ?? 0}${getLocalValute()}</label>
     <label>Highest Bid by:${await getUsernameFromUUID(item.highestBidder)}</label>
     <label>Minimum Offer:${minOffer}${getLocalValute()}</label> 
     <form action="sendoffer.html" method="get" autocomplete="off">

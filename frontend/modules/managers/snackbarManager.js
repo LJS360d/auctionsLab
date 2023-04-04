@@ -40,7 +40,7 @@ if (params.has('gsb')) {
     if (params.get('gsb') == 2)
         showSnackbarGreenText('The item has been put up for auction')
 
-        cleanURL()
+    cleanURL()
 }
 //Red Snack Bar
 if (params.has('rsb')) {
@@ -52,6 +52,9 @@ if (params.has('rsb')) {
 
     if (params.get('rsb') == 3)
         showSnackbarRedText('The image URL is invalid')
-        
-        cleanURL()
+
+    if (params.get('rsb') == 4)
+        showSnackbarRedText('Invalid categories')
+
+    cleanURL()
 }

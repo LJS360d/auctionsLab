@@ -22,7 +22,7 @@ div#catalogue>.item {
 
     background-color: #fefefe;
     /* background-color: #ff8c0f; */
-
+    max-width: 15rem;
 }
 
 div#catalogue>.item>div {
@@ -31,9 +31,13 @@ div#catalogue>.item>div {
 }
 
 div#catalogue>div.item>div.item-top>label,
-div#catalogue>div.item>div.item-top>h4 {
+div#catalogue>div.item>div.item-top>h5 {
     padding-left: 0.25rem;
     padding-bottom: 0.25rem;
+}
+
+div#catalogue>div.item>div.item-top>h5 {
+    max-width: 80%;
 }
 
 div#catalogue:has(.item:hover) .item:not(.item:hover) {

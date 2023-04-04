@@ -35,7 +35,10 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <input type="text" name="itemName" maxlength="50" placeholder="Your item's name at birth" required>
             <label>Item Description</label>
             <textarea name="itemDescription" cols="10" rows="10" maxlength="300" placeholder="Write something cool about it"></textarea>
-            <label>Minimum Bid Value</label>
+            <label>Categories</label>
+            <input type="select" name="categories" placeholder="Category Name:Subcategory,Another Category:[Many,Sub Categories]">
+            <br><br><br>
+            <label>Minimum Bid</label>
             <input class="value-input" type="text" name="minimumBid" placeholder="10.00">
             <label>Expire Date</label>
             <input type="date" name="expireDate" value="${todayPlusAWeek()}" min="${tomorrow()}" max="${todayPlusAMonth()}">
@@ -52,9 +55,11 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         document.addEventListener('keydown', closeModalOnEscape)
     }
     function tomorrow() {
+        //Seconds in a day = 86 400 
         return new Date(Date.now() + 1 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     }
     function todayPlusAWeek() {
+        //Seconds in a week = 604 800 
         return new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString().split('T')[0];
     }
     function todayPlusAMonth() {

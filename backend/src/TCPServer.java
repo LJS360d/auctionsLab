@@ -126,7 +126,6 @@ public class TCPServer {
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String searchValue = parsedBody.get("searchValue").toString();
             String filterValue = parsedBody.get("filterValue").toString();
-            //TODO:Make Sure Categories cannot have weird chars
             String categoryValue = parsedBody.get("categoryValue").toString();
             if (isNumeric(searchValue)) {
                 query = "Select * FROM items WHERE ItemID =" + searchValue;
@@ -158,10 +157,18 @@ public class TCPServer {
             String itemDescription = parsedBody.get("itemDescription").toString();
             String expireDate = parsedBody.get("expireDate").toString();
             String seller = parsedBody.get("username").toString();
-            query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "
-                    +
-                    "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
-                    + "','" + expireDate + "')";
+            String categories = parsedBody.get("categories").toString();
+            if(!categories.equals("{}")){
+                query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`,`Categories`) VALUES "
+                        +
+                        "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
+                        + "','" + expireDate + "','"+categories+"')";
+            }else{
+                query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "
+                        +
+                        "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
+                        + "','" + expireDate + "')";
+            }
 
             String response = Integer.toString(statement.executeUpdate(query));
             String headers = "HTTP/1.1 200 OK\r\n" +

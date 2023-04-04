@@ -60,3 +60,16 @@ export class userProfileResponseModel{
         return string;
     }
 }
+
+export class categoriesResponseModel{
+    categoriesArray = [];
+    constructor(res){
+        const categoriesJSON = JSON.parse(res);
+        let categoriesVector = [];
+        for (const entry of categoriesJSON) {
+            if('Categories' in entry)
+            categoriesVector = categoriesVector.concat(JSON.parse(entry.Categories))
+        }
+        this.categoriesArray = Array.from(new Set(categoriesVector))
+    }
+}

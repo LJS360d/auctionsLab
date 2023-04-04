@@ -46,7 +46,7 @@ export async function getCategories() {
     http.send();
   });
 }
-export async function postGetByName(searchValue, filterValue) {
+export async function postGetByName(searchValue, filterValue, categoryValue) {
   return new Promise((resolve, reject) => {
     const http = new XMLHttpRequest();
     const endpoint = '/getbyname';
@@ -66,7 +66,7 @@ export async function postGetByName(searchValue, filterValue) {
     };
 
     http.open('POST', API_URL + endpoint, true);
-    http.send(JSON.stringify({ searchValue: searchValue ?? '', filterValue: filterValue ?? 'ItemID' }));
+    http.send(JSON.stringify({ searchValue: searchValue ?? '', filterValue: filterValue ?? 'ItemID', categoryValue: categoryValue ?? '' }));
   });
 }
 export async function get(endpoint) {

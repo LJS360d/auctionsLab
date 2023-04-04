@@ -27,10 +27,8 @@
             <div class="searchbar">
                 <span class="searchfilter" title="Search in Category">
                     <select id="categoryfilter">
-                        <option  selected>All Categories</option>
-                        <optgroup label="Puppa">
-                            <option value="1001">Laptop</option>
-                        </optgroup>
+                        <option value="" selected>All Categories</option>
+                        <!--Built dynamically with result from /categories endpoint-->
                     </select>
                 </span>
                 <span class="searchfilter" title="Filter By">
@@ -64,7 +62,7 @@
                 Sell an Item
                 <i class="fa-solid fa-money-bill-trend-up"></i>
             </span>
-            <span class="header-button" id="profile-button">
+            <span class="header-button" id="profile-button" title="View your profile">
                 <i class="fa-solid fa-user"></i>
             </span>
         </div>

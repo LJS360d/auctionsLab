@@ -91,8 +91,8 @@ public class TCPServer {
         } else
         // Endpoint /categories
         if (path.equals("/categories")) {
-            // TODO:get all unique categories from DB and send as JSON
-            ResultSet rs = statement.executeQuery("");
+            //Categories are sent as an array of objects with property "Categories" Actual Categories to be Parsed in Frontend
+            ResultSet rs = statement.executeQuery("SELECT DISTINCT JSON_KEYS(`Categories`) as `Categories` from items");
             String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
@@ -126,10 +126,17 @@ public class TCPServer {
             org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
             String searchValue = parsedBody.get("searchValue").toString();
             String filterValue = parsedBody.get("filterValue").toString();
+            //TODO:Make Sure Categories cannot have weird chars
+            String categoryValue = parsedBody.get("categoryValue").toString();
             if (isNumeric(searchValue)) {
-                query = "Select * from items where ItemID =" + searchValue;
+                query = "Select * FROM items WHERE ItemID =" + searchValue;
             } else {
-                query = "Select * from items where Item_Name like '%" + searchValue + "%' order by " + filterValue;
+                if(!categoryValue.equals("")){
+                    query = "Select * FROM items WHERE Item_Name like '%" + searchValue + "%' AND " +
+                    "JSON_EXTRACT(`Categories`, '$."+categoryValue+"') order by " + filterValue;
+                }else{
+                    query = "SELECT * FROM items WHERE Item_Name like '%" + searchValue + "%' order by " + filterValue;
+                }
             }
             ResultSet rs = statement.executeQuery(query);
             String response = parseResultSet(rs).toString();

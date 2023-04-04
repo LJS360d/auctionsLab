@@ -6,25 +6,36 @@ import { timeLeftUntilDate } from "./modules/utils/timeLeftUntilDate.js";
 import { getLocalValute } from "./modules/utils/getLocalValute.js";
 import { cleanURL } from "./modules/utils/cleanURL.js";
 const params = new URL(location.href).searchParams
+await appendCategories()
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     catalogueManager.clearCatalogue()
-    if (params.has('sv'))
-        document.getElementById('searchinput').value = params.get('sv')
-    if (params.has('fv'))
-        document.getElementById('orderfilter').value = params.get('fv')
-    if (params.has('cv'))
-        document.getElementById('categoryfilter').value = params.get('cv')
+    handleParams()
     const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
     const filterValue = String(document.getElementById('orderfilter').value)
-    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue, filterValue))
+    const categoryValue = String(document.getElementById('categoryfilter').value)
+    renderItemsOffAPIResponse(await APIService.postGetByName(searchValue, filterValue, categoryValue))
+
+    function handleParams() {
+        if (params.has('sv')) {
+            document.getElementById('searchinput').value = params.get('sv')
+            params.delete('sv')
+        } if (params.has('fv')) {
+            document.getElementById('orderfilter').value = params.get('fv')
+            params.delete('fv')
+        } if (params.has('cv')) {
+            document.getElementById('categoryfilter').value = params.get('cv')
+            params.delete('cv')
+        }
+    }
 }
 //Search Value
-if (!params.has('sv'))
+if (!params.has('sv') && !params.has('cv'))
     renderItemsOffAPIResponse(await APIService.getAllItems())
 else {
     sendquery()
     cleanURL();
 }
+
 
 document.addEventListener('keypress', (e) => {
     if (e.key === 'Enter') {
@@ -32,7 +43,7 @@ document.addEventListener('keypress', (e) => {
     }
 })
 document.getElementById('orderfilter').addEventListener('change', sendquery)
-
+document.getElementById('categoryfilter').addEventListener('change', sendquery)
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     if (resultset.itemResponseModelArray.length > 0) {
@@ -73,6 +84,19 @@ function avoidOverflowFormat(string) {
     } else {
         return string
     }
+}
+
+async function appendCategories() {  
+    const categories = sessionStorage.getItem('categories') ? 
+    JSON.parse(sessionStorage.getItem('categories')) : 
+    new Models.categoriesResponseModel(await APIService.getCategories()).categoriesArray 
+    categories.forEach(category => {
+        const categoryFilter = document.getElementById('categoryfilter')
+        const categoryOption = document.createElement('option')
+        categoryOption.value = category
+        categoryOption.innerText = category.replace(/_/," ")
+        categoryFilter.appendChild(categoryOption)
+    })
 }
 
 /* Old Functions for Node Backend

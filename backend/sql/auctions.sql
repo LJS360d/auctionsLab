@@ -65,4 +65,6 @@ INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`) VALUES
 ('{"Music":["Vynil","Weeb"],"Anime":"Evangelion","Original Soundtrack":"Neon Genesis Evangelion"}','https://cdn.hmv.com/r/w-640/hmv/files/02/02492df6-39b6-4264-bb48-12d47110f837.jpg',
 'Vinile di Evangelion'),
 ('{"Toys":"Fidget"}',"https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71MYj9X7cOL._AC_SL1500_.jpg",
-"Infinity Cube");
+"Infinity Cube"),
+('{"Toys":["Fidget","Puzzle"],"Puzzles":"Rubiks"}',"http://www.rubiksplace.com/images/best-speedcubes/yuxin-5x5-speedcube.png",
+"5x5 Cube");

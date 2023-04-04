@@ -58,7 +58,7 @@ function buildCategoriesWrapper(item){
         for (const [key, value] of Object.entries(JSON.parse(item.categories))) {
             const category = document.createElement('span');
             category.className = 'category';
-            category.innerHTML += `<a href="/homepage.html?cv=${key}">${key}</a>`;
+            category.innerHTML += `<a href="/homepage.html?cv=${key}">${key.replace(/_/," ")}</a>`;
             
             if (Array.isArray(value)) {
                 for (const content of value) {

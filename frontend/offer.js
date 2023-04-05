@@ -58,14 +58,14 @@ function buildCategoriesWrapper(item){
         for (const [key, value] of Object.entries(JSON.parse(item.categories))) {
             const category = document.createElement('span');
             category.className = 'category';
-            category.innerHTML += `<a href="/homepage.html?cv=${key}">${String(key).replace(/_/," ")}</a>`;
+            category.innerHTML += `<a href="/homepage.html?cv=${key}">${String(key).replace(/_/g," ")}</a>`;
             
             if (Array.isArray(value)) {
                 for (const content of value) {
-                    category.innerHTML += `<label>${String(content).replace(/_/," ")}</label>`;
+                    category.innerHTML += `<label>${String(content).replace(/_/g," ")}</label>`;
                 }
             } else {
-                category.innerHTML += `<label>${String(value).replace(/_/," ")}</label>`;
+                category.innerHTML += `<label>${String(value).replace(/_/g," ")}</label>`;
             }
             
             categories.appendChild(category);

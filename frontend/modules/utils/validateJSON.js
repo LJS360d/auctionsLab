@@ -18,14 +18,14 @@ export function validateJSON(str) {
             if (!fixedStr.startsWith('{')) {
                 fixedStr = `{${fixedStr}`;
             }
-            // Fix missing quotes around property names
-            fixedStr = fixedStr.replace(/([{,]*)(")?([a-zA-Z0-9_]+)(")?\s*:/g, '$1"$3":');
-            // Fix missing quotes around property values
-            fixedStr = fixMissingQuotesOnValues(fixedStr)
             // Fix strings inside square brackets
             findSquareBracketedSubstrings(fixedStr).forEach(str => {
                 fixedStr = fixedStr.replace(str, quoteItems(str))
             })
+            // Fix missing quotes around property names
+            fixedStr = fixedStr.replace(/([{,]*)(")?([a-zA-Z0-9_]+)(")?\s*:/g, '$1"$3":');
+            // Fix missing quotes around property values
+            fixedStr = fixMissingQuotesOnValues(fixedStr)
 
             if (!fixedStr.endsWith('}')) {
                 fixedStr = `${fixedStr}}`;

@@ -48,11 +48,9 @@ BEGIN
 END;
 INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`,`Seller`,`Expire_Date`) VALUES
 ('{"Farming_Tools":"Hoe"}','https://cpad.ask.fm/959/738/760/-339996970-1sh2h18-fg29p33p1im5m6k/original/file.jpg','Zappa da Vigna','Enrico Pasquale Prattico\'','2023-04-29 00:00:00');
-
 INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`,`Item_Description`,`Seller`,`Expire_Date`) VALUES
 ('{"Kitchen_Utensils":"Grater"}','https://images.eprice.it/nobrand/0/Lightbox/100/302170100/lagostina_rape_4_faces_012335120100.jpg','La Grattugia','La Gratuggia quella per il forrmagggio','Giuseppe Simone','2023-04-20 10:30:00'),
 ('{"Food":["Chocolate","Nuts"],"MrBeast":"Feastables"}','https://cdn.shopify.com/s/files/1/0551/6060/2784/products/DN-Mobile.png','Deez Nutz',"The biggest thing jimmy has ever made",'Mr Beaaaaaast','2023-04-10T22:46:53');
-
 INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`) VALUES
 ('{"Music":["Vynil","Weeb","Rock"],"Anime":"Evangelion","Original_Soundtrack":"Neon Genesis Evangelion"}','https://cdn.hmv.com/r/w-640/hmv/files/02/02492df6-39b6-4264-bb48-12d47110f837.jpg',
 'Vinile di Evangelion'),

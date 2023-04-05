@@ -11,7 +11,7 @@
 
 `/src`  
 
-- AuctionsLabHttpServer.java <--*Starts the backend ***Contains Main method**
+- AuctionsLabHttpServer.java <--*Starts the backend **Contains Main method***
 - TCPServer.java <--*Handles requests coming from APIService*
 - UDPServer.java <--*Handles requests coming from Proxy Server*
 - JSONParse.java
@@ -59,6 +59,7 @@
 	- isValidUUID()
 	- setInputFilter(inputbox, inputFilter, errMsg)
     - timeLeftUntilDate(date)
+	- validateJSON(str)
 
 	`/models`
 	- **responseModels.js**

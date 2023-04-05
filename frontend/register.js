@@ -11,7 +11,7 @@ const regData = {
     birthDate: params.get('dateOfBirth'),
     email: params.get('email')
 }
-
+//TODO:send hashed password
 if (params.has('username') && params.has('password') && params.has('dateOfBirth') && params.has('email')) {
     const res = JSON.parse(await APIService.post(JSON.stringify(regData), "/register"))[0]
     let uuid = res ? res.UserUUID : '';

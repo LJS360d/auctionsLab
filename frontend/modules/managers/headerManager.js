@@ -1,10 +1,6 @@
 import { categoriesResponseModel } from "../models/responseModels.js"
 import { getCategories } from "../APIService.js"
 appendHeader()
-
-
-
-
 //Functionalities for pages that are not /homepage.html
 const sendquery = document.getElementById('searchbutton').onclick = async () => {
     const searchValue = document.getElementById('searchinput').value

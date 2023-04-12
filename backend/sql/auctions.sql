@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS `auctions`;
+#DROP DATABASE IF EXISTS `auctions`;
 CREATE DATABASE IF NOT EXISTS `auctions`;
 USE `auctions`;
 CREATE TABLE IF NOT EXISTS `Users` (
@@ -9,7 +9,7 @@ CREATE TABLE IF NOT EXISTS `Users` (
 `Email` VARCHAR(35) NOT NULL
 );
 DELIMITER $$
-CREATE TRIGGER `set_user_id` BEFORE INSERT ON `Users`
+CREATE TRIGGER IF NOT EXISTS `set_user_id` BEFORE INSERT ON `Users`
 FOR EACH ROW
 BEGIN
     SET NEW.`UserUUID` = UUID();
@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `Items` (
 `Expire_Date` DATETIME DEFAULT (NOW() + INTERVAL 7 DAY),
 FOREIGN KEY (`Highest_Bidder`) REFERENCES `Users`(`UserUUID`)
 );
-CREATE TRIGGER `generate_bid_address` BEFORE INSERT ON `Items`
+CREATE TRIGGER IF NOT EXISTS `generate_bid_address` BEFORE INSERT ON `Items`
 FOR EACH ROW
 BEGIN
     DECLARE last_bid_address VARCHAR(24);
@@ -72,8 +72,7 @@ CREATE TABLE IF NOT EXISTS `Expired-Items` (
   `Expire_Date` DATETIME,
   FOREIGN KEY (`Winner`) REFERENCES `Users`(`UserUUID`)
 );
-
-CREATE TRIGGER move_expired_items_to_expired_items_table
+CREATE TRIGGER IF NOT EXISTS move_expired_items_to_expired_items_table
 AFTER DELETE ON `Items`
 FOR EACH ROW
 BEGIN
@@ -86,9 +85,8 @@ BEGIN
         OLD.`Expire_Date`
     );
 END;
-
-CREATE EVENT remove_expired_items
-ON SCHEDULE EVERY 1 HOUR
+CREATE EVENT IF NOT EXISTS remove_expired_items
+ON SCHEDULE EVERY 1 MINUTE
 STARTS NOW()
 DO
   DELETE FROM items

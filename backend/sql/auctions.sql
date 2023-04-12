@@ -58,3 +58,38 @@ INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`) VALUES
 "Infinity Cube"),
 ('{"Toys":["Fidget","Puzzle"],"Puzzles":"Rubiks"}',"http://www.rubiksplace.com/images/best-speedcubes/yuxin-5x5-speedcube.png",
 "5x5 Cube");
+
+CREATE TABLE IF NOT EXISTS `Expired-Items` (
+  `ItemID` INT PRIMARY KEY,
+  `Categories` JSON,
+  `Image_URL` VARCHAR(300),
+  `Item_Name` VARCHAR(50) NOT NULL,
+  `Item_Description` VARCHAR(300),
+  `Winner` VARCHAR(36),
+  `Winner_Bid` FLOAT,
+  `Seller` VARCHAR(50),
+  `Bid_Address` VARCHAR(24),
+  `Expire_Date` DATETIME,
+  FOREIGN KEY (`Winner`) REFERENCES `Users`(`UserUUID`)
+);
+
+CREATE TRIGGER move_expired_items_to_expired_items_table
+AFTER DELETE ON `Items`
+FOR EACH ROW
+BEGIN
+    INSERT INTO `Expired-Items` (
+        `ItemID`, `Categories`, `Image_URL`, `Item_Name`, `Item_Description`, `Winner`,
+        `Winner_Bid`, `Seller`, `Bid_Address`, `Expire_Date`
+    ) VALUES (
+        OLD.`ItemID`, OLD.`Categories`, OLD.`Image_URL`, OLD.`Item_Name`, OLD.`Item_Description`, 
+        OLD.`Highest_Bidder`, OLD.`Current_Bid`, OLD.`Seller`, OLD.`Bid_Address`, 
+        OLD.`Expire_Date`
+    );
+END;
+
+CREATE EVENT remove_expired_items
+ON SCHEDULE EVERY 1 HOUR
+STARTS NOW()
+DO
+  DELETE FROM items
+  WHERE `Expire_Date` <= NOW();

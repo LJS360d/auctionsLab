@@ -45,7 +45,6 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
             <button class="item-button" type="submit">Confirm  <i class="fa fa-paper-plane"></i></button>
         </form>
         </div>`;
-        //TODO: add categories selector
         modal.className = 'modal'
         modal.style.display = 'block'
         document.body.appendChild(modal)
@@ -74,7 +73,7 @@ const profileButton = document.getElementById('profile-button');
 export var onProfileButtonClick = profileButton.onclick = function () {
     gotoProfile()
     function gotoProfile() {
-        window.open('/profile.html', '_self')
+        window.open('profile.html', '_self')
     }
 }
 
@@ -85,7 +84,7 @@ export function setItemButtonsOnclick() {
             case 'offer':
                 button.onclick = function () {
                     const itemID = button.value;
-                    window.open(`/offer.html?itemID=${itemID}`, '_self')
+                    window.open(`offer.html?itemID=${itemID}`, '_self')
                 }
                 break;
             case 'watchlist':

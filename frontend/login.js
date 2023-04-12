@@ -10,7 +10,7 @@ if(params.has('nameInput') && params.has('password')){
     let uuid = res ? res.UserUUID : '';
     const username = isValidEmail(authData.nameInput) ? await getUsernameFromEmail(authData.nameInput): authData.nameInput;
     if(validateLogin(uuid, username, params.get('remember'))) {
-        window.open('/homepage.html', "_self")
+        window.open('homepage.html','_self')
     }else
     showSnackbarRedText("Wrong Login Information"); 
 }

@@ -92,6 +92,7 @@ public class TCPServer {
         // Endpoint /categories
         if (path.equals("/categories")) {
             //Categories are sent as an array of objects with property "Categories" Actual Categories to be Parsed in Frontend
+            //TODO:Fix resultset closing (??)
             ResultSet rs = statement.executeQuery("SELECT DISTINCT JSON_KEYS(`Categories`) as `Categories` from items");
             String response = parseResultSet(rs).toString();
             String headers = "HTTP/1.1 200 OK\r\n" +
@@ -336,7 +337,8 @@ public class TCPServer {
     }
 
     private static JSONArray parseResultSet(ResultSet resultSet) throws SQLException {
-        ResultSetMetaData md = resultSet.getMetaData();
+        ResultSet copyResultSet = resultSet;
+        ResultSetMetaData md = copyResultSet.getMetaData();
         int numCols = md.getColumnCount();
         List<String> colNames = IntStream.range(0, numCols)
                 .mapToObj(i -> {
@@ -348,22 +350,26 @@ public class TCPServer {
                     }
                 })
                 .collect(Collectors.toList());
-
+    
         JSONArray result = new JSONArray();
-        while (resultSet.next()) {
-            JSONObject row = new JSONObject();
-            colNames.forEach(cn -> {
-                try {
-                    row.put(cn, resultSet.getObject(cn));
-                } catch (JSONException | SQLException e) {
-                    e.printStackTrace();
-                }
-            });
-            result.put(row);
+        try {
+            while (copyResultSet.next()) {
+                JSONObject row = new JSONObject();
+                colNames.forEach(cn -> {
+                    try {
+                        row.put(cn, copyResultSet.getObject(cn));
+                    } catch (JSONException | SQLException e) {
+                        e.printStackTrace();
+                    }
+                });
+                result.put(row);
+            }
+        } catch (SQLException e) {
+            System.out.println("ResultSet Closed, Client will probably need to reload page");
         }
         return result;
     }
-
+    
     private static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;

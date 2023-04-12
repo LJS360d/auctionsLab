@@ -11,12 +11,12 @@ const regData = {
     birthDate: params.get('dateOfBirth'),
     email: params.get('email')
 }
-//TODO:send hashed password
+//Proper: Send Already Hashed pwd over HTTPS
 if (params.has('username') && params.has('password') && params.has('dateOfBirth') && params.has('email')) {
     const res = JSON.parse(await APIService.post(JSON.stringify(regData), "/register"))[0]
     let uuid = res ? res.UserUUID : '';
     if (isRegistrationSuccess(uuid, regData.username, params.get('remember'))) {
-        window.open('/homepage.html', "_self")
+        window.open('homepage.html', "_self")
     } else showSnackbarRedText("Could not register");
 }
 

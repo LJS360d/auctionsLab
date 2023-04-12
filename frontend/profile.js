@@ -9,7 +9,8 @@ function renderProfilePageOffAPIResponse(results){
     const profile = document.createElement('div')
     profile.innerHTML += `
     <h1>${profileData.username}</h1>
-    TODO:Build profile page
+    <h3>${profileData.birthDate}</h3>
+    <h3>${profileData.email}</h3>
     `;
     profile.className = "profile"
     document.body.appendChild(profile)

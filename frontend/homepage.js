@@ -72,7 +72,7 @@ function renderItem(itemRes) {
     </div>`;
     renderItem.className = 'item'
     renderItem.ondblclick = () => {
-        window.open(`/offer.html?itemID=${item.itemID}`, '_self')
+        window.open(`offer.html?itemID=${item.itemID}`, '_self')
     }
     document.getElementById('catalogue').appendChild(renderItem)
 }

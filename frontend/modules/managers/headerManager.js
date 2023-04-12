@@ -6,7 +6,7 @@ const sendquery = document.getElementById('searchbutton').onclick = async () => 
     const searchValue = document.getElementById('searchinput').value
     const orderFilterValue = document.getElementById('orderfilter').value
     const categoryFilterValue = String(document.getElementById('categoryfilter').value)
-    window.open('/homepage.html?sv=' + searchValue +
+    window.open('homepage.html?sv=' + searchValue +
         "&fv=" + orderFilterValue +
         "&cv=" + categoryFilterValue,
         "_self")

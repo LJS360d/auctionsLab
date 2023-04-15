@@ -77,25 +77,33 @@ public class TCPServer {
     }
 
     private static void handleGet(String path, OutputStream output) throws Exception {
-        // Endpoint Root
-        if (path.equals("/")) {
-            ResultSet rs = statement.executeQuery("SELECT * FROM items ORDER BY `ItemID` DESC");
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-        } else
-        // Endpoint /categories
-        if (path.equals("/categories")) {
-            //Categories are sent as an array of objects with property "Categories" Actual Categories to be Parsed in Frontend
-            //TODO:Fix resultset closing (??)
-            ResultSet rs = statement.executeQuery("SELECT DISTINCT JSON_KEYS(`Categories`) as `Categories` from items");
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
+        String response = null;
+        String headers = null;
+        boolean foundPath = true;
+        switch (path) {
+            case "/": {
+                ResultSet rs = statement.executeQuery("SELECT * FROM items ORDER BY `ItemID` DESC");
+                response = parseResultSet(rs).toString();
+                break;
+            }
+            case "/categories": {
+                // Categories are sent as an array of objects with property "Categories" Actual
+                // Categories to be Parsed in Frontend
+                // TODO:Fix resultset closing (??)
+                ResultSet rs = statement
+                        .executeQuery("SELECT DISTINCT JSON_KEYS(`Categories`) as `Categories` from items");
+                response = parseResultSet(rs).toString();
+                break;
+            }
+
+            default: {
+                foundPath = false;
+                break;
+            }
+        }
+        // Sending Response
+        if (foundPath) {
+            headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
                     "Content-Length: " + response.length() + "\r\n" +
@@ -110,188 +118,143 @@ public class TCPServer {
     }
 
     private static void handlePost(String path, String body, OutputStream output) throws Exception {
-        // Endpoint Root
-        if (path.equals("/")) {
-            String response = body;
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-        } else
-        // Endpoint /getbyname
-        if (path.equals("/getbyname")) {
-            String query = "";
-            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
-            String searchValue = parsedBody.get("searchValue").toString();
-            String filterValue = parsedBody.get("filterValue").toString();
-            String categoryValue = parsedBody.get("categoryValue").toString();
-            if (isNumeric(searchValue)) {
-                query = "Select * FROM items WHERE ItemID =" + searchValue;
-            } else {
-                if(!categoryValue.equals("")){
-                    query = "Select * FROM items WHERE Item_Name like '%" + searchValue + "%' AND " +
-                    "JSON_EXTRACT(`Categories`, '$."+categoryValue+"') order by " + filterValue;
-                }else{
-                    query = "SELECT * FROM items WHERE Item_Name like '%" + searchValue + "%' order by " + filterValue;
+        String response = null;
+        String headers = null;
+        boolean foundPath = true;
+        switch (path) {
+            case "/": {
+                response = body;
+                break;
+            }
+            case "/getbyname": {
+                String query = "";
+                org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+                String searchValue = parsedBody.get("searchValue").toString();
+                String filterValue = parsedBody.get("filterValue").toString();
+                String categoryValue = parsedBody.get("categoryValue").toString();
+                if (isNumeric(searchValue)) {
+                    query = "Select * FROM items WHERE ItemID =" + searchValue;
+                } else {
+                    if (!categoryValue.equals("")) {
+                        query = "Select * FROM items WHERE Item_Name like '%" + searchValue + "%' AND " +
+                                "JSON_EXTRACT(`Categories`, '$." + categoryValue + "') order by " + filterValue;
+                    } else {
+                        query = "SELECT * FROM items WHERE Item_Name like '%" + searchValue + "%' order by "
+                                + filterValue;
+                    }
                 }
-            }
-            ResultSet rs = statement.executeQuery(query);
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-        } else
-        // Endpoint /sellitem
-        if (path.equals("/sellitem")) {
-            String query = "";
-            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
-            String imageURL = parsedBody.get("imageURL").toString();
-            String itemName = parsedBody.get("itemName").toString();
-            String minimumBid = parsedBody.get("minimumBid").toString();
-            String itemDescription = parsedBody.get("itemDescription").toString();
-            String expireDate = parsedBody.get("expireDate").toString();
-            String seller = parsedBody.get("username").toString();
-            String categories = parsedBody.get("categories").toString();
-            if(!categories.equals("{}")){
-                query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`,`Categories`) VALUES "
-                        +
-                        "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
-                        + "','" + expireDate + "','"+categories+"')";
-            }else{
-                query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "
-                        +
-                        "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'" + seller
-                        + "','" + expireDate + "')";
-            }
-
-            String response = Integer.toString(statement.executeUpdate(query));
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-        } else
-        // Endpoint /offerPage
-        if (path.equals("/offerPage")) {
-            if (!body.isEmpty() && isNumeric(body)) {
-                ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
-                String response = parseResultSet(rs).toString();
-                String headers = "HTTP/1.1 200 OK\r\n" +
-                        "Content-Type: application/json\r\n" +
-                        "Access-Control-Allow-Origin: *\r\n" +
-                        "Content-Length: " + response.length() + "\r\n" +
-                        "\r\n";
-                output.write(headers.getBytes());
-                output.write(response.getBytes());
-            } else
-                sendNotFound(output);
-
-        } else
-        // Endpoint /profile
-        if (path.equals("/profile")) {
-            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
-            String uuid = parsedBody.get("uuid").toString();
-            String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '" + uuid + "';";
-            ResultSet rs = statement.executeQuery(query);
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-
-        } else
-        // Endpoint /uuidtousername
-        if (path.equals("/uuidtousername")) {
-            String response;
-            if (!body.isEmpty()) {
-                ResultSet rs = statement.executeQuery("Select Username from users where UserUUID = '" + body + "'");
+                ResultSet rs = statement.executeQuery(query);
                 response = parseResultSet(rs).toString();
-            } else
-                response = "[{\"Username\":\"Nobody\"}]";
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
 
-        } else
-        // Endpoint /emailtousername
-        if (path.equals("/emailtousername")) {
-            ResultSet rs = statement.executeQuery("Select Username from users where Email = '" + body + "'");
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-
-        } else
-        // Endpoint /login
-        if (path.equals("/login")) {
-            String query = "";
-            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
-            String nameInput = parsedBody.get("nameInput").toString();
-            String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
-            if (isValidEmail(nameInput)) {
-                query = "SELECT userUUID FROM users WHERE Email = '" + nameInput + "' AND Password = '" + password
-                        + "';";
-            } else {
-                query = "SELECT userUUID FROM users WHERE Username = '" + nameInput + "' AND Password = '" + password
-                        + "';";
+                break;
             }
-            ResultSet rs = statement.executeQuery(query);
-            String response = parseResultSet(rs).toString();
-            String headers = "HTTP/1.1 200 OK\r\n" +
+            case "/sellItem": {
+                String query = "";
+                org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+                String imageURL = parsedBody.get("imageURL").toString();
+                String itemName = parsedBody.get("itemName").toString();
+                String minimumBid = parsedBody.get("minimumBid").toString();
+                String itemDescription = parsedBody.get("itemDescription").toString();
+                String expireDate = parsedBody.get("expireDate").toString();
+                String seller = parsedBody.get("username").toString();
+                String categories = parsedBody.get("categories").toString();
+                if (!categories.equals("{}")) {
+                    query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`,`Categories`) VALUES "
+                            +
+                            "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'"
+                            + seller
+                            + "','" + expireDate + "','" + categories + "')";
+                } else {
+                    query = "INSERT INTO `items` (`Image_URL`,`Item_Name`,`Minimum_Bid`,`Item_Description`,`Seller`,`Expire_Date`) VALUES "
+                            +
+                            "('" + imageURL + "','" + itemName + "'," + minimumBid + ",\"" + itemDescription + "\",'"
+                            + seller
+                            + "','" + expireDate + "')";
+                }
+
+                response = Integer.toString(statement.executeUpdate(query));
+                break;
+            }
+            case "/offerPage": {
+                if (!body.isEmpty() && isNumeric(body)) {
+                    ResultSet rs = statement.executeQuery("Select * from items where ItemID = " + body);
+                    response = parseResultSet(rs).toString();
+                } else
+                    sendNotFound(output);
+                break;
+            }
+            case "/profile": {
+                org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+                String uuid = parsedBody.get("uuid").toString();
+                String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '" + uuid + "';";
+                ResultSet rs = statement.executeQuery(query);
+                response = parseResultSet(rs).toString();
+                break;
+            }
+            case "/uuidtousername": {
+                if (!body.isEmpty()) {
+                    ResultSet rs = statement.executeQuery("Select Username from users where UserUUID = '" + body + "'");
+                    response = parseResultSet(rs).toString();
+                } else
+                    response = "[{\"Username\":\"Nobody\"}]";
+                break;
+            }
+            case "/emailtousername": {
+                ResultSet rs = statement.executeQuery("Select Username from users where Email = '" + body + "'");
+                response = parseResultSet(rs).toString();
+                break;
+            }
+            case "/login": {
+                String query = "";
+                org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+                String nameInput = parsedBody.get("nameInput").toString();
+                String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
+                if (isValidEmail(nameInput)) {
+                    query = "SELECT userUUID FROM users WHERE Email = '" + nameInput + "' AND Password = '" + password
+                            + "';";
+                } else {
+                    query = "SELECT userUUID FROM users WHERE Username = '" + nameInput + "' AND Password = '"
+                            + password
+                            + "';";
+                }
+                ResultSet rs = statement.executeQuery(query);
+                response = parseResultSet(rs).toString();
+                break;
+            }
+            case "/register": {
+                org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
+                String username = parsedBody.get("username").toString();
+                String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
+                String birthDate = parsedBody.get("birthDate").toString();
+                String email = parsedBody.get("email").toString();
+
+                String insertquery = "INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
+                        "('" + username + "', '" + password + "', '" + birthDate + "', '" + email + "');";
+                int rs = statement.executeUpdate(insertquery);
+                if (rs > 0) {
+                    ResultSet res = statement.executeQuery(
+                            "SELECT userUUID FROM users WHERE Email = '" + email + "' AND Password = '" + password
+                                    + "';");
+                    response = parseResultSet(res).toString();
+                } else
+                    response = "[]";
+                break;
+            }
+
+            default: {
+                foundPath = false;
+                break;
+            }
+        }
+        // Sending Response
+        if (foundPath) {
+            headers = "HTTP/1.1 200 OK\r\n" +
                     "Content-Type: application/json\r\n" +
                     "Access-Control-Allow-Origin: *\r\n" +
                     "Content-Length: " + response.length() + "\r\n" +
                     "\r\n";
             output.write(headers.getBytes());
             output.write(response.getBytes());
-
-        } else
-        // Endpoint /register
-        if (path.equals("/register")) {
-            org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
-            String username = parsedBody.get("username").toString();
-            String password = EncryptionUtils.encrypt(parsedBody.get("password").toString());
-            String birthDate = parsedBody.get("birthDate").toString();
-            String email = parsedBody.get("email").toString();
-
-            String insertquery = "INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
-                    "('" + username + "', '" + password + "', '" + birthDate + "', '" + email + "');";
-            int rs = statement.executeUpdate(insertquery);
-            String response;
-            if (rs > 0) {
-                ResultSet res = statement.executeQuery(
-                        "SELECT userUUID FROM users WHERE Email = '" + email + "' AND Password = '" + password + "';");
-                response = parseResultSet(res).toString();
-            } else
-                response = "[]";
-            String headers = "HTTP/1.1 200 OK\r\n" +
-                    "Content-Type: application/json\r\n" +
-                    "Access-Control-Allow-Origin: *\r\n" +
-                    "Content-Length: " + response.length() + "\r\n" +
-                    "\r\n";
-            output.write(headers.getBytes());
-            output.write(response.getBytes());
-
         }
         // 404
         else {
@@ -350,7 +313,7 @@ public class TCPServer {
                     }
                 })
                 .collect(Collectors.toList());
-    
+
         JSONArray result = new JSONArray();
         try {
             while (copyResultSet.next()) {
@@ -369,7 +332,7 @@ public class TCPServer {
         }
         return result;
     }
-    
+
     private static boolean isNumeric(String strNum) {
         if (strNum == null) {
             return false;

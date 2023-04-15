@@ -1,4 +1,5 @@
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -15,8 +16,17 @@
     <script src="./modules/managers/snackbarManager.js" type="module"></script>
     <script src="./modules/managers/buttonsManager.js" type="module"></script>
     <script src="profile.js" type="module"></script>
+    <script>
+        function logout() {
+            localStorage.clear()
+            sessionStorage.clear()
+            window.open('login.html',"_self")
+        }
+    </script>
 </head>
+
 <body>
-    
+
 </body>
+
 </html>

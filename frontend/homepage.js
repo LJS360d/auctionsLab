@@ -44,6 +44,7 @@ document.addEventListener('keypress', (e) => {
 })
 document.getElementById('orderfilter').addEventListener('change', sendquery)
 document.getElementById('categoryfilter').addEventListener('change', sendquery)
+
 function renderItemsOffAPIResponse(itemsResponse) {
     const resultset = new Models.ItemResponseJSON(itemsResponse)
     if (resultset.itemResponseModelArray.length > 0) {
@@ -75,28 +76,33 @@ function renderItem(itemRes) {
         window.open(`offer.html?itemID=${item.itemID}`, '_self')
     }
     document.getElementById('catalogue').appendChild(renderItem)
-}
 
-function avoidOverflowFormat(string) {
-    const CUT_POINT = 14
-    if (string.length > CUT_POINT) {
-        return `${string.substring(0, CUT_POINT - 1)}...`
-    } else {
-        return string
+    function avoidOverflowFormat(string) {
+        const CUT_POINT = 14
+        if (string.length > CUT_POINT) {
+            return `${string.substring(0, CUT_POINT - 1)}...`
+        } else {
+            return string
+        }
     }
 }
 
-async function appendCategories() {  
-    const categories = sessionStorage.getItem('categories') ? 
-    JSON.parse(sessionStorage.getItem('categories')) : 
-    new Models.categoriesResponseModel(await APIService.getCategories()).categoriesArray 
+async function appendCategories() {
+    const categories = sessionStorage.getItem('categories') ?
+        JSON.parse(sessionStorage.getItem('categories')) : await fetchAndStoreCategories()
+
     categories.forEach(category => {
-        const categoryFilter = document.getElementById('categoryfilter')
         const categoryOption = document.createElement('option')
         categoryOption.value = category
-        categoryOption.innerText = category.replace(/_/," ")
-        categoryFilter.appendChild(categoryOption)
+        categoryOption.innerText = category.replace(/_/, " ")
+        document.getElementById('categoryfilter').appendChild(categoryOption)
     })
+
+    async function fetchAndStoreCategories() {
+        const categories = new Models.categoriesResponseModel(await APIService.getCategories()).categoriesArray
+        sessionStorage.setItem('categories', JSON.stringify(categories))
+        return categories;
+    }
 }
 
 /* Old Functions for Node Backend

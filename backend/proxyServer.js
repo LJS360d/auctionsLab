@@ -1,6 +1,5 @@
 const fp = "proxy.log"
-const fs = require('fs'); fs.writeFileSync(fp, '');
-
+const fs = require('fs'); log(`Proxy Started - ${new Date().toLocaleString('it-IT')}`)
 const http = require('http').createServer();
 const socketUDP = require('dgram').createSocket('udp4');
 const socketTCP = require('socket.io')(http, { cors: { origin: "*" } });

@@ -104,37 +104,3 @@ async function appendCategories() {
         return categories;
     }
 }
-
-/* Old Functions for Node Backend
-
-const socket = io('ws://localhost:9090');
-socket.on('connect', () => {
-    socket.send('query', 'Select * from items')    
-})
-socket.on('disconnect', (reason) => {
-    catalogueManager.clearCatalogue()
-    catalogueManager.noItemsAvailable()
-    document.append(reason)
-})
-socket.on('results', (results) => {
-    results == null ? catalogueManager.noItemsAvailable() : renderItem(results);
-    buttonsManager.setItemButtonsOnclick()
-})
-socket.on('error', (msg) => {
-    catalogueManager.clearCatalogue()
-    renderRow(msg)
-}) 
-function renderRow(result) {
-    const row = document.createElement('div')
-    let text = JSON.stringify(result).replace(/,/g, "|").replace(/[{}"]/g, "");
-    row.textContent = text;
-    row.className = 'result';
-    document.body.appendChild(row)
-}
-function buildQuery() {
-    const searchValue = String(document.getElementById('searchinput').value).toLowerCase()
-    if (!isNaN(searchValue) && searchValue !== '') {
-        return `Select * from items where ItemID = "${searchValue}"`
-    }
-    return searchValue === '' ? "Select * from items" : `Select * from items where Item_name like "%${searchValue}%"`
-} */

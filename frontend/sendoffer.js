@@ -1,10 +1,12 @@
+import { PROXY_URL } from "./modules/APIService.js";
+
 const params = new URL(location.href).searchParams;
 const itemID = params.get('itemID');
 const offerInput = params.get('offerInput');
 const uuid = localStorage.getItem('uuid') ?? sessionStorage.getItem('uuid') ?? false;
 const minOffer = Number(params.get('minOffer'));
 //Connect to MiddleMan (Proxy)
-const socket = io('ws://localhost:9098');
+const socket = io(PROXY_URL);
 if (offerInput <= minOffer) {
     window.open("homepage.html?rsb=2", "_self")
 }

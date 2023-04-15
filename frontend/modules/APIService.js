@@ -1,6 +1,5 @@
 import { noItemsAvailable } from "./managers/catalogueManager.js";
 export const API_URL = 'http://localhost:9090';
-//export const MULTICAST_URL = 'http://localhost:9097';
 export const PROXY_URL = 'ws://localhost:9098';
 export async function getAllItems() {
   return new Promise((resolve, reject) => {

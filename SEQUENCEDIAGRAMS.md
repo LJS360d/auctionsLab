@@ -41,12 +41,12 @@ Server ->> Client: Lunghezza del contenuto: 1
 
 sequenceDiagram
 
-Client/registro ->> Server: POST /registro {regData}
+Client (/register) ->> Server: POST /register {regData}
 
 Server -> Server: execUpdate INSERT regData
 
-Server --x Client/registro: Successo: UserUUID
+Server --x Client (/register): Successo: UserUUID
 alt Impossibile aggiornare
-	Server --x Client/register: Fail: 0
+	Server --x Client (/register): Fail: 0
 end
 ```

@@ -1,11 +1,11 @@
 const fp = "proxy.log"
-const fs = require('fs'); log(`Proxy Started - ${new Date().toLocaleString('it-IT')}`)
+const fs = require('fs'); log(`Proxy Started`)
 const http = require('http').createServer();
 const socketUDP = require('dgram').createSocket('udp4');
 const socketTCP = require('socket.io')(http, { cors: { origin: "*" } });
-http.listen(9098, () => log(`>TCP MiddleMan listening on localhost:${http.address().port}`))
+http.listen(9098, () => log(`TCP intermediary listening on localhost:${http.address().port}`))
 socketUDP.bind(9099, () => { socketUDP.addMembership('224.0.0.1') })
-socketUDP.on('listening', () => log(`>UDP middleMan listening on localhost:${socketUDP.address().port}`));
+socketUDP.on('listening', () => log(`UDP intermediary listening on localhost:${socketUDP.address().port}`));
 //TCP Receiver
 socketTCP.on('connection', (socket) => {
     log("TCP>Accepted Handshake from client");
@@ -31,11 +31,12 @@ socketUDP.on('message', (msg, remoteInfo) => {
     socketTCP.emit('newoffer', msg.toString())
 
     if (msg == 'shutdown') {
-        log(`Shutting down proxy server - ${new Date().toLocaleString('it-IT')}`)
+        log(`Shutting down proxy server \n`)
+        
         socketTCP.close()
         socketUDP.close()
     }
 });
 function log(string) {
-    fs.appendFileSync(fp, string + "\n")
+    fs.appendFileSync(fp,`[${new Date().toLocaleString('it-IT')}]${string}\n`)
 }

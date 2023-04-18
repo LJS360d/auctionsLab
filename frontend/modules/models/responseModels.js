@@ -45,11 +45,13 @@ export class userProfileResponseModel{
     email;
     birthDate;
     username;
+    balance;
     constructor(res){
         const user = JSON.parse(res)[0];
         this.email = user.Email;
         this.birthDate = user.Birth_Date;
         this.username = user.Username;
+        this.balance = user.Balance;
 
     }
     toString(){

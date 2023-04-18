@@ -186,7 +186,7 @@ public class TCPServer {
             case "/profile": {
                 org.json.simple.JSONObject parsedBody = JSONParse.parseStringToJson(body);
                 String uuid = parsedBody.get("uuid").toString();
-                String query = "SELECT `Username`,`Birth_Date`,`Email` FROM users WHERE `UserUUID` = '" + uuid + "';";
+                String query = "SELECT `Username`,`Birth_Date`,`Email`,`Balance` FROM users WHERE `UserUUID` = '" + uuid + "';";
                 ResultSet rs = statement.executeQuery(query);
                 response = parseResultSet(rs).toString();
                 break;

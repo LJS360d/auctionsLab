@@ -1,7 +1,7 @@
 DROP DATABASE IF EXISTS `auctions`;
 CREATE DATABASE IF NOT EXISTS `auctions`;
 USE `auctions`;
-CREATE TABLE IF NOT EXISTS `Users` (
+CREATE TABLE IF NOT EXISTS `users` (
 `UserUUID` VARCHAR(36) PRIMARY KEY,
 `Username` VARCHAR(50) NOT NULL,
 `Password` VARCHAR(50) NOT NULL,
@@ -10,13 +10,13 @@ CREATE TABLE IF NOT EXISTS `Users` (
 `Balance` DOUBLE DEFAULT 0.00
 );
 DELIMITER $$
-CREATE TRIGGER IF NOT EXISTS `set_user_id` BEFORE INSERT ON `Users`
+CREATE TRIGGER IF NOT EXISTS `set_user_id` BEFORE INSERT ON `users`
 FOR EACH ROW
 BEGIN
     SET NEW.`UserUUID` = UUID();
 END$$
 DELIMITER ;
-CREATE TABLE IF NOT EXISTS `Items` (
+CREATE TABLE IF NOT EXISTS `items` (
 `ItemID` INT PRIMARY KEY AUTO_INCREMENT,
 `Categories` JSON,
 `Image_URL` VARCHAR(300) DEFAULT 'assets/unavailable-image.jpg',
@@ -28,13 +28,13 @@ CREATE TABLE IF NOT EXISTS `Items` (
 `Seller` VARCHAR(50) DEFAULT 'Anonymous',
 `Bid_Address` VARCHAR(24),
 `Expire_Date` DATETIME DEFAULT (NOW() + INTERVAL 7 DAY),
-FOREIGN KEY (`Highest_Bidder`) REFERENCES `Users`(`UserUUID`)
+FOREIGN KEY (`Highest_Bidder`) REFERENCES `users`(`UserUUID`)
 );
-CREATE TRIGGER IF NOT EXISTS `generate_bid_address` BEFORE INSERT ON `Items`
+CREATE TRIGGER IF NOT EXISTS `generate_bid_address` BEFORE INSERT ON `items`
 FOR EACH ROW
 BEGIN
     DECLARE last_bid_address VARCHAR(24);
-    SELECT `Bid_Address` INTO last_bid_address FROM `Items` ORDER BY `ItemID` DESC LIMIT 1;
+    SELECT `Bid_Address` INTO last_bid_address FROM `items` ORDER BY `ItemID` DESC LIMIT 1;
     IF last_bid_address IS NULL THEN
         SET NEW.`Bid_Address` = '224.0.0.2';
     ELSE
@@ -60,7 +60,7 @@ INSERT INTO `items` (`Categories`,`Image_URL`,`Item_Name`) VALUES
 ('{"Toys":["Fidget","Puzzle"],"Puzzles":"Rubiks"}',"http://www.rubiksplace.com/images/best-speedcubes/yuxin-5x5-speedcube.png",
 "5x5 Cube");
 
-CREATE TABLE IF NOT EXISTS `Expired-Items` (
+CREATE TABLE IF NOT EXISTS `expired-items` (
   `ItemID` INT PRIMARY KEY,
   `Categories` JSON,
   `Image_URL` VARCHAR(300),
@@ -71,13 +71,13 @@ CREATE TABLE IF NOT EXISTS `Expired-Items` (
   `Seller` VARCHAR(50),
   `Bid_Address` VARCHAR(24),
   `Expire_Date` DATETIME,
-  FOREIGN KEY (`Winner`) REFERENCES `Users`(`UserUUID`)
+  FOREIGN KEY (`Winner`) REFERENCES `users`(`UserUUID`)
 );
 CREATE TRIGGER IF NOT EXISTS move_expired_items_to_expired_items_table
-AFTER DELETE ON `Items`
+AFTER DELETE ON `items`
 FOR EACH ROW
 BEGIN
-    INSERT INTO `Expired-Items` (
+    INSERT INTO `expired-items` (
         `ItemID`, `Categories`, `Image_URL`, `Item_Name`, `Item_Description`, `Winner`,
         `Winner_Bid`, `Seller`, `Bid_Address`, `Expire_Date`
     ) VALUES (

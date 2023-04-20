@@ -228,7 +228,7 @@ public class TCPServer {
                 String birthDate = parsedBody.get("birthDate").toString();
                 String email = parsedBody.get("email").toString();
 
-                String insertquery = "INSERT INTO `Users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
+                String insertquery = "INSERT INTO `users` (`Username`, `Password`, `Birth_Date`, `Email`) VALUES" +
                         "('" + username + "', '" + password + "', '" + birthDate + "', '" + email + "');";
                 int rs = statement.executeUpdate(insertquery);
                 if (rs > 0) {

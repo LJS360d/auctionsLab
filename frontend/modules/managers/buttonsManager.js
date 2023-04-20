@@ -27,7 +27,7 @@ export var onSellItemButtonClick = sellButton.onclick = function () {
         modal.innerHTML += `
         <div class="modal-content">
         <span class="close" onclick="document.body.removeChild(this.parentElement.parentElement)">&times;</span>
-        <form action="/sellitem.html" method="get" autocomplete="off">
+        <form action="sellitem.html" method="get" autocomplete="off">
             <h2>Put an item up for auction</h2>
             <label>Image URL</label>
             <input type="url" name="imageURL" maxlength="300" placeholder="URL to the item's image">
